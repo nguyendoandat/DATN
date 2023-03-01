@@ -1,0 +1,142 @@
+﻿@using Project.Service
+@model PagedResult<Project.ViewModel.CategoryDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List Category</h6>
+    </div>
+    <div class="card-body">
+        <a asp-action="Create" asp-controller="Category" asp-area="Admin" class="btn btn-success mb-4">Create New Category</a>
+        <div class="mb-3">
+            <form class="d-flex justify-content-end">
+                <select class="form-control mr-3 w-30" id="filter-by-trending">
+                    <option value="">Filter Theo Trending</option>
+                    <option value="true">Trending</option>
+                    <option value="false">Not Trending</option>
+                </select>
+                <select class="form-control w-32 mr-3" id="filter-delete">
+                    <option value="">Filter Trạng Thái Xóa</option>
+                    <option value="true">Đã Xóa</option>
+                    <option value="false">Chưa Xóa</option>
+                </select>
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo CategoryName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                       
+                        
+                        <th>Create At</th>
+                        <th>Update At</th>
+                        <th>Delete At</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        if (item.DeleteAt == null)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="Index" asp-controller="Product" asp-area="Admin" asp-route-CategoryId="@item.Id">@item.CategoryName</a>
+                                </td>
+                                
+                               
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id" class="btn btn-info"><i class="far fa-edit"></i></a>
+                                    <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="bg-secondary text-warning">
+                                <td>@item.CategoryName</td>
+                                
+                                
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    Deleted
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Category" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Category" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="Category" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Category" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Category" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<script>
+    function Delete(id) {
+        var txt;
+        var r = confirm("Ban co chac chan muon xoa khong?");
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","Category")',
+                data: { id: id },
+                error: function (result) { alert("error"); },
+                success: function (result) {
+                    if (result == true) {
+                        var baseUrl = "/Category";
+                        window.location.reload();
+                    }
+                    else {
+                        alert("There is a problem,Try later!");
+                    }
+                }
+
+            });
+        }
+    }
+</script>

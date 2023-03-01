@@ -1,0 +1,80 @@
+﻿@using Project.Service.Interface
+@model Project.ViewModel.ProductDTO
+@inject ICategoryService CategoryService
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var list = new SelectList(CategoryService.GetCategory(), "Id", "CategoryName");
+}
+
+<h1>Create</h1>
+
+<h4>ProductDTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Trend" /> @Html.DisplayNameFor(model => model.Trend)
+                </label>
+            </div>
+            @*<div class="form-group form-check">
+            <label class="form-check-label">
+            <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+            </label>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="View" class="control-label"></label>
+                <input asp-for="View" class="form-control" />
+                <span asp-validation-for="View" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="Thumb" class="control-label"></label>
+                <input asp-for="Thumb" class="form-control" />
+                <span asp-validation-for="Thumb" class="text-danger"></span>*@
+                <label for="">Ảnh</label>
+                <input type="file" class="form-check" name="file">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-check">
+                <input type="hidden" class="form-check-input" asp-for="CreateAt" value="@DateTime.Now">
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" asp-items="list" asp-for="CategoryId">
+                    <option value="">Choose a Category</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDetail" class="control-label"></label>
+                <input  asp-for="ProductDetail" class="form-control" />
+                <span asp-validation-for="ProductDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
