@@ -1,6 +1,4 @@
-﻿
-
-@using Project.Service
+﻿@using Project.Service
 @using Project.Service.Interface
 
 @model PagedResult<Project.ViewModel.UserDTO>
@@ -36,7 +34,6 @@
                     <tr>
                         <th>User Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Create At</th>
                         <th>Update At</th>
                         <th>Delete At</th>
@@ -49,35 +46,35 @@
                     {
                         @if (item.DeleteAt == null)
                         {
-                                            <tr>
-                                                <td>@item.UserName</td>
-                                                <td>@item.Email</td>
-                                                <td>@item.PasswordHash</td>
-                                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
-                                                <td>
+                            <tr>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>
                                     @item.UpdateAt?.ToString("dd/MM/yyyy")
-                                                </td>
-                                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
-                                                <td>
-                                                    <a data-id="@item.Id" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
-                                                </td>
-                                            </tr>
+                                </td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
                         }
                         else
                         {
-                                            <tr class="bg-secondary text-warning">
-                                                <td>@item.UserName</td>
-                                                <td>@item.Email</td>
-                                                <td>@item.PasswordHash</td>
-                                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
-                                                <td>
+                            <tr class="bg-secondary text-warning">
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                <td>
                                     @item.UpdateAt?.ToString("dd/MM/yyyy")
-                                                </td>
-                                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
-                                                <td>
-                                                    Deleted!
-                                                </td>
-                                            </tr>
+                                </td>
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    Deleted!
+                                </td>
+                            </tr>
                         }
                     }
                 </tbody>
@@ -87,35 +84,58 @@
     <div class="container">
         @if (Model.TotalItem > 0 && Model.TotalPages > 1)
         {
-                    <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center">
                 @if (Model.PageNumber > 1)
                 {
-                                    <li class="page-item">
-                                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
-                                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
                 }
 
                 @for (var j = Model.StartPage; j <= Model.EndPage; j++)
                 {
-                                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
-                                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@j">@j</a>
-                                    </li>
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
                 }
 
                 @if (Model.PageNumber < Model.TotalPages)
                 {
-                                    <li class="page-item">
-                                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
-                                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="User" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
                 }
-                    </ul>
+            </ul>
         }
     </div>
 </div>
+<script>
+    function Delete(id) {
+        var txt;
+        var r = confirm("Ban co chac chan muon xoa khong?");
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","User")',
+                data: { id: id },
+                error: function (result) { alert("error"); },
+                success: function (result) {
+                    if (result == true) {
+                        var baseUrl = "/User";
+                        window.location.reload();
+                    }
+                    else {
+                        alert("There is a problem,Try later!");
+                    }
+                }
 
+            });
+        }
+    }
+</script>

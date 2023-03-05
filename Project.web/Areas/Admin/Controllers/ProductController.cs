@@ -3,6 +3,7 @@ using Project.Service.implement;
 using Project.Service;
 using Project.Service.Interface;
 using Project.ViewModel;
+using Project.Service.File;
 
 namespace Project.web.Areas.Admin.Controllers
 {
@@ -12,9 +13,11 @@ namespace Project.web.Areas.Admin.Controllers
     {
         private readonly IProductService _productService; 
         private readonly int pageSize;
-        public ProductController(IProductService productService, IMediasService mediasService, int pageSize = 3)
+        private readonly IFileService _fileService;
+        public ProductController(IProductService productService, IFileService fileService, int pageSize = 8)
         {
             _productService = productService;
+            _fileService = fileService;
             this.pageSize = pageSize;
         }
         public async Task<IActionResult> Index(int pageNumber)
@@ -24,7 +27,7 @@ namespace Project.web.Areas.Admin.Controllers
             return View(list);
         }
         [HttpGet]
-        public IActionResult Create()
+        public  IActionResult Create()
         {
             return View();
         }
@@ -96,11 +99,13 @@ namespace Project.web.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public bool Delete(int id)
+        public bool Delete(ProductDTO model)
         {
             try
             {
-                _productService.DeleteProductStatus(id);
+                
+                _productService.DeleteProduct(model);
+                
                 return true;
             }
             catch (Exception ex)

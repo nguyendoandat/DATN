@@ -15,7 +15,7 @@ namespace Project.Service.Interface
 
         IEnumerable<ProductDTO> GetProduct(Expression<Func<Product, bool>> filter=null,Func<IQueryable<Product>,IOrderedQueryable<Product>>orderBy=null,string includeProperties="");
         ProductDTO GetProductById(int id);
-        int InsertProduct(ProductDTO product);
+        void InsertProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);
         void DeleteProduct(ProductDTO product);
         void DeleteProductById(int id);

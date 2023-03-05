@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project.Service;
+using Project.Service.implement;
 using Project.Service.Interface;
 using Project.ViewModel;
 
@@ -11,7 +12,7 @@ namespace Project.web.Areas.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly int pageSize;
-        public UserController(IUserService userService, int pageSize=2)
+        public UserController(IUserService userService, int pageSize=4)
         {
             _userService = userService;
             this.pageSize = pageSize;
@@ -54,6 +55,19 @@ namespace Project.web.Areas.Admin.Controllers
             {
                 var error = "Da co loi xay ra " + ex.Message;
                 return View();
+            }
+        }
+        [HttpPost]
+        public bool Delete(string id)
+        {
+            try
+            {
+                _userService.DeleteUserById(id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

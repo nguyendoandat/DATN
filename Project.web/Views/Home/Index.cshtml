@@ -1,8 +1,409 @@
-﻿@{
+﻿@using Project.Service.Interface
+@using System.Globalization
+@inject IProductService productService
+
+
+@{
     ViewData["Title"] = "Home Page";
+    var list = productService.GetProduct();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class=" banner">
+    <!-- Carousel -->
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+        </div>
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Đồ nội thất sản phẩm mới</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/2007.PNG" alt="Los Angeles" class="d-block">
+            </div>
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Đồ nội thất sản phẩm mới</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/1006.PNG" alt="Chicago" class="d-block">
+            </div>
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Đồ nội thất sản phẩm mới</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/3003.PNG" alt="New York" class="d-block">
+            </div>
+
+            <div class="carousel-item">
+                <div class="banner_detail">
+                    <div class="banner_title">
+                        <h1>Đồ nội thất sản phẩm mới</h1>
+                        <h3>
+                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                            <br>
+                            Issa trong chiến dịch mùa mới của chúng tôi.
+                        </h3>
+                    </div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+                <img src="~/user/images/banner/3007.PNG" alt="New York" class="d-block">
+            </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+<!-- <ol class="bread_crumb">
+    <li><a href="">Home</a></li>
+    <li><a href="">Quần áo</a></li>
+    <li>Quần Jean</li>
+  </ol> -->
+
+<div class="container content">
+</div>
+
+<div class="container">
+    <div class="title">
+        <h2>Danh sách sản phẩm</h2>
+    </div>
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var item in list)
+                {
+                    if(item.DeleteAt==null){
+                        <div class="glass col-lg-3 col-6 p-1 mb-3">
+                            <img src="~/img/@item.Thumb" alt="" width="200px" height="400px">
+                            <div class="glass_name">
+                                <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+
+                            </div>
+                            <div class="price">
+                                @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p>@item.View <i class="fa-solid fa-eye"></i></p>
+
+                            </div>
+                            <div class="glass_icon_action">
+                                <button class="btn-search"><i class="fa fa-search"></i></button>
+                                @*  @if (userId == null)
+                        {
+                        <a><i class="fa fa-heart"></i></a>
+                        <a><i class="fa fa-shopping-cart"></i></a>
+                        }
+                        else
+                        {
+                        if (reviewService.IsWishList(userId, item.Id))
+                        {
+                        <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                        <a><i class="fa fa-shopping-cart"></i></a>
+                        }
+                        else
+                        {
+                        <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                        <a><i class="fa fa-shopping-cart"></i></a>
+                        }
+                        }*@
+
+                            </div>
+
+                        </div>
+                    }
+                    
+
+                }
+                @*<div class="glass col-lg-3 col-6">
+                <img src="~/user/images/glasses/glass1.jpg" alt="">
+                <div class="glass_name">
+                <a href="">Kính râm Linemai K304</a>
+                </div>
+                <div class="price">
+                850.000 VND
+                </div>
+                <div class="glass_icon_action">
+                <button class="btn-search"><i class="fa fa-search"></i></button>
+                <a href="#"><i class="fa fa-heart"></i></a>
+                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                </div>
+
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container ">
+    <div class="row">
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <div class="benefit-content">Giao hàng nhanh, tiết kiệm</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-arrow-rotate-left"></i></div>
+                <div class="benefit-content">Đổi trả trong vòng 7 ngày đầu</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box ">
+                <div class="benefit-icon"><i class="fa-solid fa-medal"></i></div>
+                <div class="benefit-content">Bảo hành trong vòng 6 tháng</div>
+            </div>
+        </div>
+        <div class="benefit col-lg-3 col-6">
+            <div class="benefit-box">
+                <div class="benefit-icon"><i class="fa-solid fa-glasses"></i></div>
+                <div class="benefit-content">Chất lượng đảm bảo 100%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="title">
+        <h2>Top Product</h2>
+    </div>
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                @*@foreach (var item in listTen)
+                {
+                    <div class="glass col-lg-3 col-6">
+                        <img src="~/img/@item.Thumbnail" alt="">
+                        <div class="glass_name">
+                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                        </div>
+                        <div class="price">
+                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <p>@item.Views <i class="fa-solid fa-eye"></i></p>
+                        </div>
+                        <div class="glass_icon_action">
+                            <button class="btn-search"><i class="fa fa-search"></i></button>
+                            @if (userId == null)
+                            {
+                                <a><i class="fa fa-heart"></i></a>
+                                <a><i class="fa fa-shopping-cart"></i></a>
+                            }
+                            else
+                            {
+                                if (reviewService.IsWishList(userId, item.Id))
+                                {
+                                    <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+
+                }*@
+                @*<div class="glass col-lg-3 col-6">
+                <img src="~/user/images/glasses/glass1.jpg" alt="">
+                <div class="glass_name">
+                <a href="">Kính râm Linemai K304</a>
+                </div>
+                <div class="price">
+                850.000 VND
+                </div>
+                <div class="glass_icon_action">
+                <button class="btn-search"><i class="fa fa-search"></i></button>
+                <a href="#"><i class="fa fa-heart"></i></a>
+                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                </div>
+
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@if (userId != null && listViewd.Count() != 0)
+{*@
+    <div class="container">
+        <div class="title">
+            <h2>Product Recent View</h2>
+        </div>
+        <div class="row justify-content-between">
+            <!-- <div class="left_popular col-lg-4 col-12">
+              <img src="~/user/images/model/model1.png" alt="">
+            </div> -->
+            <div class="col-lg-12">
+                <div class="row">
+                    @*@foreach (var i in Model)
+                    {
+                        var item = i.Product;
+                        <div class="glass col-lg-3 col-6">
+                            <img src="~/img/@item.Thumbnail" alt="">
+                            <div class="glass_name">
+                                <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                            </div>
+                            <div class="price">
+                                @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <p>@item.Views <i class="fa-solid fa-eye"></i></p>
+                            </div>
+                            <div class="glass_icon_action">
+                                <button class="btn-search"><i class="fa fa-search"></i></button>*@
+                               @* @if (userId == null)
+                                {
+                                    <a><i class="fa fa-heart"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else
+                                {
+                                    if (reviewService.IsWishList(userId, item.Id))
+                                    {
+                                        <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                        <a><i class="fa fa-shopping-cart"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                        <a><i class="fa fa-shopping-cart"></i></a>
+                                    }
+                                }*@
+@*
+                            </div>
+
+                        </div>
+
+                    }*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container category">
+    <div class="title">
+        <h2>Danh Mục Sản Phẩm</h2>
+    </div>
+    <div class="row">
+        <div class="left_category col-lg-8 ">
+            <div class="row">
+                <div class="category_box col-lg-4">
+                    <img src="~/user/images/category/gong-kinh-ram.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Râm</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-7">
+                    <img src="~/user/images/category/kinh-ram.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Chính Hãng</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-7">
+                    <img src="~/user/images/category/kinh-can.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Cận</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+                <div class="category_box col-lg-4">
+                    <img src="~/user/images/category/kinh-ap-trong.jpg" alt="">
+                    <div class="overlay">
+                        <div class="text"><a href="">Kính Áp Tròng</a></div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right_category col-lg-4">
+            <div class="category_box ">
+                <img src="~/user/images/category/sale.jpg" alt="">
+                <div class="overlay">
+                    <div class="text"><a href="">Sale</a></div>
+                    <a href=""><button class="buy">Mua Ngay</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="brand-slider h-100">
+        <div class="row align-items-center h-100">
+            <div class="container rounded">
+                <div class="title">
+                    <h2>Các thương hiệu nổi bật</h2>
+                </div>
+                <div class="slider">
+                    <div class="logos">
+                        <img src="~/user/images/brands/gucci.jpg" alt="">
+                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
+                        <img src="~/user/images/brands/chanel.jpg" alt="">
+                        <img src="~/user/images/brands/dior.jpg" alt="">
+                        <img src="~/user/images/brands/lv.jpg" alt="">
+                        <img src="~/user/images/brands/ysl.jpg" alt="">
+                    </div>
+                    <div class="logos">
+                        <img src="~/user/images/brands/gucci.jpg" alt="">
+                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
+                        <img src="~/user/images/brands/chanel.jpg" alt="">
+                        <img src="~/user/images/brands/dior.jpg" alt="">
+                        <img src="~/user/images/brands/lv.jpg" alt="">
+                        <img src="~/user/images/brands/ysl.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

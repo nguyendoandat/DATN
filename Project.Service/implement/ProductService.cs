@@ -28,7 +28,9 @@ namespace Project.Service.implement
         public void DeleteProduct(ProductDTO product)
         {
             var model = _mapper.Map<Product>(product);
+            //var c = model.Thumb;
             _unitOfWork.GenericRepository<Product>().Delete(model);
+            //_file.DeleteFile(c);
             _unitOfWork.Save();
         }
 
@@ -88,13 +90,13 @@ namespace Project.Service.implement
             throw new NotImplementedException();
         }
 
-        public int InsertProduct(ProductDTO product)
+        public void InsertProduct(ProductDTO product)
         {
             var model=_mapper.Map<Product>(product);
             model.Thumb = _file.UpLoadFile(product.File);
             _unitOfWork.GenericRepository<Product>().Insert(model);
             _unitOfWork.Save();
-            return model.Id;
+            //return model.Id;
         }
 
         public void UpdateProduct(ProductDTO product)
