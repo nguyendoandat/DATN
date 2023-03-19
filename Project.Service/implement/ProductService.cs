@@ -27,17 +27,21 @@ namespace Project.Service.implement
 
         public void DeleteProduct(ProductDTO product)
         {
-            var model = _mapper.Map<Product>(product);
+            var model = _unitOfWork.GenericRepository<Product>().GetById(product.Id);
             //var c = model.Thumb;
             _unitOfWork.GenericRepository<Product>().Delete(model);
             //_file.DeleteFile(c);
             _unitOfWork.Save();
+            _file.DeleteFile(product.Thumb);
+            
         }
 
         public void DeleteProductById(int id)
         {
+            var product = GetProductById(id);
             _unitOfWork.GenericRepository<Product>().DeleteById(id);
             _unitOfWork.Save();
+            _file.DeleteFile(product.Thumb);
         }
 
         public void DeleteProductStatus(int id)

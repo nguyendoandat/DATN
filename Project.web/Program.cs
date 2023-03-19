@@ -28,11 +28,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".AdventureWorks.Session";
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = new TimeSpan(0, 30, 0);
     options.Cookie.IsEssential = true;
 });
 
@@ -41,10 +41,11 @@ builder.Services.AddAutoMapper(typeof(AutoMap));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IMediasService, MediasService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
@@ -60,11 +61,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
-
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSession();
 
 app.MapRazorPages();
-app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

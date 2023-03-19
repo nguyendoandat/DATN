@@ -99,16 +99,15 @@ namespace Project.web.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public bool Delete(ProductDTO model)
+        public bool Delete(int id )
         {
             try
             {
                 
-                _productService.DeleteProduct(model);
-                
+                _productService.DeleteProductById(id);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

@@ -8,86 +8,7 @@
     var list = productService.GetProduct();
 }
 
-<div class=" banner">
-    <!-- Carousel -->
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators/dots -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
-        </div>
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="banner_detail">
-                    <div class="banner_title">
-                        <h1>Đồ nội thất sản phẩm mới</h1>
-                        <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                            <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
-                        </h3>
-                    </div>
-                    <a href=""><button class="buy">Mua Ngay</button></a>
-                </div>
-                <img src="~/user/images/banner/2007.PNG" alt="Los Angeles" class="d-block">
-            </div>
-            <div class="carousel-item">
-                <div class="banner_detail">
-                    <div class="banner_title">
-                        <h1>Đồ nội thất sản phẩm mới</h1>
-                        <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                            <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
-                        </h3>
-                    </div>
-                    <a href=""><button class="buy">Mua Ngay</button></a>
-                </div>
-                <img src="~/user/images/banner/1006.PNG" alt="Chicago" class="d-block">
-            </div>
-            <div class="carousel-item">
-                <div class="banner_detail">
-                    <div class="banner_title">
-                        <h1>Đồ nội thất sản phẩm mới</h1>
-                        <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                            <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
-                        </h3>
-                    </div>
-                    <a href=""><button class="buy">Mua Ngay</button></a>
-                </div>
-                <img src="~/user/images/banner/3003.PNG" alt="New York" class="d-block">
-            </div>
 
-            <div class="carousel-item">
-                <div class="banner_detail">
-                    <div class="banner_title">
-                        <h1>Đồ nội thất sản phẩm mới</h1>
-                        <h3>
-                            Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                            <br>
-                            Issa trong chiến dịch mùa mới của chúng tôi.
-                        </h3>
-                    </div>
-                    <a href=""><button class="buy">Mua Ngay</button></a>
-                </div>
-                <img src="~/user/images/banner/3007.PNG" alt="New York" class="d-block">
-            </div>
-        </div>
-
-        <!-- Left and right controls/icons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-</div>
 <!-- <ol class="bread_crumb">
     <li><a href="">Home</a></li>
     <li><a href="">Quần áo</a></li>
@@ -116,6 +37,8 @@
                                 <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
 
                             </div>
+                            
+                            <a class="btn btn-primary" data-id="@item.Id">Thêm vào<i class="fa fa-shopping-cart"></i></a>
                             <div class="price">
                                 @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
                             </div>

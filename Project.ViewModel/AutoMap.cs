@@ -17,6 +17,8 @@ namespace Project.ViewModel
             CreateMap<Medias, MediasDTO>().ReverseMap();
             CreateMap<Reviews,ReviewsDTO>().ReverseMap();
             CreateMap<Product,ProductDTO>().ReverseMap();
+            CreateMap<Order,OrderDTO>().ReverseMap();
+
         }
     }
 }

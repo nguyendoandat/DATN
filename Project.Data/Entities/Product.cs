@@ -31,5 +31,7 @@ namespace Project.Data.Entities
         public Category Category { get; set; }
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<Medias> Medias { get; set; }
+        public ICollection<Cart> Carts { get; set; }
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

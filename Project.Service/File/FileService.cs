@@ -29,7 +29,7 @@ namespace Project.Service.File
                 + Path.GetExtension(file.FileName);
             var filePath = Path.Combine(environment.ContentRootPath, "wwwroot", "img", fileName);
             using var filestream = new FileStream(filePath, FileMode.Create);
-             file.CopyToAsync(filestream);
+             file.CopyTo(filestream);
             return fileName;
         }
 

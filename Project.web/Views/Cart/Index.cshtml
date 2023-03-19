@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+}
+    <div class="single_top">
+        <div class="single_grid">
+            <div id="cartcontainer">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+                    <li class="active"> SHOPPING CART</li>
+                </ul>
+
+                <h3>
+                    SHOPPING CART [ <small><span id="lbl_number_of_items">0</span> Item(s) </small>]
+                    <a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a>
+                </h3>
+
+                <hr class="soft" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <table class="table table-bordered" id="tbl_cart">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Description</th>
+                                    <th>Quantity/Update</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart_body">
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
+                                    <td style="display:block"> <strong> <span id="lbl_total"></span> </strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+                <a class="btn btn-large pull-right" id="btnCheckout">Thanh toán <i class="icon-arrow-right"></i></a>
+            </div>
+        </div>
+        <div id="divCheckout" style="display:none;" class="container-fixed-sm">
+
+            <h3>Thanh toán</h3>
+            <div class="contact-form">
+                <form method="post" id="frmPayment">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <label>
+                        <input type="checkbox" id="chkUserLoginInfo" />
+                        Sử dụng thông tin đăng nhập
+                    </label>
+                }
+                <input type="text" class="textbox" id="txtName"  placeholder="Họ tên">
+                <input type="text" class="textbox" id="txtAddress"  placeholder="Địa chỉ">
+                <input type="text" class="textbox" id="txtEmail"  placeholder="Email">
+                <input type="text" class="textbox" id="txtPhone"  placeholder="Điện thoại">
+                <textarea value="" id="txtMessage" rows="5"></textarea>
+                <div class="alert alert-danger" id="divMessage" style="display:none;"></div>
+                <input type="button" id="btnCreateOrder" value="Thanh toán">
+                <div class="clearfix"> </div>
+            </form>
+        </div>
+
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,7 +30,7 @@
 </head>
 
 <body>
-
+    <input type="hidden" id="hidBaseAddress" value="@Configuration["BaseAddress"]" />
     <header>
         <a asp-action="Index" asp-controller="Home">
             <img class="logo" src="~/user/images/logo/logo.png" alt="">
@@ -58,10 +59,13 @@
             <!-- <a href="cart.html"><i class="fa fa-shopping-cart"></i></a> -->
 
             <div class="dropdown">
-                <button type="button" class="btn" data-toggle="dropdown">
+                @*<button type="button" class="btn" data-toggle="dropdown">
                     <i class="bi bi-cart" aria-hidden="true"></i>
-                </button>
-                <span class="quantity_items">3</span>
+                </button>*@
+                <a id="myCart" href="/cart">
+                    <i class="bi bi-cart" aria-hidden="true"></i>
+                </a>
+                <span class="quantity_items" id="lbl_number_of_items_header">0</span>
                 <div class="dropdown-menu">
 
                     <div class="row cart-detail">
@@ -105,6 +109,86 @@
             </div>
         </div>
     </header>
+    <div class=" banner">
+        <!-- Carousel -->
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicators/dots -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+            </div>
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="banner_detail">
+                        <div class="banner_title">
+                            <h1>Đồ nội thất sản phẩm mới</h1>
+                            <h3>
+                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                                <br>
+                                Issa trong chiến dịch mùa mới của chúng tôi.
+                            </h3>
+                        </div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                    <img src="~/user/images/banner/2007.PNG" alt="Los Angeles" class="d-block">
+                </div>
+                <div class="carousel-item">
+                    <div class="banner_detail">
+                        <div class="banner_title">
+                            <h1>Đồ nội thất sản phẩm mới</h1>
+                            <h3>
+                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                                <br>
+                                Issa trong chiến dịch mùa mới của chúng tôi.
+                            </h3>
+                        </div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                    <img src="~/user/images/banner/1006.PNG" alt="Chicago" class="d-block">
+                </div>
+                <div class="carousel-item">
+                    <div class="banner_detail">
+                        <div class="banner_title">
+                            <h1>Đồ nội thất sản phẩm mới</h1>
+                            <h3>
+                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                                <br>
+                                Issa trong chiến dịch mùa mới của chúng tôi.
+                            </h3>
+                        </div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                    <img src="~/user/images/banner/3003.PNG" alt="New York" class="d-block">
+                </div>
+
+                <div class="carousel-item">
+                    <div class="banner_detail">
+                        <div class="banner_title">
+                            <h1>Đồ nội thất sản phẩm mới</h1>
+                            <h3>
+                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
+                                <br>
+                                Issa trong chiến dịch mùa mới của chúng tôi.
+                            </h3>
+                        </div>
+                        <a href=""><button class="buy">Mua Ngay</button></a>
+                    </div>
+                    <img src="~/user/images/banner/3007.PNG" alt="New York" class="d-block">
+                </div>
+            </div>
+
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
     <main>
         @RenderBody()
     </main>
@@ -178,6 +262,11 @@
     <script asp-append-version="true" src="~/validation//clientvalidator.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script>
+        var siteController=new SiteController();
+        siteController.initialize();
+    </script>
     @*<partial name="_ValidationScriptsPartial" />*@
     @await RenderSectionAsync("Scripts", required: false)
 

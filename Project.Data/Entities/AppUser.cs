@@ -19,5 +19,7 @@ namespace Project.Data.Entities
         public DateTime? DeleteAt { get; set; }
         public ICollection<Category> Categorys { get; set; }
         public ICollection<Reviews> Reviews { get; set; }
+        public ICollection<Cart> Carts { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
