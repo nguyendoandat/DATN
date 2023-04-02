@@ -9,7 +9,7 @@ namespace Project.Data.Entities
     public class ImportProduct
     {
         public ImportProduct(){
-            Products = new HashSet<Product>();
+           // Products = new HashSet<Product>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace Project.Data.Entities
         public int ImportId { get; set; }
         public Import Import { get; set; }
         //public int ProductId { get; set; }
-        public ICollection<Product> Products { get; set; }    
+       // public ICollection<Product> Products { get; set; }    
     }
 }

@@ -112,7 +112,7 @@ namespace Project.web.Controllers
             }
             return Ok(currentCart);
         }
-        public IActionResult AddToCart(int id)
+        public IActionResult AddToCart(int id,int quantity)
         {
             var product = _productService.GetProductById(id);
             var session = HttpContext.Session.GetString(CartSession);
@@ -135,31 +135,10 @@ namespace Project.web.Controllers
                     Image = product.Thumb,
                     Name = product.ProductName,
                     Price = product.Price,
-                    Quantity = 1,
+                    Quantity = quantity,
                 };
                 currentCart.Add(cart);
             }
-
-            //int quantity = 1;
-            //if (currentCart.Any(x => x.ProductId == id))
-            //{
-            //    quantity = currentCart.First(x => x.ProductId == id).Quantity + 1;
-
-            //}
-            //else
-            //{
-            //    var cart = new CartDTO()
-            //    {
-            //        ProductId = id,
-            //        Description = product.ProductDetail,
-            //        Image = product.Thumb,
-            //        Name = product.ProductName,
-            //        Price = product.Price,
-            //        Quantity = quantity
-            //    };
-            //    currentCart.Add(cart);
-            //}
-
             HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
             return Ok(currentCart);
 

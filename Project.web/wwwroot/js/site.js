@@ -30,7 +30,7 @@ var SiteController = function () {
             $.ajax({
                 type: "POST",
                 url: '/Cart/AddToCart',
-                data: { id: id },
+                data: { id: id, quantity: quantity },
                 success: function (res) {
                     $('#lbl_number_of_items_header').text(res.length)
                 },

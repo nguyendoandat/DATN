@@ -29,10 +29,10 @@ namespace Project.Data.Entities
         public DateTime? DeleteAt { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public int ImportProductId { get; set; }
-        public ImportProduct ImportProduct { get; set; }
-        public int ImportId { get; set; }
-        public Import Import { get; set; }
+        //public int ImportProductId { get; set; }
+        //public ImportProduct ImportProduct { get; set; }
+        //public int ImportId { get; set; }
+        //public Import Import { get; set; }
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<Medias> Medias { get; set; }
         public ICollection<Cart> Carts { get; set; }
