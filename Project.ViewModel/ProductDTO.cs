@@ -24,6 +24,9 @@ namespace Project.ViewModel
         public DateTime? DeleteAt { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int ImportProductId { get; set; }
+        public ImportProduct ImportProduct { get; set; }
+       
         public List<Category> ListCategory { get; set; }
         public IFormFile File { get; set; }
     }

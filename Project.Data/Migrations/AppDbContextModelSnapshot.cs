@@ -17,7 +17,7 @@ namespace Project.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -51,15 +51,15 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "867fac27-09af-44f2-9c74-7f6808a7c1ae",
-                            ConcurrencyStamp = "0078506e-907f-4b15-9b03-de57d45e3306",
+                            Id = "4ba6888f-822f-4c0f-adae-1222fa88f6fd",
+                            ConcurrencyStamp = "641db8a1-157a-4ca3-bb88-8b7b7621134e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c98862f7-9f6b-4c18-8242-feb201660129",
-                            ConcurrencyStamp = "b669a5f6-be6f-4b75-ae39-ff0c649338e2",
+                            Id = "3a185112-23ca-4088-89f8-2c4ec0c88107",
+                            ConcurrencyStamp = "217ecffa-efa7-4c70-9e14-4b15ebc358c1",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -154,13 +154,13 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "1f2a1de7-a315-4330-b020-d2a7030a6ef8",
-                            RoleId = "c98862f7-9f6b-4c18-8242-feb201660129"
+                            UserId = "c535a650-ea1f-4b38-b453-28415c80c22d",
+                            RoleId = "3a185112-23ca-4088-89f8-2c4ec0c88107"
                         },
                         new
                         {
-                            UserId = "0e1ba1cc-dfdc-4ec3-b5a1-2fb5ca4b3b17",
-                            RoleId = "867fac27-09af-44f2-9c74-7f6808a7c1ae"
+                            UserId = "5ff55939-da40-4e50-8a0c-76c7e96d7815",
+                            RoleId = "4ba6888f-822f-4c0f-adae-1222fa88f6fd"
                         });
                 });
 
@@ -259,35 +259,35 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f2a1de7-a315-4330-b020-d2a7030a6ef8",
+                            Id = "c535a650-ea1f-4b38-b453-28415c80c22d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "966f2250-2faf-46cf-997e-4fb79da78a80",
+                            ConcurrencyStamp = "4038ba68-1e4a-4ab8-a1dc-cd15d4dab065",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEByxpddRL3bCSFQwpAfGtL6CdxRX8yqwPYV5hvksd9QccdKJC+enGUiNZc/oiDiRtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH6D2BJ5GvsxmTsOxJqnDBwWNNRayHhhY2u7B4l0TB9hWZ4pRRtpE+h08RNnbUOoGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ad9f5a62-31a4-4530-afa0-1ddd0b416728",
+                            SecurityStamp = "bb294ae1-76bd-448d-9995-6e61197b3674",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "0e1ba1cc-dfdc-4ec3-b5a1-2fb5ca4b3b17",
+                            Id = "5ff55939-da40-4e50-8a0c-76c7e96d7815",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "98d89cb1-82d6-4876-9f81-054b5afd5acd",
+                            ConcurrencyStamp = "d673beeb-dc33-497e-8811-46b506e84dbf",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPLTjXyD7YlagRHxGaZXh7Yu7Lt4PB8kxNAVjKnWfaaBOxlNQF7KoIUH5BhZQGOj+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPfsnFgiB64RJHNBi0NyOw6di7oFkazmMOgeg5sFtSm0kpIc7zo0lIeEB3u0cPTzrQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "806ddd9b-3f30-4cfb-b1ae-f71fb17a86f3",
+                            SecurityStamp = "c3c4597a-c12b-41a1-ba63-e70b3045f928",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -348,9 +348,6 @@ namespace Project.Data.Migrations
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Trend")
                         .HasColumnType("bit");
 
@@ -365,6 +362,59 @@ namespace Project.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Import", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Imports", (string)null);
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.ImportProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ImportId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImportId");
+
+                    b.ToTable("ImportProducts", (string)null);
                 });
 
             modelBuilder.Entity("Project.Data.Entities.Medias", b =>
@@ -423,7 +473,6 @@ namespace Project.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -471,6 +520,12 @@ namespace Project.Data.Migrations
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ImportId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImportProductId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal");
 
@@ -507,6 +562,10 @@ namespace Project.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ImportId");
+
+                    b.HasIndex("ImportProductId");
 
                     b.ToTable("Products", (string)null);
                 });
@@ -625,6 +684,17 @@ namespace Project.Data.Migrations
                         .HasForeignKey("AppUserId");
                 });
 
+            modelBuilder.Entity("Project.Data.Entities.ImportProduct", b =>
+                {
+                    b.HasOne("Project.Data.Entities.Import", "Import")
+                        .WithMany("ImportProducts")
+                        .HasForeignKey("ImportId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Import");
+                });
+
             modelBuilder.Entity("Project.Data.Entities.Medias", b =>
                 {
                     b.HasOne("Project.Data.Entities.Product", "Product")
@@ -641,8 +711,7 @@ namespace Project.Data.Migrations
                     b.HasOne("Project.Data.Entities.AppUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -674,7 +743,23 @@ namespace Project.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Project.Data.Entities.Import", "Import")
+                        .WithMany()
+                        .HasForeignKey("ImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Entities.ImportProduct", "ImportProduct")
+                        .WithMany("Products")
+                        .HasForeignKey("ImportProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Import");
+
+                    b.Navigation("ImportProduct");
                 });
 
             modelBuilder.Entity("Project.Data.Entities.Reviews", b =>
@@ -706,6 +791,16 @@ namespace Project.Data.Migrations
                 });
 
             modelBuilder.Entity("Project.Data.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Import", b =>
+                {
+                    b.Navigation("ImportProducts");
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.ImportProduct", b =>
                 {
                     b.Navigation("Products");
                 });

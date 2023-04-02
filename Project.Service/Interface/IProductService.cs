@@ -11,9 +11,9 @@ namespace Project.Service.Interface
 {
     public interface IProductService
     {
-        PagedResult<ProductDTO> GetAllProduct(int pageNumber, int pageSize, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "");
+        PagedResult<ProductDTO> GetAllProduct(int pageNumber, int pageSize, Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "");
 
-        IEnumerable<ProductDTO> GetProduct(Expression<Func<Product, bool>> filter=null,Func<IQueryable<Product>,IOrderedQueryable<Product>>orderBy=null,string includeProperties="");
+        IEnumerable<ProductDTO> GetProduct(Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter=null,Func<IQueryable<Product>,IOrderedQueryable<Product>>orderBy=null,string includeProperties="");
         ProductDTO GetProductById(int id);
         void InsertProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);

@@ -11,9 +11,9 @@ namespace Project.Service.Interface
 {
     public interface ICategoryService
     {
-        PagedResult<CategoryDTO> GetAllCategory(int pageNumber, int pageSize, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "");
+        PagedResult<CategoryDTO> GetAllCategory(int pageNumber, int pageSize, Func<IQueryable<Category>, IQueryable<Category>> filterFull = null, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "");
 
-        IEnumerable<CategoryDTO> GetCategory(Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "");
+        IEnumerable<CategoryDTO> GetCategory(Func<IQueryable<Category>, IQueryable<Category>> filterFull = null, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "");
         CategoryDTO GetByCategoryId(int id);
         void InsertCategory(CategoryDTO Category);
         void UpdateCategory(CategoryDTO Category);

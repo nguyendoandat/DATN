@@ -31,6 +31,9 @@ namespace Project.Data.EF
             modelbuilder.ApplyConfiguration(new CartConfiguration());
             modelbuilder.ApplyConfiguration(new OrderConfiguration());
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            modelbuilder.ApplyConfiguration(new ImportConfiguration());
+            modelbuilder.ApplyConfiguration(new ImportProductConfiguration());
+
 
             List<IdentityRole> roles = new List<IdentityRole>()
             {
@@ -86,6 +89,8 @@ namespace Project.Data.EF
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Import> Imports { get; set; }
+        public DbSet<ImportProduct> ImportProducts { get; set; }
 
     }
 }

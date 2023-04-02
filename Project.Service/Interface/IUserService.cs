@@ -11,8 +11,8 @@ namespace Project.Service.Interface
 {
     public interface IUserService
     {
-        PagedResult<UserDTO> GetAllUser(int pageNumber,int pageSize, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "");
-        IEnumerable<UserDTO> GetUser(Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "");
+        PagedResult<UserDTO> GetAllUser(int pageNumber,int pageSize, Func<IQueryable<AppUser>, IQueryable<AppUser>> filterFull = null, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "");
+        IEnumerable<UserDTO> GetUser(Func<IQueryable<AppUser>, IQueryable<AppUser>> filterFull = null, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "");
         UserDTO GetUserById(string id);
         void  InsertUser(UserDTO user);
         void UpdateUser(UserDTO user);

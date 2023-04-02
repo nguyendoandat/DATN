@@ -10,6 +10,6 @@ namespace Project.Service.Interface
 {
     public interface IOrderService
     {
-        void Create(OrderDTO order);
+        int Create(OrderDTO order);
     }
 }

@@ -18,7 +18,9 @@ namespace Project.ViewModel
             CreateMap<Reviews,ReviewsDTO>().ReverseMap();
             CreateMap<Product,ProductDTO>().ReverseMap();
             CreateMap<Order,OrderDTO>().ReverseMap();
-
+            CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
+            CreateMap<Import, ImportDTO>().ReverseMap();
+            CreateMap<ImportProduct, ImportProductDTO>().ReverseMap();
         }
     }
 }

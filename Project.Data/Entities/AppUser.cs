@@ -13,6 +13,8 @@ namespace Project.Data.Entities
         {
             Categorys = new HashSet<Category>();
             Reviews = new HashSet<Reviews>();
+            Carts = new HashSet<Cart>();
+            Orders = new HashSet<Order>();
         }
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }

@@ -1,19 +1,21 @@
 ﻿@using Project.Service
-@using Project.Service.Interface
+
 
 @model PagedResult<Project.ViewModel.UserDTO>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+   
 }
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Users</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <a asp-action="Create" asp-controller="User" asp-area="Admin" class="btn btn-success mb-4">Create New User</a>
+            <a asp-action="Create" asp-controller="User" asp-area="Admin" class="btn btn-success mb-4">Thêm mới người dùng</a>
 
         </div>
         <div class="mb-3">
@@ -32,11 +34,11 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>User Name</th>
+                        <th>Tên tài khoản</th>
                         <th>Email</th>
-                        <th>Create At</th>
-                        <th>Update At</th>
-                        <th>Delete At</th>
+                        <th>Ngày tạo</th>
+                       @* <th>Ngày sửa</th>*@
+                        <th>Ngày xóa</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -44,23 +46,23 @@
                 <tbody>
                     @foreach (var item in Model.Data)
                     {
-                        @if (item.DeleteAt == null)
+                        @if (item.DeleteAt == null )
                         {
                             <tr>
                                 <td>@item.UserName</td>
                                 <td>@item.Email</td>
 
                                 <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
-                                <td>
+                               @* <td>
                                     @item.UpdateAt?.ToString("dd/MM/yyyy")
-                                </td>
+                                </td>*@
                                 <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         }
-                        else
+                       @* else
                         {
                             <tr class="bg-secondary text-warning">
                                 <td>@item.UserName</td>
@@ -75,7 +77,7 @@
                                     Deleted!
                                 </td>
                             </tr>
-                        }
+                        }*@
                     }
                 </tbody>
             </table>
@@ -128,7 +130,7 @@
                 success: function (result) {
                     if (result == true) {
                         var baseUrl = "/User";
-                        window.location.reload();
+                        
                     }
                     else {
                         alert("There is a problem,Try later!");
@@ -138,4 +140,5 @@
             });
         }
     }
+    
 </script>

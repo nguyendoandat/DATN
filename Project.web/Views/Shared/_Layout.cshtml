@@ -1,276 +1,465 @@
-﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+﻿
+@using Project.Service.Interface
+@inject ICategoryService categoryService
+@{
+    var listCategory = new SelectList(categoryService.GetCategory(), "Id", "CategoryName");
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Song Lê </title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CP Glasses | Home Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" href="~/user/css/style1.css">
-    <link rel="stylesheet" href="~/user/css/style_menu.css">
-    <link href="~/user/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,200&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css"
-          integrity="sha512-5PV92qsds/16vyYIJo3T/As4m2d8b6oWYfoqV+vtizRB6KhF1F9kYzWzQmsO6T3z3QG2Xdhrx7FQ+5R1LiQdUA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/assetsuser/images/favicon.ico" />
 
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @await RenderSectionAsync("Heads", required: false)
+    <!-- CSS
+    ============================================ -->
+
+    <!-- Vendor CSS (Contain Bootstrap, Icon Fonts) -->
+    <link rel="stylesheet" href="~/assetsuser/css/vendor/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assetsuser/css/vendor/Pe-icon-7-stroke.css" />
+
+    <!-- Plugin CSS (Global Plugins Files) -->
+    <link rel="stylesheet" href="~/assetsuser/css/plugins/animate.min.css">
+    <link rel="stylesheet" href="~/assetsuser/css/plugins/jquery-ui.min.css">
+    <link rel="stylesheet" href="~/assetsuser/css/plugins/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/assetsuser/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="~/assetsuser/css/plugins/magnific-popup.min.css" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/assetsuser/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
-    <input type="hidden" id="hidBaseAddress" value="@Configuration["BaseAddress"]" />
-    <header>
-        <a asp-action="Index" asp-controller="Home">
-            <img class="logo" src="~/user/images/logo/logo.png" alt="">
+
+    <div class="main-wrapper">
+
+        <!-- Begin Main Header Area -->
+        <header class="main-header_area position-relative">
+            <div class="header-top border-bottom d-none d-md-block">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <div class="header-top-left">
+                                <ul class="dropdown-wrap text-matterhorn">
+                                    <li class="dropdown">
+                                        <button class="btn btn-link " type="button" id="languageButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            VietNam
+                                        </button>
+                                       
+                                    </li>
+                                    <li class="dropdown">
+                                        <button class="btn btn-link " type="button" id="currencyButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            VNĐ
+                                        </button>
+                                        
+                                    </li>
+                                    <li>
+                                        HotLine:
+                                        <a href="tel://3965410">092.552.597</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="header-top-right text-matterhorn">
+                                <p class="shipping mb-0">Chào mừng bạn đến với cửa hàng của chúng tôi!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-middle py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="header-middle-wrap">
+                                <a href="index.html" class="header-logo">
+                                    <img src="~/assetsuser/images/logo/songle.jpg" alt="Header Logo">
+                                </a>
+                                <div class="header-search-area d-none d-lg-block">
+                                    <div  class="header-searchbox">
+                                        
+                                        <select class="nice-select select-search-category wide" aria-label="Default select example" id="filter-shop1" asp-items="@listCategory">
+                                            <option value="">Sản phẩm của Danh mục</option>
+
+                                        </select>
+                                        <input class="input-field" type="text" placeholder="Tìm kiếm sản phẩm" id="searchString1" value="@ViewBag.SearchString1">
+                                        <button class="btn btn-outline-whisper btn-primary-hover" type="submit" id="search1" ><i class="pe-7s-search"></i></button>
+                                    </div>
+                                </div>
+                                <div class="header-right">
+                                    <ul>
+                                        <li class="dropdown d-none d-md-block">
+                                            <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="pe-7s-users"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingButton">
+                                                <li>
+                                                    <div>
+                                                        <partial name="_LoginPartial" />
+                                                    </div>  
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="d-none d-md-block">
+                                            <a href="wishlist.html">
+                                                <i class="pe-7s-like"></i>
+                                            </a>
+                                        </li>
+                                        <li class="d-block d-lg-none">
+                                            <a href="#searchBar" class="search-btn toolbar-btn">
+                                                <i class="pe-7s-search"></i>
+                                            </a>
+                                        </li>
+                                        <li class="minicart-wrap me-3 me-lg-0">
+                                            <a class="minicart-btn " id="myCart" asp-action="Index" asp-controller="Cart">
+                                                <i class="pe-7s-shopbag"></i>
+                                                <span class="quantity" id="lbl_number_of_items_header">0</span>
+                                            </a>
+                                        </li>
+                                        <li class="mobile-menu_wrap d-block d-lg-none">
+                                            <a href="#mobileMenu" class="mobile-menu_btn toolbar-btn pl-0">
+                                                <i class="pe-7s-menu"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-header header-sticky" data-bg-color="#a36336">
+                <div class="container">
+                    <div class="main-header_nav position-relative">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 d-none d-lg-block">
+                                <div class="main-menu">
+                                    <nav class="main-nav">
+                                        <ul>
+                                            <li class="drop-holder">
+                                                <a asp-action="Index" asp-controller="Home">Trang chủ
+                                                </a> 
+                                            </li>
+                                            <li>
+                                                <a href="about.html">Giới thiệu</a>
+                                            </li>
+                                            <li class="megamenu-holder">
+                                                <a asp-action="Product" asp-controller="Home">Sản phẩm
+                                                </a>
+                                            </li>
+                                            <li class="drop-holder">
+                                                <a asp-action="MyReview" asp-controller="Home">
+                                                    Nhận xét khách hàng
+                                                </a>                                             
+                                            </li>
+                                            <li class="drop-holder">
+                                                <a asp-action="Index" asp-controller="Home">Tin tức  
+                                                </a>
+                                               
+                                            </li>
+                                            <li>
+                                                <a asp-action="Index" asp-controller="Home">Liên hệ</a>
+                                            </li>
+                                            <li>
+                                                <a asp-action="Index" asp-controller="Home">Nội dung</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="offcanvas-search_wrapper" id="searchBar">
+                <div class="harmic-offcanvas-body">
+                    <div class="container h-100">
+                        <div class="offcanvas-search">
+                            <div class="harmic-offcanvas-top">
+                                <a href="#" class="button-close"><i class="pe-7s-close"></i></a>
+                            </div>
+                            <span class="searchbox-info">Start typing and press Enter to search</span>
+                            <form action="#" class="hm-searchbox">
+                                <input type="text" placeholder="Search">
+                                <button class="search-btn" type="submit"><i class="pe-7s-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="global-overlay"></div>
+        </header>
+        <!-- Main Header Area End Here -->
+
+        <!-- Begin Slider Area -->
+        <div class="slider-area">
+
+            <!-- Main Slider -->
+            <div class="swiper-container main-slider swiper-arrow with-bg_white">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide animation-style-01">
+                        <div class="slide-inner bg-height" data-bg-image="assetsuser/images/slider/bg/bg1.jpg">    
+                            <div class="parallax-img-wrap">
+                                <div class="chilly">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.2">
+                                            <img src="~/assetsuser/images/slider/inner-img/nhaong.jpg" alt="Inner Image" width="231px" height="210px" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="avocado">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.5">
+                                            <img src="~/assetsuser/images/slider/inner-img/nhatban.jpg" alt="Inner Image" width="224px" height="204px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="parallax-with-content">
+                                    <div class="slide-content">
+                                        <span class="sub-title mb-3">Mẫu nội thất đẹp</span>
+                                        
+                                        
+                                    </div>
+                                    <div class="parallax-img-wrap">
+                                        <div class="tomatoes">
+                                            <div class="scene fill">
+                                                <div class="expand-width" data-depth="0.5">
+                                                    <img src="~/assetsuser/images/slider/inner-img/hiendai.jpg" alt="Inner Image" width="601px" height="534px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide animation-style-01">
+                        <div class="slide-inner bg-height" data-bg-image="assetsuser/images/slider/bg/bg2.jpg">
+                            <div class="parallax-img-wrap">
+                                <div class="chilly">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.2">
+                                            <img src="~/assetsuser/images/slider/inner-img/nhatban.jpg" alt="Inner Image" width="231px" height="210px">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="avocado">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.5"> 
+                                            <img src="~/assetsuser/images/slider/inner-img/hiendai.jpg" alt="Inner Image" width="224px" height="204px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="parallax-with-content">
+                                    <div class="slide-content">
+                                        <span class="sub-title mb-3">Mẫu nội thất đẹp</span>
+                                       
+                                    </div>
+                                    <div class="parallax-img-wrap">
+                                        <div class="tomatoes">
+                                            <div class="scene fill">
+                                                <div class="expand-width" data-depth="0.5">
+                                                    <img src="~/assetsuser/images/slider/inner-img/nhaong.jpg" alt="Inner Image" width="601px" height="534px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination with-bg d-md-none"></div>
+
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+        </div>
+        <!-- Slider Area End Here -->
+
+
+
+        <!-- Begin Product Area -->
+        <div class="product-area section-space-top-100">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- Product Area End Here -->
+
+        <div class="product-area section-space-top-100">
+            <div class="container">
+              
+            </div>
+        </div>
+
+        <!-- Begin Footer Area -->
+        
+        <div class="footer-area">
+            <div class="footer-top section-space-y-axis-100 text-black" data-bg-color="#e5ddcc">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="widget-item">
+                                <div class="footer-logo pb-4">
+                                    <a href="index.html">
+                                        <img src="~/assetsuser/images/logo/songle.jpg" alt="Logo">
+                                    </a>
+                                </div>
+                                <div class="widget-contact-info pb-6">
+                                    <ul>
+                                        <li>
+                                            Địa chỉ: Thôn Yên Lạc 2 , Xã Cần Kiệm, Huyện Thạch Thất, Thành phố Hà Nội, Việt Nam
+                                        </li>
+                                        <li>
+                                             Showroom: 85-87 Hoàng Quốc Việt, Nghĩa Đô, Cầu Giấy, Hà Nội
+                                        </li>
+                                        <li>
+                                              Thời gian mở cửa: 8h00 - 19h00 kể cả thứ 7 và Chủ Nhật.
+                                        </li>
+                                        <li>
+                                             Có vị trí đỗ xe ô tô
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="widget-item">
+                                <h3 class="widget-title mb-5">Thông tin liên hệ</h3>
+                                <ul class="widget-list-item">
+                                    <li>
+                                        <a href="javascript:void(0)">Điện thoại:0242.212.11.00</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Hotline:092.552.597</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Email:cskh@gmail.com</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Website:noithatsongle.com.vn</a>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="widget-item">
+                                <h3 class="widget-title mb-5">Hỗ trợ khách hàng</h3>
+                                <ul class="widget-list-item">
+                                    <li>
+                                        <a href="javascript:void(0)">Chính sách và quy định</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Chính sách bảo mật thông tin</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Phương thức thanh toán</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom py-3" data-bg-color="#a36336">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="copyright">
+                                <span class="copyright-text text-white">© 2023 Song Lê Made with <i class="fa fa-heart text-danger"></i> by  <a href="https://hasthemes.com/" target="_blank">DAT</a> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Footer Area End Here -->
+
+        <!-- Begin Scroll To Top -->
+        <a class="scroll-to-top" href="">
+            <i class="fa fa-chevron-up"></i>
         </a>
+        <!-- Scroll To Top End Here -->
 
-        <div class="menu">
-
-            <ul>
-                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                <li><a asp-action="Product" asp-controller="Home">Product</a></li>
-                <li><a asp-action="MyReview" asp-controller="Home">My Reviews</a></li>
-                <li><a asp-action="MyWishList" asp-controller="Home">My Wishlists</a></li>
-
-                <!-- GET: Thường dùng cho tìm kiếm...:đẩy value lên URL  ; POST: dùng cho đăng nhập, đăng ký: bảo mật -->
-            </ul>
-            <div class="search">
-                <form action="" method="">
-                    <input class="key_word" type="text" placeholder="Tìm kiếm">
-                    <button type="submit" class="search_function"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-        <div class="right_function">
-
-            <!-- <a href="#"><i class="bi bi-person"></i></a> -->
-            <!-- <a href="cart.html"><i class="fa fa-shopping-cart"></i></a> -->
-
-            <div class="dropdown">
-                @*<button type="button" class="btn" data-toggle="dropdown">
-                    <i class="bi bi-cart" aria-hidden="true"></i>
-                </button>*@
-                <a id="myCart" href="/cart">
-                    <i class="bi bi-cart" aria-hidden="true"></i>
-                </a>
-                <span class="quantity_items" id="lbl_number_of_items_header">0</span>
-                <div class="dropdown-menu">
-
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row cart-detail">
-                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                            <img src="~/user/images/glasses/glass3.jpg">
-                        </div>
-                        <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                            <p>Kính râm Linemai K304</p>
-                            <span class="price "> 850.000 VND</span> <span class="count"> SL: 1</span>
-                        </div>
-                    </div>
-                    <div class="row total-header-section">
-                        <p style="font-weight: 600;">Tổng tiền: <span style="color: #ff871d;">5.400.000 VNĐ</span></p>
-                    </div>
-
-                    <div class="link-to-cart">
-                        <a href="cart.html">Xem giỏ hàng</a>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <partial name="_LoginPartial" />
-            </div>
-        </div>
-    </header>
-    <div class=" banner">
-        <!-- Carousel -->
-        <div id="demo" class="carousel slide" data-bs-ride="carousel">
-            <!-- Indicators/dots -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
-            </div>
-            <!-- The slideshow/carousel -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="banner_detail">
-                        <div class="banner_title">
-                            <h1>Đồ nội thất sản phẩm mới</h1>
-                            <h3>
-                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                                <br>
-                                Issa trong chiến dịch mùa mới của chúng tôi.
-                            </h3>
-                        </div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                    <img src="~/user/images/banner/2007.PNG" alt="Los Angeles" class="d-block">
-                </div>
-                <div class="carousel-item">
-                    <div class="banner_detail">
-                        <div class="banner_title">
-                            <h1>Đồ nội thất sản phẩm mới</h1>
-                            <h3>
-                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                                <br>
-                                Issa trong chiến dịch mùa mới của chúng tôi.
-                            </h3>
-                        </div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                    <img src="~/user/images/banner/1006.PNG" alt="Chicago" class="d-block">
-                </div>
-                <div class="carousel-item">
-                    <div class="banner_detail">
-                        <div class="banner_title">
-                            <h1>Đồ nội thất sản phẩm mới</h1>
-                            <h3>
-                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                                <br>
-                                Issa trong chiến dịch mùa mới của chúng tôi.
-                            </h3>
-                        </div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                    <img src="~/user/images/banner/3003.PNG" alt="New York" class="d-block">
-                </div>
-
-                <div class="carousel-item">
-                    <div class="banner_detail">
-                        <div class="banner_title">
-                            <h1>Đồ nội thất sản phẩm mới</h1>
-                            <h3>
-                                Khám phá bộ sưu tập theo phong cách của biểu tượng thời trang Caroline
-                                <br>
-                                Issa trong chiến dịch mùa mới của chúng tôi.
-                            </h3>
-                        </div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                    <img src="~/user/images/banner/3007.PNG" alt="New York" class="d-block">
-                </div>
-            </div>
-
-            <!-- Left and right controls/icons -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-        </div>
     </div>
-    <main>
-        @RenderBody()
-    </main>
-    <footer>
-        <div class="container infor">
-            <div class="row">
-                <div class="details col-lg-3">
-                    <h3>
-                        Trợ Giúp & Thông Tin
-                    </h3>
-                    <ul>
-                        <li>Địa chỉ: Số 176, Đường Quang Trung, Hà Đông, Hà Nội</li>
-                        <li>Điện thoại: +84 968209396</li>
-                        <li>Email: cp_glasses@gmail.com</li>
-                        <li>www.facebook.com/giftshowhanoi</li>
-                    </ul>
 
-                </div>
-                <div class="details col-lg-3">
-                    <h3>
-                        Các thương hiệu nổi bật
-                    </h3>
-                    <ul>
-                        <li><a href="">Sunhouse</a></li>
-                        <li><a href="">Kangaroo</a></li>
-                        <li><a href="">SATO</a></li>
-                        <li><a href="">Bluestone</a></li>
-                        <li><a href="">Goldsun</a></li>
-                    </ul>
+    <!-- Global Vendor, plugins JS -->
 
-                </div>
-                <div class="details col-lg-3">
-                    <h3>
-                        Hệ thống cửa hàng
-                    </h3>
-                    <ul>
-                        <li><a href="">164 Tôn Đức Thắng – Đống Đa HN</a> </li>
-                        <li><a href="">38 Nguyễn Khang – Cầu Giấy HN</a> </li>
-                        <li><a href="">298 Nguyễn Trãi – Hà Đông HN</a> </li>
-                        <li><a href="">805 Lê Hồng Phong – Q.10 HCM</a> </li>
-                        <li><a href="">399 – 401 Lê Văn Sỹ – Q.Tân Bình HCM</a> </li>
-                    </ul>
+    <!-- JS Files
+    ============================================ -->
+    <!-- Global Vendor, plugins JS -->
 
-                </div>
+    <!-- Vendor JS -->
+    <script src="~/assetsuser/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="~/assetsuser/js/vendor/jquery-3.5.1.min.js"></script>
+    <script src="~/assetsuser/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="~/assetsuser/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="~/assetsuser/js/vendor/jquery.waypoints.js"></script>
 
-                <div class="details col-lg-3">
-                    <h3>
-                        Địa chỉ
-                    </h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8334970122846!2d105.77121431478464!3d21.039347192793077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c9ca620493%3A0x56beef4adf761a25!2zM2EgTmfDtSA2NSBNYWkgROG7i2NoLCBNYWkgROG7i2NoLCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1658339939027!5m2!1svi!2s"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="support">
-            <a href=""><img src="~/user/images/logo/messenger_14.png" alt=""></a>
-            <a href=""><img src="~/user/images/logo/zalo_16.png" alt=""></a>
-        </div>
-
-        <div class="author">
-            Thiết kế 2022 © CP Glasses
-        </div>
-        <div id="scroll_top">
-            <a href="#top" onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-angle-up"></i></a>
-        </div>
-    </footer>
-
-    @*<script src="~/user/js/script.js"></script>*@
-    <script asp-append-version="true" src="~/validation//clientvalidator.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!--Plugins JS-->
+    <script src="~/assetsuser/js/plugins/wow.min.js"></script>
+    <script src="~/assetsuser/js/plugins/jquery-ui.min.js"></script>
+    <script src="~/assetsuser/js/plugins/swiper-bundle.min.js"></script>
+    <script src="~/assetsuser/js/plugins/jquery.nice-select.js"></script>
+    <script src="~/assetsuser/js/plugins/parallax.min.js"></script>
+    <script src="~/assetsuser/js/plugins/jquery.magnific-popup.min.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <!--Main JS (Common Activation Codes)-->
+    <script src="~/assetsuser/js/main.js"></script>
     <script src="~/js/site.js"></script>
     <script>
-        var siteController=new SiteController();
+        var siteController = new SiteController();
         siteController.initialize();
     </script>
-    @*<partial name="_ValidationScriptsPartial" />*@
-    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('#filter-shop1').val('@ViewBag.Category1')
 
+            $("#search1").click(function () {
+                debugger
+                var categoryId = $("#filter-shop1 option:selected").val();
+                var searchString = $("#searchString1").val();
+                var min = $("#min").val();
+                var max = $("#max").val();
+                console.log('min' + 'max');
+                console.log(max);
+                if (Number(min) > Number(max)) {
+                    Swal.fire('Giá không hợp lệ!Mời nhập lại!')
+                }
+                else {
+                    location.href = '@Url.Action("ProductHome", "Home")' + '/?pageNumber=' + 1 + '&categoryId=' + categoryId + '&searchString=' + searchString + '&min=' + min + '&max=' + max;
+                }
+            });
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+     @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 
 </html>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Project.Data.Entities;
 using Project.Service.Interface;
 using Project.Service.Repository;
@@ -16,10 +17,12 @@ namespace Project.Service.implement
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        
         public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+           
         }
 
         public void DeleteUser(UserDTO user)
@@ -35,17 +38,19 @@ namespace Project.Service.implement
             _unitOfWork.Save();
         }
 
-        public PagedResult<UserDTO> GetAllUser(int pageNumber, int pageSize, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "")
+        public PagedResult<UserDTO> GetAllUser(int pageNumber, int pageSize, Func<IQueryable<AppUser>, IQueryable<AppUser>> filterFull = null, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "")
         {
             int totalCount;
             List<UserDTO> vmList = new List<UserDTO>();
+            
+            
             try
             {
                 int ExcludeRecords = (pageNumber * pageSize) - pageSize;
 
-                var modelList = _unitOfWork.GenericRepository<AppUser>().GetAll( filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
+                var modelList = _unitOfWork.GenericRepository<AppUser>().GetAll(filterFull, filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
 
-                totalCount = _unitOfWork.GenericRepository<AppUser>().GetAll( filter, orderBy, includeProperties).ToList().Count();
+                totalCount = _unitOfWork.GenericRepository<AppUser>().GetAll( filterFull,filter, orderBy, includeProperties).ToList().Count();
                 vmList = ConvertModelToModelViewList(modelList);
             }
             catch (Exception)
@@ -55,9 +60,9 @@ namespace Project.Service.implement
             return new PagedResult<UserDTO>(vmList, totalCount, pageNumber, pageSize);
         }
 
-        public IEnumerable<UserDTO> GetUser(Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "")
+        public IEnumerable<UserDTO> GetUser(Func<IQueryable<AppUser>, IQueryable<AppUser>> filterFull = null, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "")
         {
-            return ConvertModelToModelViewList((List<AppUser>) _unitOfWork.GenericRepository<AppUser>().GetAll(filter, orderBy, includeProperties));
+            return ConvertModelToModelViewList((List<AppUser>) _unitOfWork.GenericRepository<AppUser>().GetAll(filterFull,filter, orderBy, includeProperties));
         }
 
         public UserDTO GetUserById(string id)

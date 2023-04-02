@@ -32,22 +32,23 @@
                 {
                     if(item.DeleteAt==null){
                         <div class="glass col-lg-3 col-6 p-1 mb-3">
-                            <img src="~/img/@item.Thumb" alt="" width="200px" height="400px">
-                            <div class="glass_name">
+                            <img src="~/img/@item.Thumb" alt="" width="auto" height="300px">
+                            <div class="glass_name" style="text-align:center">
                                 <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
 
                             </div>
                             
-                            <a class="btn btn-primary" data-id="@item.Id">Thêm vào<i class="fa fa-shopping-cart"></i></a>
-                            <div class="price">
+                            <a class="btn btn-primary" data-id="@item.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
+                            
+                            <div class="price" style="text-align:center">
                                 @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
                             </div>
                             <div class="d-flex justify-content-center">
                                 <p>@item.View <i class="fa-solid fa-eye"></i></p>
 
                             </div>
-                            <div class="glass_icon_action">
-                                <button class="btn-search"><i class="fa fa-search"></i></button>
+                            @*<div class="glass_icon_action">
+                                <button class="btn-search"><i class="fa fa-search"></i></button>*@
                                 @*  @if (userId == null)
                         {
                         <a><i class="fa fa-heart"></i></a>
@@ -67,7 +68,7 @@
                         }
                         }*@
 
-                            </div>
+                            @*</div>*@
 
                         </div>
                     }
@@ -95,38 +96,11 @@
     </div>
 </div>
 
-<div class="container ">
-    <div class="row">
-        <div class="benefit col-lg-3 col-6">
-            <div class="benefit-box ">
-                <div class="benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
-                <div class="benefit-content">Giao hàng nhanh, tiết kiệm</div>
-            </div>
-        </div>
-        <div class="benefit col-lg-3 col-6">
-            <div class="benefit-box ">
-                <div class="benefit-icon"><i class="fa-solid fa-arrow-rotate-left"></i></div>
-                <div class="benefit-content">Đổi trả trong vòng 7 ngày đầu</div>
-            </div>
-        </div>
-        <div class="benefit col-lg-3 col-6">
-            <div class="benefit-box ">
-                <div class="benefit-icon"><i class="fa-solid fa-medal"></i></div>
-                <div class="benefit-content">Bảo hành trong vòng 6 tháng</div>
-            </div>
-        </div>
-        <div class="benefit col-lg-3 col-6">
-            <div class="benefit-box">
-                <div class="benefit-icon"><i class="fa-solid fa-glasses"></i></div>
-                <div class="benefit-content">Chất lượng đảm bảo 100%</div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="container">
     <div class="title">
-        <h2>Top Product</h2>
+        @*<h2>Top Product</h2>*@
     </div>
     <div class="row justify-content-between">
         <!-- <div class="left_popular col-lg-4 col-12">
@@ -198,7 +172,7 @@
 {*@
     <div class="container">
         <div class="title">
-            <h2>Product Recent View</h2>
+          @*  <h2>Product Recent View</h2>*@
         </div>
         <div class="row justify-content-between">
             <!-- <div class="left_popular col-lg-4 col-12">
@@ -251,81 +225,20 @@
             </div>
         </div>
     </div>
-}
+
 
 <div class="container category">
     <div class="title">
-        <h2>Danh Mục Sản Phẩm</h2>
+        @*<h2>Danh Mục Sản Phẩm</h2>*@
     </div>
-    <div class="row">
-        <div class="left_category col-lg-8 ">
-            <div class="row">
-                <div class="category_box col-lg-4">
-                    <img src="~/user/images/category/gong-kinh-ram.jpg" alt="">
-                    <div class="overlay">
-                        <div class="text"><a href="">Kính Râm</a></div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                </div>
-                <div class="category_box col-lg-7">
-                    <img src="~/user/images/category/kinh-ram.jpg" alt="">
-                    <div class="overlay">
-                        <div class="text"><a href="">Kính Chính Hãng</a></div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                </div>
-                <div class="category_box col-lg-7">
-                    <img src="~/user/images/category/kinh-can.jpg" alt="">
-                    <div class="overlay">
-                        <div class="text"><a href="">Kính Cận</a></div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                </div>
-                <div class="category_box col-lg-4">
-                    <img src="~/user/images/category/kinh-ap-trong.jpg" alt="">
-                    <div class="overlay">
-                        <div class="text"><a href="">Kính Áp Tròng</a></div>
-                        <a href=""><button class="buy">Mua Ngay</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="right_category col-lg-4">
-            <div class="category_box ">
-                <img src="~/user/images/category/sale.jpg" alt="">
-                <div class="overlay">
-                    <div class="text"><a href="">Sale</a></div>
-                    <a href=""><button class="buy">Mua Ngay</button></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <div class="container">
     <div class="brand-slider h-100">
         <div class="row align-items-center h-100">
             <div class="container rounded">
-                <div class="title">
-                    <h2>Các thương hiệu nổi bật</h2>
-                </div>
-                <div class="slider">
-                    <div class="logos">
-                        <img src="~/user/images/brands/gucci.jpg" alt="">
-                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
-                        <img src="~/user/images/brands/chanel.jpg" alt="">
-                        <img src="~/user/images/brands/dior.jpg" alt="">
-                        <img src="~/user/images/brands/lv.jpg" alt="">
-                        <img src="~/user/images/brands/ysl.jpg" alt="">
-                    </div>
-                    <div class="logos">
-                        <img src="~/user/images/brands/gucci.jpg" alt="">
-                        <img src="~/user/images/brands/balenciaga.jpg" alt="">
-                        <img src="~/user/images/brands/chanel.jpg" alt="">
-                        <img src="~/user/images/brands/dior.jpg" alt="">
-                        <img src="~/user/images/brands/lv.jpg" alt="">
-                        <img src="~/user/images/brands/ysl.jpg" alt="">
-                    </div>
-                </div>
+               
+                
             </div>
         </div>
     </div>

@@ -36,7 +36,7 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
-                var productByShopName = _productService.GetProduct(p => p.ProductName == model.ProductName);
+                var productByShopName = _productService.GetProduct(null,p => p.ProductName == model.ProductName);
                 if (productByShopName.Count() != 0)
                 {
                     ViewData["ProductName"] = "ProductName đã tồn tại";
@@ -44,7 +44,7 @@ namespace Project.web.Areas.Admin.Controllers
                 }
                 model.Slug = model.ProductName;
 
-                var shopBySlug = _productService.GetProduct(p => p.Slug == model.Slug);
+                var shopBySlug = _productService.GetProduct(null,p => p.Slug == model.Slug);
                 if (shopBySlug.Count() != 0)
                 {
                     ViewData["Slug"] = "Slug đã tồn tại, vui lòng chọn ShopName khác";
@@ -71,13 +71,13 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
-                var productByShopName = _productService.GetProduct(p => p.ProductName == model.ProductName && p.Id != model.Id);
+                var productByShopName = _productService.GetProduct(null,p => p.ProductName == model.ProductName && p.Id != model.Id);
                 if (productByShopName.Count() != 0)
                 {
                     ViewData["ProductName"] = "ProductName da ton tai";
                 }
                 model.Slug = model.ProductName;
-                var shopBySlug = _productService.GetProduct(p => p.Slug == model.Slug && p.Id != model.Id);
+                var shopBySlug = _productService.GetProduct(null,p => p.Slug == model.Slug && p.Id != model.Id);
                 if (shopBySlug.Count() != 0)
                 {
                     ViewData["Slug"] = "Slug da ton tai";

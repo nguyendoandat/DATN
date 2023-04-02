@@ -1,0 +1,204 @@
+﻿@using Project.Service.Interface
+@using System.Globalization
+
+@model Project.ViewModel.ProductDTO
+@inject ICategoryService CategoryService
+@inject IReviewService reviewService
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = Model.Id;
+    var list = CategoryService.GetByCategoryId(Model.CategoryId);
+    var listReview = reviewService.GetReview(filter: p => p.ReviewDetail != null && p.ProductId == id, includeProperties: "User");
+
+}
+@section scripts{
+    <script src="~/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+        $(document).ready(function () {
+            $("#addReview").click(function () {
+                debugger
+               
+                var review = $("#review").val();
+                if (review == '') {
+                    Swal.fire('Bạn chưa nhập nội dung')
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("AddReview", "Product")',
+                        data: { review: review, id: @Model.Id },
+                        //dataType: "json",
+                        //contentType: "application/json;charset=utf-8",
+                        success: function (response) {
+                            if (!response.result) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: response.mess,
+                                    
+                                })
+                            }
+                            else {
+                                if (response.result == "ok") {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: ' Thêm nhận xét thành công',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    });
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Product")', 2500);
+                                }
+                                if(response.result=="oke"){
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: ' Sửa nhận xét thành công',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    });
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Product")', 2500);
+                                }
+                                
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    </script>
+}
+<h1>Chi tiết sản phẩm</h1>
+<div class="container mt-5 mb-5 details">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"> <img id="main-image" src="~/img/@Model.Thumb" width="250" /> </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                            </div>
+                            @* <div class="sizes">
+                                @if (Model.Trending)
+                                {
+                                        <button class="btn btn-danger">Product Trending</button>
+                                }
+                            </div>*@
+                            <div class="mt-4 mb-3">
+                               <span class="text-uppercase text-muted brand" >Danh mục: @list.CategoryName</span>
+                                <h5 class="text-uppercase" style="font-size: 30px; font-weight: 900">@Model.ProductName</h5>
+                                <div class="price d-flex flex-row align-items-center">
+                                    <span class="act-price" style="font-size: 25px">@Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
+                                   
+                                </div>
+                            </div>
+                            <div>
+                            <input type="number" id="tentacles" name="tentacles" min="1" value="1">  
+                             <a class="btn btn-primary" data-id="@Model.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
+                             </div>
+                             <div id="detail">
+
+                            </div>
+                            <div class="sizes mb-3">
+                                View: @Model.View
+                            </div>
+                            <div class="special-offer">
+                                <h5 class="offer-title">
+                                    Ưu đãi đặc biệt
+                                </h5>
+                                <ul>
+                                    <li>Có sẵn</li>
+                                    <li>Giao hàng, vận chuyển miễn phí</li>
+                                    <li>Giảm Giá 30% với mã: Deal30</li>
+                                </ul>
+                            </div>
+                            @* @if (checkWishList == false)
+                            {
+                                    <div class="cart mt-4 align-items-center">
+                                        <button class="btn btn-primary text-uppercase mr-2 px-4" id="addWishList">Add to WishList</button>
+                                    </div>
+                            }
+                            else
+                            {
+                                    <div class="cart mt-4 align-items-center">
+                                        <button class="btn btn-warning text-uppercase mr-2 px-4" id="removeWishList">Remove WishList</button>
+                                    </div>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+    <div class="tabs">
+        <div class="tab-2">
+            @*<label for="tab2-1">Đánh giá sản phẩm</label>
+            <input id="tab2-1" name="tabs-two" type="radio" checked="checked">*@
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                             @foreach (var item in listReview)
+                            {
+                                    <div class="comment-widgets m-b-20">
+                                        <div class="d-flex flex-row comment-row">
+                                            <div class="p-2">
+                                                <span class="round">
+                                                    <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
+                                                 width="50">
+                                                </span>
+                                            </div>
+                                            <div class="comment-text w-100">
+                                                <h5>@item.User.UserName</h5>
+                                                <div class="comment-footer">
+                                                    <div class="date">@item.CreateAt.ToString("dd/MM/yyyy")</div>
+                                                </div>
+                                                <p class="m-b-5 m-t-10">
+                                                @item.ReviewDetail
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-2">
+            <label for="tab2-2">Viết Đánh Giá Sản Phẩm</label>
+            <@*input id="tab2-2" name="tabs-two" type="radio">*@
+            <div>
+                <div class="form-check">
+                <input type="hidden" class="form-check-input" id="datetime">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="review" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-info" id="addReview">Comment</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

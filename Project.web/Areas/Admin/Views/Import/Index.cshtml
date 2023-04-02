@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Project.ViewModel.ImportDTO>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>DAnh Sách phiếu NHẬP KHO</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách phiếu nhập</h6>
+    </div>
+    <div class="card-body">
+        <a asp-action="Create" asp-controller="Import" asp-area="Admin" class="btn btn-success mb-4">Thêm phiếu nhập mới</a>
+        <div class="mb-3">
+            <form class="d-flex justify-content-end">
+                <select class="form-control mr-3 w-30" id="filter-by-trending">
+                    <option value="">Filter Theo Trending</option>
+                    <option value="true">Trending</option>
+                    <option value="false">Not Trending</option>
+                </select>
+                <select class="form-control w-32 mr-3" id="filter-delete">
+                    <option value="">Filter Trạng Thái Xóa</option>
+                    <option value="true">Đã Xóa</option>
+                    <option value="false">Chưa Xóa</option>
+                </select>
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo CategoryName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên người giao</th>
+                        <th>Ngày giao</th>
+                        <th>Địa chỉ</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                            <tr> 
+                                <td>@item.Name</td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Address</td>
+                                <td>
+                                    <a asp-action="CreateProduct" asp-controller="Import" asp-route-id="@item.Id" class="btn btn-info"><i class="far fa-edit">Chi tiết</i></a>
+                                   @* <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>*@
+                                </td>
+                            </tr>
+                       
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

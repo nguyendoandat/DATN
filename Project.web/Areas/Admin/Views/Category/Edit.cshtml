@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Sửa dnah mục</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="CategoryName" class="control-label"></label>
+                <label asp-for="CategoryName" class="control-label">Tên danh mục</label>
                 <input asp-for="CategoryName" class="form-control" />
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
                 <font color="red">@ViewData["CategoryName"]</font>
@@ -26,12 +26,12 @@
                 <input type="hidden" class="form-check-input" asp-for="UpdateAt" value="@DateTime.Now">
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Quay lại</a>
 </div>

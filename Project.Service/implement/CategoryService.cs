@@ -44,7 +44,7 @@ namespace Project.Service.implement
             _unitOfWork.Save();
         }
 
-        public PagedResult<CategoryDTO> GetAllCategory(int pageNumber, int pageSize, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "")
+        public PagedResult<CategoryDTO> GetAllCategory(int pageNumber, int pageSize, Func<IQueryable<Category>, IQueryable<Category>> filterFull = null, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "")
         {
             int totalCount;
             List<CategoryDTO> vmList = new List<CategoryDTO>();
@@ -52,9 +52,9 @@ namespace Project.Service.implement
             {
                 int ExcludeRecords = (pageNumber * pageSize) - pageSize;
 
-                var modelList = _unitOfWork.GenericRepository<Category>().GetAll(filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
+                var modelList = _unitOfWork.GenericRepository<Category>().GetAll(filterFull,filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
 
-                totalCount = _unitOfWork.GenericRepository<Category>().GetAll(filter, orderBy, includeProperties).ToList().Count();
+                totalCount = _unitOfWork.GenericRepository<Category>().GetAll(filterFull,filter, orderBy, includeProperties).ToList().Count();
                 vmList = ConvertModelToModelViewList(modelList);
             }
             catch (Exception)
@@ -69,9 +69,9 @@ namespace Project.Service.implement
             return _mapper.Map<CategoryDTO>(_unitOfWork.GenericRepository<Category>().GetById(id));
         }
 
-        public IEnumerable<CategoryDTO> GetCategory(Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "")
+        public IEnumerable<CategoryDTO> GetCategory(Func<IQueryable<Category>, IQueryable<Category>> filterFull = null, Expression<Func<Category, bool>> filter = null, Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, string includeProperties = "")
         {
-            return ConvertModelToModelViewList((List<Category>)_unitOfWork.GenericRepository<Category>().GetAll(filter,orderBy,includeProperties));
+            return ConvertModelToModelViewList((List<Category>)_unitOfWork.GenericRepository<Category>().GetAll(filterFull,filter, orderBy,includeProperties));
         }
 
         public void InsertCategory(CategoryDTO Category)

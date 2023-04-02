@@ -15,14 +15,17 @@ namespace Project.Service.implement
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        
         public OrderDetailService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+           
         }
 
         public void Create(OrderDetailDTO orderDetailDTO)
         {
+
             var model=_mapper.Map<OrderDetail>(orderDetailDTO);
             _unitOfWork.GenericRepository<OrderDetail>().Insert(model);
             _unitOfWork.Save();

@@ -42,9 +42,9 @@ namespace Project.Service.implement
             _unitOfWork.Save();
         }
 
-        public IEnumerable<MediasDTO> GetMedias(Expression<Func<Medias, bool>> filter = null, Func<IQueryable<Medias>, IOrderedQueryable<Medias>> orderBy = null, string includeProperties = "")
+        public IEnumerable<MediasDTO> GetMedias(Func<IQueryable<Medias>, IQueryable<Medias>> filterFull = null, Expression<Func<Medias, bool>> filter = null, Func<IQueryable<Medias>, IOrderedQueryable<Medias>> orderBy = null, string includeProperties = "")
         {
-            return ConvertModelToModelViewList((List<Medias>)_unitOfWork.GenericRepository<Medias>().GetAll(filter, orderBy, includeProperties));
+            return ConvertModelToModelViewList((List<Medias>)_unitOfWork.GenericRepository<Medias>().GetAll(filterFull,filter, orderBy, includeProperties));
         }
 
         public MediasDTO GetMediasById(int id)

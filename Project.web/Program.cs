@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Project.Service;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddAutoMapper(typeof(AutoMap));    
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -37,7 +37,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-builder.Services.AddAutoMapper(typeof(AutoMap));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -45,7 +45,11 @@ builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IMediasService, MediasService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IImportService, ImportService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 var app = builder.Build();
 
@@ -61,8 +65,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.UseSession();
 
 app.MapRazorPages();

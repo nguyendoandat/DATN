@@ -32,7 +32,7 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
-                var CategoryByName = _CategoryService.GetCategory(x => x.CategoryName == model.CategoryName);
+                var CategoryByName = _CategoryService.GetCategory(null,x => x.CategoryName == model.CategoryName);
                 if (CategoryByName.Count() != 0)
                 {
                     ViewData["CategoryName"] = "CategoryName da ton tai";
@@ -65,7 +65,7 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
-                var CategoryByCategoryName = _CategoryService.GetCategory(p => p.CategoryName == model.CategoryName && p.Id != model.Id);
+                var CategoryByCategoryName = _CategoryService.GetCategory(null,p => p.CategoryName == model.CategoryName && p.Id != model.Id);
                 if (CategoryByCategoryName.Count() != 0)
                 {
                     ViewData["CategoryName"] = "CategoryName đã tồn tại";

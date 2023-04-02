@@ -11,7 +11,7 @@ namespace Project.Service.Interface
 {
     public interface IMediasService
     {
-        IEnumerable<MediasDTO> GetMedias(Expression<Func<Medias, bool>> filter = null, Func<IQueryable<Medias>, IOrderedQueryable<Medias>> orderBy = null, string includeProperties = "");
+        IEnumerable<MediasDTO> GetMedias(Func<IQueryable<Medias>, IQueryable<Medias>> filterFull = null, Expression<Func<Medias, bool>> filter = null, Func<IQueryable<Medias>, IOrderedQueryable<Medias>> orderBy = null, string includeProperties = "");
         IEnumerable<MediasDTO> GetMediasByProductId(int id);
         MediasDTO GetMediasById(int id);
         void InsertMedias(MediasDTO medias);

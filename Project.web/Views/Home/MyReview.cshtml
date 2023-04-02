@@ -1,0 +1,79 @@
+﻿@using Project.Service
+
+@model PagedResult<Project.ViewModel.ReviewsDTO>
+@{
+    ViewData["Title"] = "MyReview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4" style="font-size:20px">
+    <div  style="text-align:center">
+        <h1>Danh sách nhận xét của khách hàng</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tài khoản</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Nhận xét</th>
+                        <th>Ngày nhận xét</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+
+                        if (item.DeleteAt == null)
+                        {
+                            <tr>
+                                <td>@item.User.UserName</td>
+                                <td>@item.Product.ProductName</td>
+                                <td>@item.ReviewDetail</td>
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Review" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

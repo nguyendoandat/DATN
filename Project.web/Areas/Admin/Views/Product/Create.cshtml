@@ -1,33 +1,34 @@
 ﻿@using Project.Service.Interface
 @model Project.ViewModel.ProductDTO
 @inject ICategoryService CategoryService
+@inject IImportService ImportService
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var list = new SelectList(CategoryService.GetCategory(), "Id", "CategoryName");
+    var listproduct = new SelectList(ImportService.GetImportProduct(), "Id", "Name");
+    var listimport = new SelectList(ImportService.GetImport(), "Id", "Name");
+    
 }
 
-<h1>Create</h1>
-
-<h4>ProductDTO</h4>
+<h1>Thêm mới sản phẩm</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+        <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
+                <label asp-for="ProductName" class="control-label">Tên sản phẩm</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-
-            
+            </div> 
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Đơn giá</label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+        
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Trend" /> @Html.DisplayNameFor(model => model.Trend)
@@ -56,25 +57,41 @@
             </div>
 
             <div class="form-group">
-                <label>Category</label>
+                <label>Danh mục sản phẩm</label>
                 <select class="form-control" asp-items="list" asp-for="CategoryId">
-                    <option value="">Choose a Category</option>
+                    <option value="">Chọn tên danh mục</option>
                 </select>
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductDetail" class="control-label"></label>
-                <input  asp-for="ProductDetail" class="form-control" />
+                <label>Sản phẩm</label>
+                <select class="form-control" asp-items="listproduct" asp-for="ImportProductId">
+                        <option value="">Chọn sản phẩm</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+           @* <div class="form-group">
+                <label>Bên giao</label>
+                <select class="form-control" asp-items="listimport" asp-for="ImportId">
+                        <option value="">Chọn tên người giao</option>
+                </select>
+                <span class="form-message"></span>
+            </div>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDetail" class="control-label">Mô tả chi tiết</label>
+              
+                <textarea asp-for="ProductDetail" class="form-control" id="txtMessage" cols="30" rows="8" placeholder="chi tiết"></textarea>
                 <span asp-validation-for="ProductDetail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Quay lại</a>
 </div>
 

@@ -13,20 +13,77 @@ namespace Project.web.Controllers
         public const string CartSession = "CartSession";
         private readonly IUserService _userService;
         private readonly UserManager<AppUser> _userManager;
-        public CartController(IProductService productService, IUserService userService,UserManager<AppUser> userManager)
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
+        public CartController(IProductService productService, IUserService userService, UserManager<AppUser> userManager
+            , IOrderService orderService, IOrderDetailService orderDetailService)
         {
             _productService = productService;
             _userService = userService;
             _userManager = userManager;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        public IActionResult CheckOut()
+        {
+            if (HttpContext.Session.GetString(CartSession) == null)
+            {
+                return Redirect("/gio-hang.html");
+            }
+            return View();
+        }
+        public IActionResult CreateOrder(string model)
+        {
+            try
+            {
+                var order = JsonConvert.DeserializeObject<OrderDTO>(model);
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    order.UserId = _userManager.GetUserId(HttpContext.User);
+                }
+              
+                var session = HttpContext.Session.GetString(CartSession);
+                List<CartDTO> currentCart = new List<CartDTO>();
+                if (session != null)
+                {
+                    currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
+                }
+                var c = _orderService.Create(order);
+                var orderDetails = new OrderDetailDTO();
+                foreach (var item in currentCart)
+                {
+                    orderDetails.OrderID = c;
+                    orderDetails.ProductID = item.ProductId;
+                    orderDetails.Quantity = item.Quantity;
+                    orderDetails.Price = item.Price;
+
+                    _orderDetailService.Create(orderDetails);
+
+                }
+
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    status = false
+                });
+            }
+
+        }
 
         public IActionResult GetUser()
-        { 
+        {
             if (User.Identity.IsAuthenticated)
             {
                 var userId = _userManager.GetUserId(HttpContext.User);
@@ -42,26 +99,27 @@ namespace Project.web.Controllers
                 status = false
             });
         }
+
         [HttpGet]
         public IActionResult GetListItem()
         {
-            var session=HttpContext.Session.GetString(CartSession);
+            var session = HttpContext.Session.GetString(CartSession);
             List<CartDTO> currentCart = new List<CartDTO>();
             if (session != null)
             {
-                currentCart=JsonConvert.DeserializeObject<List<CartDTO>>(session);
+                currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
 
             }
             return Ok(currentCart);
         }
         public IActionResult AddToCart(int id)
         {
-            var product=_productService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             var session = HttpContext.Session.GetString(CartSession);
-            List<CartDTO> currentCart=new List<CartDTO>();
+            List<CartDTO> currentCart = new List<CartDTO>();
             if (session != null)
             {
-                currentCart=JsonConvert.DeserializeObject<List<CartDTO>>(session);
+                currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
             }
             var cartitem = currentCart.Find(x => x.ProductId == id);
             if (cartitem != null)
@@ -104,17 +162,18 @@ namespace Project.web.Controllers
 
             HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
             return Ok(currentCart);
-            
+
         }
-        public IActionResult UpdateCart(int id,int quantity)
+        public IActionResult UpdateCart(int id, int quantity)
         {
-            var session=HttpContext.Session.GetString(CartSession);
+            var session = HttpContext.Session.GetString(CartSession);
             List<CartDTO> currentCart = new List<CartDTO>();
             if (session != null)
             {
                 currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
             }
-            foreach(var item in currentCart){
+            foreach (var item in currentCart)
+            {
                 if (item.ProductId == id)
                 {
                     if (quantity == 0)
@@ -128,10 +187,16 @@ namespace Project.web.Controllers
             HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
             return Ok(currentCart);
         }
-        public IActionResult Checkout()
+        public IActionResult DeleteAll()
         {
-
-            return View();
+            //Session[CartSession] = new List<CartDTO>();
+            var session = HttpContext.Session;
+            session.Remove(CartSession);
+            return Json(new
+            {
+                status = true
+            });
         }
+
     }
 }

@@ -53,7 +53,7 @@ namespace Project.Service.implement
             _unitOfWork.Save();
         }
 
-        public PagedResult<ProductDTO> GetAllProduct(int pageNumber, int pageSize, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
+        public PagedResult<ProductDTO> GetAllProduct(int pageNumber, int pageSize, Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
         {
             int totalCount;
             List<ProductDTO> vmList = new List<ProductDTO>();
@@ -61,9 +61,9 @@ namespace Project.Service.implement
             {
                 int ExcludeRecords = (pageNumber * pageSize) - pageSize;
 
-                var modelList = _unitOfWork.GenericRepository<Product>().GetAll(filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
+                var modelList = _unitOfWork.GenericRepository<Product>().GetAll(filterFull,filter, orderBy, includeProperties).Skip(ExcludeRecords).Take(pageSize).ToList();
 
-                totalCount = _unitOfWork.GenericRepository<Product>().GetAll(filter, orderBy, includeProperties).ToList().Count();
+                totalCount = _unitOfWork.GenericRepository<Product>().GetAll(filterFull, filter, orderBy, includeProperties).ToList().Count();
                 vmList = ConvertModelToModelViewList(modelList);
             }
             catch (Exception)
@@ -73,10 +73,10 @@ namespace Project.Service.implement
             return new PagedResult<ProductDTO>(vmList, totalCount, pageNumber, pageSize);
         }
 
-        public IEnumerable<ProductDTO> GetProduct(Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
+        public IEnumerable<ProductDTO> GetProduct(Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
         {
            
-            return ConvertModelToModelViewList((List<Product>)_unitOfWork.GenericRepository<Product>().GetAll(filter, orderBy, includeProperties));
+            return ConvertModelToModelViewList((List<Product>)_unitOfWork.GenericRepository<Product>().GetAll(filterFull, filter, orderBy, includeProperties));
         }
 
         public ProductDTO GetProductById(int id)

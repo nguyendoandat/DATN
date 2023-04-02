@@ -21,11 +21,12 @@ namespace Project.Service.implement
             _mapper = mapper;
         }
 
-        public void Create(OrderDTO order)
+        public int Create(OrderDTO order)
         {
             var model= _mapper.Map<Order>(order);
             _unitOfWork.GenericRepository<Order>().Insert(model);
             _unitOfWork.Save();
+            return model.Id;
         }
     }
 }

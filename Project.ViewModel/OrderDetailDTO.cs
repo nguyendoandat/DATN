@@ -13,7 +13,8 @@ namespace Project.ViewModel
 
         public int ProductID { set; get; }
 
-        public int Quantitty { set; get; }
+        public int Quantity { set; get; }
+        public decimal Price { get; set; }
         public Order Order { get; set; }
     }
 }

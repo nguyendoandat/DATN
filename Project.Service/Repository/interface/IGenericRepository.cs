@@ -10,6 +10,7 @@ namespace Project.Service.Repository
     public interface IGenericRepository<T> where T : class
     {
         public IEnumerable<T> GetAll(
+            Func<IQueryable<T>, IQueryable<T>> filterFull = null,
             Expression<Func<T,bool>> filter=null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy=null,
             string includeProperties="");

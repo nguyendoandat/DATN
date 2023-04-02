@@ -22,7 +22,8 @@ namespace Project.Data.Configurations
             builder.Property(x => x.Price).HasColumnType("decimal").IsRequired();
             builder.Property(x => x.View).HasColumnType("int").IsRequired();
             builder.HasOne(x => x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
-           
+            builder.HasOne(x => x.ImportProduct).WithMany(x => x.Products).HasForeignKey(x => x.ImportProductId).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(x => x.Import).WithMany(x => x.Products).HasForeignKey(x => x.ImportId).OnDelete(DeleteBehavior.Cascade);
 
         }
     }

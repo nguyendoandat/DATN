@@ -1,0 +1,158 @@
+﻿@using System.Globalization
+@using Project.Service.Interface
+@using Project.Service
+@using System.Security.Claims
+@inject ICategoryService categoryService
+@inject IReviewService reviewService
+@model PagedResult<Project.ViewModel.ProductDTO>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var listCategory = new SelectList(categoryService.GetCategory(), "Id", "CategoryName");
+    var mess = ViewBag.Mess as string;
+}
+
+
+<div class="page_banner">
+    <div class="page_title">
+        <h1>Danh sách sản phẩm</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex">
+        @* <select class="form-select m-2" aria-label="Default select example" id="filter-by-trending">
+        <option value="">Filter Theo Trending</option>
+        <option value="true">Trending</option>
+        <option value="false">Not Trending</option>
+        </select>*@
+        <select class="form-select m-1" aria-label="Default select example" id="filter-shop" asp-items="@listCategory">
+            <option value="">Sản phẩm của Danh mục</option>
+
+        </select>
+        <input type="text" class="form-control m-1" id="searchString" placeholder="Tìm kiếm theo ProductName" value="@ViewBag.SearchString">
+        <input type="text" class="form-control m-1" id="min" placeholder="Giá Thấp Nhất" value="@ViewBag.Min">
+        <input type="text" class="form-control m-1" id="max" placeholder="Giá Cao Nhất" value="@ViewBag.Max">
+        @*<input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">*@
+
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-info m-1" id="search">Tìm kiếm</button>
+        </div>
+    </div>
+
+
+</div>
+<hr />
+<br />
+<div class="container">
+    @*<div class="title">
+    <h2>Product Trending</h2>
+    </div>*@
+
+    <div class="row justify-content-between">
+        <!-- <div class="left_popular col-lg-4 col-12">
+          <img src="~/user/images/model/model1.png" alt="">
+        </div> -->
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var item in Model.Data)
+                {
+                    <div class="glass col-lg-3 col-6">
+                        <img src="~/img/@item.Thumb" alt="" width="auto" height="300px">
+                        <div class="glass_name">
+                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                        </div>
+                        <div class="price">
+                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
+                        </div>
+                        <div class="glass_icon_action">
+                            <button class="btn-search"><i class="fa fa-search"></i></button>
+                            @if (userId == null)
+                            {
+                                <a><i class="fa fa-heart"></i></a>
+                                <a><i class="fa fa-shopping-cart"></i></a>
+                            }
+                            else
+                            {
+                                if (reviewService.IsWishList(userId, item.Id))
+                                {
+                                    <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
+                                    <a><i class="fa fa-shopping-cart"></i></a>
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+              
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+    {
+        <ul class="pagination justify-content-center">
+            @if (Model.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Product" asp-route-pageNumber="1">Fisrt</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Product" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                </li>
+            }
+
+            @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+            {
+                <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-controller="Home" asp-action="Product" asp-route-pageNumber="@j">@j</a>
+                </li>
+            }
+
+            @if (Model.PageNumber < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Product" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Product" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#filter-shop').val('@ViewBag.Category')
+
+            $("#search").click(function () {
+                debugger
+                var categoryId = $("#filter-shop option:selected").val();
+                var searchString = $("#searchString").val();
+                var min = $("#min").val();
+                var max = $("#max").val();
+                console.log('min' + 'max');
+                console.log(max);
+                if (Number(min) > Number(max)) {
+                    Swal.fire('Giá không hợp lệ!Mời nhập lại!')
+                }
+                else {
+                    location.href = '@Url.Action("Product", "Home")' + '/?pageNumber=' + 1 + '&categoryId=' + categoryId + '&searchString=' + searchString + '&min=' + min + '&max=' + max;
+                }
+            });
+        });
+
+    </script>
+}

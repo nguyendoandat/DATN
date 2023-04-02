@@ -19,8 +19,14 @@ var SiteController = function () {
     function registerEvents() {
         // Write your JavaScript code.
         $('body').on('click', '.btn-primary', function (e) {
+
             e.preventDefault();
+            debugger
             const id = $(this).data('id');
+            var quantity = $("#tentacles").val();
+            if (quantity === undefined) {
+                quantity = 1;
+            }
             $.ajax({
                 type: "POST",
                 url: '/Cart/AddToCart',

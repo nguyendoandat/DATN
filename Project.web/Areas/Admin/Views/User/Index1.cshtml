@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Index1";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <a asp-action="Create" asp-controller="User" asp-area="Admin" class="btn btn-success mb-4">Thêm mới người dùng</a>
+
+        </div>
+        <div class="mb-3">
+            <form class="d-flex justify-content-end">
+                <select class="form-control w-32 mr-3" id="filter-delete">
+                    <option value="">Filter Trạng Thái Xóa</option>
+                    <option value="true">Đã Xóa</option>
+                    <option value="false">Chưa Xóa</option>
+                </select>
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo UserName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên tài khoản</th>
+                        <th>Email</th>
+                        <th>Ngày tạo</th>
+                        @* <th>Ngày sửa</th>*@
+                        <th>Ngày xóa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.DeleteAt == null)
+                        {
+                            <tr>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+
+                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                                @* <td>
+                        @item.UpdateAt?.ToString("dd/MM/yyyy")
+                        </td>*@
+                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        @* else
+                    {
+                    <tr class="bg-secondary text-warning">
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+
+                    <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
+                    <td>
+                    @item.UpdateAt?.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
+                    <td>
+                    Deleted!
+                    </td>
+                    </tr>
+                    }*@
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    function Delete(id) {
+        var txt;
+        var r = confirm("Ban co chac chan muon xoa khong?");
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","User")',
+                data: { id: id },
+                error: function (result) { alert("error"); },
+                success: function (result) {
+                    if (result == true) {
+                        var baseUrl = "/User";
+
+                    }
+                    else {
+                        alert("There is a problem,Try later!");
+                    }
+                }
+
+            });
+        }
+    }
+
+</script>
+
