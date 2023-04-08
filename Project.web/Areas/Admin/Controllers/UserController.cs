@@ -20,10 +20,10 @@ namespace Project.web.Areas.Admin.Controllers
         public UserController(IUserService userService, UserManager<AppUser> userManager, int pageSize = 4)
         {
             _userService = userService;
-   
+
             _userManager = userManager;
             this.pageSize = pageSize;
-            
+
         }
 
         public async Task<IActionResult> Index1()
@@ -32,13 +32,13 @@ namespace Project.web.Areas.Admin.Controllers
             List<IdentityRole> roles = new List<IdentityRole>();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var role = _userManager.GetRolesAsync(userId);
-            var rolename =await _userManager.GetUsersInRoleAsync("User");
+            var rolename = await _userManager.GetUsersInRoleAsync("User");
 
             return View(rolename.ToList());
             //if (rolename != null)
             //{ 
             //    list = _userService.GetAllUser(pageNumber, pageSize/*,null, p => p.Id != userId*/);
-                
+
             //}
             //return View(list);
 
@@ -59,8 +59,8 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
-                var userByName = _userService.GetUser(null,p => p.UserName == user.UserName);
-                var userByEmail = _userService.GetUser(null,p => p.Email == user.Email);
+                var userByName = _userService.GetUser(null, p => p.UserName == user.UserName);
+                var userByEmail = _userService.GetUser(null, p => p.Email == user.Email);
                 if (userByName.Count() != 0 || userByEmail.Count() != 0)
                 {
                     if (userByName.Count() != 0)
@@ -92,16 +92,16 @@ namespace Project.web.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public bool Delete(string id)
+        public IActionResult Delete(string id)
         {
             try
             {
                 _userService.DeleteUserById(id);
-                return true;
+                return Json(new { result = true });
             }
-            catch (Exception ex)
+            catch
             {
-                return false;
+                return Json(new { result = false });
             }
         }
     }

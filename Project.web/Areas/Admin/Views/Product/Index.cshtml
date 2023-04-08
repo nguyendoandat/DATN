@@ -68,7 +68,7 @@
                                 <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-info m-2"><i class="far fa-edit"></i></a>
-                                    <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a data-id="@item.Id" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         }
@@ -132,28 +132,34 @@
         }
     </div>
 </div>
-<script>
-    function Delete(id) {
-        var txt;
-        var r = confirm("Ban co chac chan muon xoa khong?");
-        if (r == true) {
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("Delete","Product")',
-                data: { id: id },
-                error: function (result) { alert("error"); },
-                success: function (result) {
-                    if (result == true) {
-                        var baseUrl = "/Product";
-                        window.location.reload();
-                    }
-                    else {
-                        alert("There is a problem,Try later!");
-                    }
-                }
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".delete").click(function(){
+                
+                var id=$(this).data('id');
+                var r = confirm("Ban co chac chan muon xoa khong?");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete","Product")',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.result) {
+                                setTimeout(() => location.href = '@Url.Action("Index", "Product", "Admin")', 1000)
+                            }
+                            else {
+                                alert("There is a problem,Try later!");
+                            }
+                        }
 
+                    });
+                }
+            })
             });
-        }
-    }
-</script>
+
+
+    </script>
+}
+
 

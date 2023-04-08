@@ -99,17 +99,16 @@ namespace Project.web.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public bool Delete(int id )
+        public IActionResult Delete(int id )
         {
             try
             {
-                
                 _productService.DeleteProductById(id);
-                return true;
+                return Json(new { result = true });
             }
             catch
             {
-                return false;
+                return Json(new { result = false });
             }
         }
     }

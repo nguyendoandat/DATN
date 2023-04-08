@@ -56,24 +56,11 @@
                                 <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id" class="btn btn-info"><i class="far fa-edit"></i></a>
-                                    <a href="" onclick="Delete('@item.Id')" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a data-id="@item.Id"  class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         }
-                        else
-                        {
-                            <tr class="bg-secondary text-warning">
-                                <td>@item.CategoryName</td>
-                                
-                                
-                                <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
-                                <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
-                                <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    Deleted
-                                </td>
-                            </tr>
-                        }
+                        
 
                     }
                 </tbody>
@@ -114,28 +101,29 @@
         }
     </div>
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $(".delete").click(function(){
+                var id = $(this).data('id');
+                var r = confirm("Ban co chac chan muon xoa khong?");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete","Category")',
+                        data: { id: id },
+                        success: function (res) {
+                            if (res.result) {
+                                setTimeout(() => location.href = '@Url.Action("Index", "Category", "Admin")', 1000)
+                            }
+                            else {
+                                alert("There is a problem,Try later!");
+                            }
+                        }
 
-<script>
-    function Delete(id) {
-        var txt;
-        var r = confirm("Ban co chac chan muon xoa khong?");
-        if (r == true) {
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("Delete","Category")',
-                data: { id: id },
-                error: function (result) { alert("error"); },
-                success: function (result) {
-                    if (result == true) {
-                        var baseUrl = "/Category";
-                        window.location.reload();
-                    }
-                    else {
-                        alert("There is a problem,Try later!");
-                    }
+                    });
                 }
-
-            });
-        }
-    }
-</script>
+            })
+        });
+    </script>
+}
