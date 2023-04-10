@@ -73,67 +73,76 @@
     </script>
 }
 <h1>Chi tiết sản phẩm</h1>
-<div class="container mt-5 mb-5 details">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="images p-3">
-                            <div class="text-center p-4"> <img id="main-image" src="~/img/@Model.Thumb" width="250" /> </div>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="product p-4">
-                            <div class="d-flex justify-content-between align-items-center">
+<div class="single-product-area section-space-top-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="single-product-img h-100">
+                    <div class="swiper-container single-product-slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                    <img class="img-full" alt="Product Image" src="~/img/@Model.Thumb" width="250" />
                             </div>
-                            @* <div class="sizes">
-                                @if (Model.Trending)
-                                {
-                                        <button class="btn btn-danger">Product Trending</button>
-                                }
-                            </div>*@
-                            <div class="mt-4 mb-3">
-                               <span class="text-uppercase text-muted brand" >Danh mục: @list.CategoryName</span>
-                                <h5 class="text-uppercase" style="font-size: 30px; font-weight: 900">@Model.ProductName</h5>
-                                <div class="price d-flex flex-row align-items-center">
-                                    <span class="act-price" style="font-size: 25px">@Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
-                                   
+                           
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product-thumb-with-content row">
+                    <div class="col-12 order-lg-1 order-2 pt-10 pt-lg-0">
+                        <div class="single-product-content">
+                            <h2 class="title">@Model.ProductName</h2>
+                            <div class="price-box pb-1">
+                                <span class="new-price text-danger">@Model.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
+                                
+                            </div>
+                            <div class="rating-box-wrap pb-7">
+                                <div class="review-status ps-4">
+                                    
                                 </div>
                             </div>
-                            <div>
+                            <p class="short-desc mb-6">
+                                @Model.ProductDetail
+                            </p>
+                           
+                                <div class="quantity-with-btn pb-7">
                                     <input type="number" id="tentacles" name="tentacles" min="1" value="1">
                                     <a class="btn btn-primary" data-id="@Model.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
-                             </div>
-                             <div id="detail">
-
+                                </div>
+                            
+                            <div class="product-category text-matterhorn pb-2">
+                                <span class="title">Danh mục : @list.CategoryName</span>
+                                
                             </div>
-                            <div class="sizes mb-3">
-                                View: @Model.View
-                            </div>
-                            <div class="special-offer">
-                                <h5 class="offer-title">
-                                    Ưu đãi đặc biệt
-                                </h5>
+                            
+                            <div class="social-link align-items-center pb-lg-8">
+                                <span class="title pe-3">Chia sẻ:</span>
                                 <ul>
-                                    <li>Có sẵn</li>
-                                    <li>Giao hàng, vận chuyển miễn phí</li>
-                                    <li>Giảm Giá 30% với mã: Deal30</li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-pinterest-p"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-tumblr"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-dribbble"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
-                            @* @if (checkWishList == false)
-                            {
-                                    <div class="cart mt-4 align-items-center">
-                                        <button class="btn btn-primary text-uppercase mr-2 px-4" id="addWishList">Add to WishList</button>
-                                    </div>
-                            }
-                            else
-                            {
-                                    <div class="cart mt-4 align-items-center">
-                                        <button class="btn btn-warning text-uppercase mr-2 px-4" id="removeWishList">Remove WishList</button>
-                                    </div>
-                            }*@
                         </div>
                     </div>
                 </div>
@@ -141,8 +150,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="container mt-4">
     <div class="tabs">
         <div class="tab-2">
@@ -152,29 +159,29 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                             @foreach (var item in listReview)
+                            @foreach (var item in listReview)
                             {
-                                    <div class="comment-widgets m-b-20">
-                                        <div class="d-flex flex-row comment-row">
-                                            <div class="p-2">
-                                                <span class="round">
-                                                    <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
+                                <div class="comment-widgets m-b-20">
+                                    <div class="d-flex flex-row comment-row">
+                                        <div class="p-2">
+                                            <span class="round">
+                                                <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
                                                  width="50">
-                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="comment-text w-100">
+                                            <h5>@item.User.UserName</h5>
+                                            <div class="comment-footer">
+                                                <div class="date">@item.CreateAt.ToString("dd/MM/yyyy")</div>
                                             </div>
-                                            <div class="comment-text w-100">
-                                                <h5>@item.User.UserName</h5>
-                                                <div class="comment-footer">
-                                                    <div class="date">@item.CreateAt.ToString("dd/MM/yyyy")</div>
-                                                </div>
-                                                <p class="m-b-5 m-t-10">
+                                            <p class="m-b-5 m-t-10">
                                                 @item.ReviewDetail
-                                                </p>
-                                            </div>
+                                            </p>
                                         </div>
                                     </div>
+                                </div>
                             }
-                            
+
                         </div>
 
                     </div>
@@ -199,6 +206,3 @@
 
     </div>
 </div>
-
-
-

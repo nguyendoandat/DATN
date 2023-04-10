@@ -33,6 +33,7 @@ namespace Project.Data.EF
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelbuilder.ApplyConfiguration(new ImportConfiguration());
             modelbuilder.ApplyConfiguration(new ImportProductConfiguration());
+            //modelbuilder.ApplyConfiguration(new PromotionConfiguration());
 
 
             List<IdentityRole> roles = new List<IdentityRole>()
@@ -92,6 +93,7 @@ namespace Project.Data.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportProduct> ImportProducts { get; set; }
+        //public DbSet<Promotion> Promotions { get; set; }
 
     }
 }

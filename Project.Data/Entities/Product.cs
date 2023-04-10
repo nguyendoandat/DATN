@@ -33,6 +33,8 @@ namespace Project.Data.Entities
         //public ImportProduct ImportProduct { get; set; }
         //public int ImportId { get; set; }
         //public Import Import { get; set; }
+        //public int PromotionId { get; set; }
+        //public Promotion Promotion { get; set; }
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<Medias> Medias { get; set; }
         public ICollection<Cart> Carts { get; set; }

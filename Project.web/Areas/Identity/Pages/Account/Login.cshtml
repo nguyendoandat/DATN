@@ -10,13 +10,13 @@
         hehe
         </div>*@
         <div class="shadow col-6 p-5">
-            <h3>Login</h3>
+            <h3>Đăng nhập</h3>
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
                     <input asp-for="Input.UserName" type="text" class="form-control" id="floatingInputEmail"
                            placeholder="name@example.com">
-                    <label for="floatingInputEmail">UserName</label>
+                    <label for="floatingInputEmail">Tài khoản</label>
                     <span asp-validation-for="Input.UserName" class="text-danger"></span>
                 </div>
 
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="d-grid">
-                    <button class="btn-register btn-login " type="submit">Đăng nhập</button>
+                    <button class="btn btn-success " type="submit">Đăng nhập</button>
                 </div>
                 <a class="rotate-login" href="">
                     Quên mật khẩu
@@ -46,14 +46,14 @@
                 <hr>
 
                 <div class="d-grid">
-                    <button class=" btn-google btn-login " type="submit">
-                        <i class="fab fa-google me-2"></i> Đăng nhập với Google
+                    <button class=" btn btn-success " type="submit">
+                        <i class="fab fa-google"></i> Đăng nhập với Google
                     </button>
                 </div>
 
                 <div class="d-grid">
-                    <button class="btn-facebook btn-login " type="submit">
-                        <i class="fab fa-facebook-f me-2"></i> Đăng nhập với Facebook
+                    <button class="btn btn-success " type="submit">
+                        <i class="fab fa-facebook-f"></i> Đăng nhập với Facebook
                     </button>
                 </div>
 
