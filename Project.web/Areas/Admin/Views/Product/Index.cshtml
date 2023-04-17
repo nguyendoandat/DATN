@@ -1,8 +1,14 @@
 ﻿@using Project.Service
+@using Project.Service.Interface
+
 @model PagedResult<Project.ViewModel.ProductDTO>
+@inject ICategoryService categoryService
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    //var id = Model.Data.Id;
+    //var list = categoryService.GetByCategoryId();
+    
 }
 
 
@@ -34,7 +40,8 @@
                     <tr>
                         <th>Tên sản phẩm</th>
                         <th>Ảnh minh họa</th>
-                        <th>Slug</th>
+                        <th>Số lượng</th>
+                        <th>Tên danh mục</th>
                         <th>Trending</th>
                         <th>View</th>
                         
@@ -58,11 +65,32 @@
                                     @*<img src="~/img/@item.Thumb" width="100px" />*@
                                     @* <a class="btn btn-primary" asp-area="Admin" asp-action="Image" asp-controller="Product" asp-route-id="@item.Id">Ảnh</a>*@
                                 </td>
-                                <td>@item.Slug</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Category.CategoryName</td>
                                 <td>@item.Trend</td>
-                                <th>@item.View</th>
-                                
+                                <td>@item.View</td>
+                                <td>@item.CategoryId</td>
                                 <td>@item.Price</td>
+                                @*<td>
+                                    @if (item.discount_start < DateTime.Now && item.discount_end > DateTime.Now)
+                                    {
+                                        <div>
+                                            <span class="text-secondary"><del>@item.price.ToString("#,0₫", culture.NumberFormat)</del></span>
+                                        </div>
+                                        <div>
+                                            <span style="color: #005ec4;">@((item.price - item.discount_price).ToString("#,0₫", culture.NumberFormat))</span>
+                                        </div>
+                                        price2 = (item.price - item.discount_price).ToString("#,0₫", culture.NumberFormat);
+                                        discountPrice2 = item.price.ToString("#,0₫", culture.NumberFormat);
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <span style="color: #005ec4;">@item.price.ToString("#,0₫", culture.NumberFormat)</span>
+                                        </div>
+                                        price2 = item.price.ToString("#,0₫", culture.NumberFormat);
+                                    }
+                                </td>*@
                                 <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>
                                 <td>@item.UpdateAt?.ToString("dd/MM/yyyy")</td>
                                 <td>@item.DeleteAt?.ToString("dd/MM/yyyy")</td>

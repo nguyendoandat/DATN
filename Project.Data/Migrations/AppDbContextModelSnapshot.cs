@@ -51,22 +51,22 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4383302e-f86c-4787-b6ba-343e3355c9ae",
-                            ConcurrencyStamp = "c1bbcfb5-3907-4426-923b-a38fdc0f5493",
+                            Id = "98e7865b-2d4f-4a0b-b287-755c692b8421",
+                            ConcurrencyStamp = "2f1d42ba-8855-4d06-8f6f-19179a080f76",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4544ef44-fcad-46a4-b011-4c543b5f5700",
-                            ConcurrencyStamp = "3d2eac03-5238-4d50-83d9-e73c5f178ec8",
+                            Id = "6a1ef951-11bf-48e9-bcba-56e5b00e38ef",
+                            ConcurrencyStamp = "3322a91d-903f-421d-83ee-858b10559476",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "e79f829a-fea4-4282-9b51-cd2b7116d695",
-                            ConcurrencyStamp = "f2f62134-5106-478a-9866-2480b8cbc553",
+                            Id = "18cf7c8e-168d-4522-9a7f-ac2d757213af",
+                            ConcurrencyStamp = "23edbb46-581d-4f07-9b7c-2ce94a9f909d",
                             Name = "Shipper",
                             NormalizedName = "SHIPPER"
                         });
@@ -161,13 +161,13 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "c4f48809-4deb-4164-a3b5-6b63edb71eed",
-                            RoleId = "4544ef44-fcad-46a4-b011-4c543b5f5700"
+                            UserId = "a1a35fe6-dc85-4542-90e5-b705ec39ab11",
+                            RoleId = "6a1ef951-11bf-48e9-bcba-56e5b00e38ef"
                         },
                         new
                         {
-                            UserId = "3250f566-b8ce-4646-99c8-0f602af8125b",
-                            RoleId = "4383302e-f86c-4787-b6ba-343e3355c9ae"
+                            UserId = "e3a36f71-f839-4b57-a692-f2aea1e2fabb",
+                            RoleId = "98e7865b-2d4f-4a0b-b287-755c692b8421"
                         });
                 });
 
@@ -266,35 +266,35 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c4f48809-4deb-4164-a3b5-6b63edb71eed",
+                            Id = "a1a35fe6-dc85-4542-90e5-b705ec39ab11",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f76182a-613d-4a3f-a140-e7c57a84d45f",
+                            ConcurrencyStamp = "4f7f50c0-2e74-4ab3-87d6-3207edd28fe2",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEODIX1Zin17Rk7djOOsDI8mKfRtIKO21Y99cEX7x1FA4F/DjVeM4XeSov2pOlMzcBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELVg+st+4QK8bVAPEHEsgYqNBaKIX7D5HxMZVEZhZA05yUE/MJFw8ZsFR5HvNRFFRA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71d6deba-e309-4a9e-aa9b-3e9af9b7b5da",
+                            SecurityStamp = "1b2c925f-a55c-41e9-947a-71aa3a32c0e3",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "3250f566-b8ce-4646-99c8-0f602af8125b",
+                            Id = "e3a36f71-f839-4b57-a692-f2aea1e2fabb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6f1db68-920c-4e58-bec5-73bbcf874194",
+                            ConcurrencyStamp = "7f162d6a-987b-442f-be00-60f93d0912f1",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMo1Td09dvqL2UbXFns9lwz6m9epbLK7okQSgfAZiWHuYU0+B+oaMEB8p/SIZcOIRw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPIOcIJukrGDm5kv1Nz+nTHISHvWNbwbkeg7+N/VRdM7la3fO+ozsdDTsXhZYw+swQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7bacfd56-8ce7-401d-9841-8d9e12abaea5",
+                            SecurityStamp = "6d8bc2ac-254d-45b8-b8ba-41b9e79453a1",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -355,6 +355,9 @@ namespace Project.Data.Migrations
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Trend")
                         .HasColumnType("bit");
 
@@ -368,7 +371,39 @@ namespace Project.Data.Migrations
                     b.HasIndex("CategoryName")
                         .IsUnique();
 
+                    b.HasIndex("DiscountId");
+
                     b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DiscountPrice")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts", (string)null);
                 });
 
             modelBuilder.Entity("Project.Data.Entities.Import", b =>
@@ -479,10 +514,15 @@ namespace Project.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
 
                     b.HasIndex("UserId");
 
@@ -538,6 +578,9 @@ namespace Project.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -603,6 +646,45 @@ namespace Project.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Reviews", (string)null);
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statuses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Chờ xét duyệt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Đã hủy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Đang được vận chuyển"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Đã thanh toán"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -679,6 +761,14 @@ namespace Project.Data.Migrations
                     b.HasOne("Project.Data.Entities.AppUser", null)
                         .WithMany("Categorys")
                         .HasForeignKey("AppUserId");
+
+                    b.HasOne("Project.Data.Entities.Discount", "Discount")
+                        .WithMany("Categories")
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
                 });
 
             modelBuilder.Entity("Project.Data.Entities.ImportProduct", b =>
@@ -705,10 +795,18 @@ namespace Project.Data.Migrations
 
             modelBuilder.Entity("Project.Data.Entities.Order", b =>
                 {
+                    b.HasOne("Project.Data.Entities.Status", "Status")
+                        .WithMany("Orders")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Project.Data.Entities.AppUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Status");
 
                     b.Navigation("User");
                 });
@@ -776,6 +874,11 @@ namespace Project.Data.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Project.Data.Entities.Discount", b =>
+                {
+                    b.Navigation("Categories");
+                });
+
             modelBuilder.Entity("Project.Data.Entities.Import", b =>
                 {
                     b.Navigation("ImportProducts");
@@ -795,6 +898,11 @@ namespace Project.Data.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Status", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

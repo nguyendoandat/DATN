@@ -1,11 +1,242 @@
-﻿@{
+﻿@using Project.Service.Interface
+
+@inject IOrderService orderService
+
+@{
     ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var mess = TempData["Message"] as string;
+    var list = orderService.GetOrder(null, x => x.UserId == Model.Id);
 }
 @model Project.web.Controllers.UserRequest
 
+<div class="account-page-area section-space-y-axis-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3" >
+                <div class="p-2" style="text-align:center">
+                    <span class="round">
+                        <img src="https://i.imgur.com/cAdLHeY.jpg" alt="user"
+                             width="50">
+                    </span>
+                </div>
+                <p class="AccountTitle titleSidebar">Xin chào <strong>@Model.UserName</strong></p>
+                <ul class="nav myaccount-tab-trigger" id="account-page-tab" role="tablist">
+                    <li class="nav-item">
+                        <form id="account-dashboard-tab" class="form-inline" asp-controller="MyProfile" asp-action="Index" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-user-circle-o"></i> Thông tin tài khoản</button>
+                        </form>
+@*                        <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab" href="#account-dashboard" role="tab" aria-controls="account-dashboard" aria-selected="true">Thông tin tài khoản</a>
+*@                    </li>
+                    <li class="nav-item" >
+                       @* <form id="logoutForm" class="form-inline" asp-controller="MyProfile" asp-action="IndexOrder" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-list-alt"></i>Danh sách đơn hàng</button>
+                        </form>*@
+                       
+                        <b  style="text-align:left" class="nav-link btn btn-link text-dark" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders" role="tab" ><i class="fa fa-list-alt"></i> Danh sách đơn hàng</b>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <form id="account-logout-tab" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button  id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-sign-out"></i> Đăng xuất</button>
+                        </form>
+                        @*<a class="nav-link" id="account-logout-tab" href="login-register.html" role="tab" aria-selected="false">Đăng xuất</a>*@
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9">
+                <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
+                    <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
+                        <div class="myaccount-dashboard">
+                            <div class="col-lg-9 order-lg-2 order-1" id="customer_sidebar">
+                                <h2>Thông tin tài khoản</h2>
+                                <p class="name_account"><span>Họ và tên: </span>@Model.UserName</p>
+                                <p class="email "><span>Email: </span>@Model.Email</p>
 
+                                <p><span>Địa chỉ: </span></p>
+                                <p><span>Ngày sinh: </span></p>
+
+                                <p><span>Điện thoại: </span></p>
+
+                                <div class="rank_wrap">
+                                    <div class="rank_wrap_left">
+                                    </div>
+                                    <div class="rank_wrap_right">
+                                    </div>
+                                </div>
+
+
+                                <div class="w-100 btn btn-lg btn-info">
+                                    <a id="update">Cập nhật thông tin tài khoản</a>
+                                </div>
+
+                            </div>
+                            <div id="formupdate" class="container" style="display:none;">
+                                <div class="row justify-content-center">
+                                    @*<div class="col-6">
+                                    hehe
+                                    </div>*@
+                                    <div class="shadow col-8 p-5">
+
+                                        <h3>Chỉnh sửa thông tin cá nhân</h3>
+                                        @if (!String.IsNullOrEmpty(mess))
+                                        {
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <strong>Thông báo!</strong> @mess
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        }
+                                        <form id="account" method="post" autocomplete="off" method="post" id="form-user" asp-action="ChangeProfile">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-floating">
+                                                <input asp-for="UserName" type="text" class="form-control" id="floatingInputEmail"
+                                                       placeholder="name@example.com">
+                                                <label for="floatingInputEmail">Tên tài khoản</label>
+                                                <span asp-validation-for="UserName" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-floating">
+                                                <input asp-for="Email" type="text" class="form-control" id="floatingPassword" placeholder="Password">
+                                                <label for="floatingPassword">Email</label>
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" asp-for="Id">
+                                            </div>
+                                            <div class="d-grid">
+                                                <button class="w-100 btn btn-lg btn-success " type="submit" id="luu">Lưu thay đổi</button>
+                                            </div>
+                                            <br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                           @* <p>
+                                Hello <b>Harmic</b> (not Harmic? <a href="login-register.html">
+                                    Sign
+                                    out
+                                </a>)
+                            </p>
+                            <p>
+                                From your account dashboard you can view your recent orders, manage your shipping and
+                                billing addresses and <a href="javascript:void(0)">edit your password and account details</a>.
+                            </p>*@
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
+                        <div class="myaccount-orders">
+                            <h4 class="small-title">Danh sách đơn hàng</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã ĐƠN HÀNG</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thành tiền</th>
+                                            <th width="200"></th>
+                                        </tr>
+                                        @if (list != null && list.Any())
+                                        {
+                                            var i = 1;
+                                            foreach (var item in list)
+                                            {
+                                                <tr id="trow_@item.Id">
+                                                    <td>@i</td>
+                                                    <td>#@item.Id</td>
+                                                    <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
+                                                    <td></td>
+                                                    <td>@item.ShipName</td>
+                                                    @*<td>@item.Thanhtien</td>*@
+                                                    <td>
+                                                        <a class=" btn btn-success " asp-action="Details" asp-controller="MyProfile" asp-route-id="@item.Id" >
+                                                            Xem chi tiết
+                                                        </a>
+                                                        <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete"><i class="bi bi-trash"></i>Hủy</a>
+                                                    </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="6">Hiện không có đơn hàng nào!!</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
+                        <div class="myaccount-address">
+                            <p>The following addresses will be used on the checkout page by default.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="small-title">BILLING ADDRESS</h4>
+                                    <address>
+                                        1234 Heaven Stress, Beverly Hill OldYork UnitedState of Lorem
+                                    </address>
+                                </div>
+                                <div class="col">
+                                    <h4 class="small-title">SHIPPING ADDRESS</h4>
+                                    <address>
+                                        1234 Heaven Stress, Beverly Hill OldYork UnitedState of Lorem
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="account-details" role="tabpanel" aria-labelledby="account-details-tab">
+                        <div class="myaccount-details">
+                            <form action="#" class="myaccount-form">
+                                <div class="myaccount-form-inner">
+                                    <div class="single-input single-input-half">
+                                        <label>First Name*</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="single-input single-input-half">
+                                        <label>Last Name*</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="single-input">
+                                        <label>Email*</label>
+                                        <input type="email">
+                                    </div>
+                                    <div class="single-input">
+                                        <label>
+                                            Current Password(leave blank to leave
+                                            unchanged)
+                                        </label>
+                                        <input type="password">
+                                    </div>
+                                    <div class="single-input">
+                                        <label>
+                                            New Password (leave blank to leave
+                                            unchanged)
+                                        </label>
+                                        <input type="password">
+                                    </div>
+                                    <div class="single-input">
+                                        <label>Confirm New Password</label>
+                                        <input type="password">
+                                    </div>
+                                    <div class="single-input">
+                                        <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                                            <span>SAVE CHANGES</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0" style="background:#DDDDDD">
@@ -26,8 +257,8 @@
                             </form>
                         </li>
                         <li class="nav-item">
-                            <form id="logoutForm" class="form-inline">
-                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-list-alt"></i>Quản lý đơn hàng</button>
+                            <form id="logoutForm" class="form-inline" asp-controller="MyProfile" asp-action="IndexOrder" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-list-alt"></i>Danh sách đơn hàng</button>
                             </form>
                         </li>
                         <li class="nav-item">

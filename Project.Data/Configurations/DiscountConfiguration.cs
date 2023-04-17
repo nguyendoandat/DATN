@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace Project.Data.Configurations
 {
-    public class PromotionConfiguration : IEntityTypeConfiguration<Promotion>
+    public class DiscountConfiguration : IEntityTypeConfiguration<Discount>
     {
-        public void Configure(EntityTypeBuilder<Promotion> builder)
+        public void Configure(EntityTypeBuilder<Discount> builder)
         {
-            builder.ToTable("Promotions");
+            builder.ToTable("Discounts");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn(1, 1);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50).HasColumnType("nvarchar");
-            builder.Property(x => x.Discount).HasColumnType("int").IsRequired();
+            builder.Property(x => x.DiscountPrice).IsRequired();
+            //builder.HasOne(x => x.Category).WithMany(x => x.Discounts).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

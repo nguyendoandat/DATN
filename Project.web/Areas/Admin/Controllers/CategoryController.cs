@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project.Data.Entities;
 using Project.Service;
 using Project.Service.Interface;
 using Project.ViewModel;
@@ -10,10 +11,12 @@ namespace Project.web.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _CategoryService;
+        private readonly IDiscountService _discountService;
         private readonly int pageSize;
-        public CategoryController(ICategoryService CategoryService, int pageSize=4)
+        public CategoryController(ICategoryService CategoryService, IDiscountService discountService, int pageSize=4)
         {
             _CategoryService = CategoryService;
+            _discountService = discountService;
             this.pageSize = pageSize;
         }
 
@@ -45,6 +48,8 @@ namespace Project.web.Areas.Admin.Controllers
                 //    ViewData["Slug"] = "slug da ton tai";
                 //    //return Json(new { result = true, isValid = false, messSlug = errorSlug });
                 //}
+                
+                //model.StartDate = Discount.StartDate;
                 _CategoryService.InsertCategory(model);
                 return RedirectToAction("Index", "Category");
             }

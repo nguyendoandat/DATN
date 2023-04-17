@@ -1,0 +1,47 @@
+﻿@using System.Globalization
+@using Project.Service.Interface
+@model IEnumerable<Project.ViewModel.OrderDetailDTO>
+@inject IOrderDetailService orderDetailService
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="text-align:center">Thông tin sản phẩm đặt mua</h3>
+<br />
+<table class="table ">
+	<thead>
+		<tr>
+			<th>STT</th>
+			<th>Hình ảnh</th>
+			<th>Tên sản phẩm</th>
+			<th>Số lượng</th>
+			<th>Đơn giá</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			var i = 0;
+			decimal total = 0;
+			foreach (var item in Model)
+			{
+				var c = item.Quantity * item.Price;
+				<tr>
+					<td>@(i + 1)</td>
+					<td><img src="~/img/@item.Product.Thumb" width="80px" height="50px" /></td>
+					<td>@item.Product.ProductName</td>
+					<td>@item.Quantity</td>
+					<td>@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+				</tr>
+				i++;
+				total += c;
+
+			}
+			<tr>
+				<td colspan="4" style="text-align:right;font-weight: bold;font-size:20px">Tổng tiền:</td>
+				<td style="text-align:left;font-weight: bold;font-size:20px">@total.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+			</tr>
+		}
+	</tbody>
+</table>
+

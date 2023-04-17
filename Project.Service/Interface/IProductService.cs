@@ -14,7 +14,8 @@ namespace Project.Service.Interface
         PagedResult<ProductDTO> GetAllProduct(int pageNumber, int pageSize, Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "");
 
         IEnumerable<ProductDTO> GetProduct(Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter=null,Func<IQueryable<Product>,IOrderedQueryable<Product>>orderBy=null,string includeProperties="");
-        ProductDTO GetProductById(int id);
+        IEnumerable<Product> GetProduct1(Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter=null,Func<IQueryable<Product>,IOrderedQueryable<Product>>orderBy=null,string includeProperties="");
+        ProductDTO GetProductById(int id, string includeProperties = "");
         void InsertProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);
         void DeleteProduct(ProductDTO product);

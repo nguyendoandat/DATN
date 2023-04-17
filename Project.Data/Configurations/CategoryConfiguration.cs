@@ -20,7 +20,7 @@ namespace Project.Data.Configurations
             //builder.HasIndex(x => x.Slug).IsUnique();
             builder.Property(x => x.CategoryName).IsRequired().HasMaxLength(20).HasColumnType("nvarchar");
             //builder.Property(x => x.Slug).IsRequired().HasMaxLength(255).HasColumnType("nvarchar");
-            //builder.HasOne(x => x.User).WithMany(x => x.Shops).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Discount).WithMany(x => x.Categories).HasForeignKey(x => x.DiscountId).OnDelete(DeleteBehavior.Cascade);
 
         }
     }

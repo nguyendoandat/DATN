@@ -1,0 +1,93 @@
+﻿@using Project.Service
+@model PagedResult<Project.ViewModel.DiscountDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách khuyến mại</h6>
+    </div>
+    <div class="card-body">
+        <a asp-action="Create" asp-controller="Discount" asp-area="Admin" class="btn btn-success mb-4">Thêm khuyến mại mới</a>
+        <div class="mb-3">
+            <form class="d-flex justify-content-end">
+              
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo CategoryName" value="@ViewBag.SearchString">
+                <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên khuyến mại</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Giá khuyến mại</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+
+
+                                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.DiscountPrice</td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id" class="btn btn-info"><i class="far fa-edit"></i></a>
+                                    <a data-id="@item.Id" class="btn btn-danger delete"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        @if (Model.TotalItem > 0 && Model.TotalPages > 1)
+        {
+            <ul class="pagination justify-content-center">
+                @if (Model.PageNumber > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Discount" asp-action="Index" asp-route-pageNumber="1">Fisrt</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Discount" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+                    </li>
+                }
+
+                @for (var j = Model.StartPage; j <= Model.EndPage; j++)
+                {
+                    <li class="page-item @(j==Model.PageNumber ? "active" : "")">
+                        <a class="page-link" asp-controller="Discount" asp-action="Index" asp-route-pageNumber="@j">@j</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Discount" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber+1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Discount" asp-action="Index" asp-route-pageNumber="@Model.TotalPages">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+

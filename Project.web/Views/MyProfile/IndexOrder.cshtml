@@ -1,0 +1,64 @@
+﻿@using Project.Service.Interface
+@model IEnumerable<Project.ViewModel.OrderDTO>
+
+@inject IOrderService orderService
+
+@{
+    ViewData["Title"] = "IndexOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var list = orderService.GetOrder();
+}
+
+<div class="myaccount-orders">
+    <h4 class="small-title">DANH SÁCH DƠN HÀNG</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã ĐƠN HÀNG</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Thành tiền</th>
+                    <th width="200"></th>
+                </tr>
+                @if (Model != null && Model.Any())
+                {
+                    var i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr id="trow_@item.Id">
+                            <td>@i</td>
+                            <td>#@item.Id</td>
+                            <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
+                            <td></td>
+                            <td>@item.ShipName</td>
+                            @*<td>@item.Thanhtien</td>*@
+                            <td>
+                                <a class=" btn btn-success " asp-action="Details" asp-controller="DonHang" asp-route-id="@item.Id">
+                                    Xem chi tiết
+                                </a>
+                                <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete"><i class="bi bi-trash"></i>Hủy</a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">Hiện không có đơn hàng nào!!</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+
+        <br />
+        <br />
+        <br />
+        <br /><hr />
+
+    </div>
+</div>
+

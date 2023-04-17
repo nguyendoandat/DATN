@@ -23,9 +23,22 @@ var SiteController = function () {
             e.preventDefault();
             debugger
             const id = $(this).data('id');
+            var number = $(this).data('quantity');
+            
             var quantity = $("#tentacles").val();
             if (quantity === undefined) {
                 quantity = 1;
+            }
+            if (number < quantity) {
+                Swal.fire({
+                    title: 'Thông bá0!',
+                    text: "Số lượng sản phẩm không đủ",
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                   
+                    confirmButtonText: 'OK'
+                })
             }
             $.ajax({
                 type: "POST",

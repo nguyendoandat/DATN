@@ -14,7 +14,7 @@ namespace Project.web.Areas.Admin.Controllers
         private readonly IProductService _productService; 
         private readonly int pageSize;
         private readonly IFileService _fileService;
-        public ProductController(IProductService productService, IFileService fileService, int pageSize = 8)
+        public ProductController(IProductService productService, IFileService fileService, int pageSize = 5)
         {
             _productService = productService;
             _fileService = fileService;
@@ -23,7 +23,7 @@ namespace Project.web.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int pageNumber)
         {
             PagedResult<ProductDTO> list = new PagedResult<ProductDTO>();
-            list = _productService.GetAllProduct(pageNumber, pageSize);
+            list = _productService.GetAllProduct(pageNumber, pageSize,null,null,null, "Category");
             return View(list);
         }
         [HttpGet]

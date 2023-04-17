@@ -79,7 +79,12 @@ namespace Project.Service.implement
             return ConvertModelToModelViewList((List<Product>)_unitOfWork.GenericRepository<Product>().GetAll(filterFull, filter, orderBy, includeProperties));
         }
 
-        public ProductDTO GetProductById(int id)
+        public IEnumerable<Product> GetProduct1(Func<IQueryable<Product>, IQueryable<Product>> filterFull = null, Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
+        {
+            return ConvertModelToModelViewList1((List<Product>)_unitOfWork.GenericRepository<Product>().GetAll(filterFull, filter, orderBy, includeProperties));
+        }
+
+        public ProductDTO GetProductById(int id, string includeProperties = "")
         {
             return _mapper.Map<ProductDTO>(_unitOfWork.GenericRepository<Product>().GetById(id));
         }
@@ -112,6 +117,10 @@ namespace Project.Service.implement
         private List<ProductDTO> ConvertModelToModelViewList(List<Product> list)
         {
             return list.Select(x => _mapper.Map<ProductDTO>(x)).ToList();
+        }
+        private List<Product> ConvertModelToModelViewList1(List<Product> list)
+        {
+            return list.Select(x => _mapper.Map<Product>(x)).ToList();
         }
     }
 }

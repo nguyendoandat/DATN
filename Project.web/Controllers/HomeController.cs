@@ -28,6 +28,7 @@ namespace Project.web.Controllers
 
         public IActionResult Index()
         {
+            var list = _productService.GetProduct();
             return View();
         }
 

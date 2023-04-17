@@ -98,13 +98,14 @@ var CartController = function () {
     }
     
     function createOrder() {
-        //debugger
+        debugger
         var order = {
             OrderDate: $('#txtDate').val(),
             ShipName: $('#txtName').val(),
             ShipAddress: $('#txtAddress').val(),
             ShipEmail: $('#txtEmail').val(),
-            ShipPhoneNumber: $('#txtPhone').val()
+            ShipPhoneNumber: $('#txtPhone').val(),
+            StatusId: $('#txtStatus').val()
         };
         $.ajax({
             url: '/Cart/CreateOrder',

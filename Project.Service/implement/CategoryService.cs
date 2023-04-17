@@ -77,6 +77,7 @@ namespace Project.Service.implement
         public void InsertCategory(CategoryDTO Category)
         {
             var model = _mapper.Map<Category>(Category);
+           
             _unitOfWork.GenericRepository<Category>().Insert(model);
             _unitOfWork.Save();
         }

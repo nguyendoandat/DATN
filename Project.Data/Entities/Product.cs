@@ -18,6 +18,7 @@ namespace Project.Data.Entities
         public int Id { get; set; }
         public string ProductName { get; set; }
         public string Slug { get; set; }
+        public int Quantity { get; set; }
         public string ProductDetail { get; set; }
         public decimal Price { get; set; }
         public bool Trend { get; set; }
@@ -33,8 +34,7 @@ namespace Project.Data.Entities
         //public ImportProduct ImportProduct { get; set; }
         //public int ImportId { get; set; }
         //public Import Import { get; set; }
-        //public int PromotionId { get; set; }
-        //public Promotion Promotion { get; set; }
+      
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<Medias> Medias { get; set; }
         public ICollection<Cart> Carts { get; set; }

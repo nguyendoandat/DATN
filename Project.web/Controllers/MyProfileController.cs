@@ -20,12 +20,16 @@ namespace Project.web.Controllers
     {
         private readonly IUserService _userService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
         [TempData]
         public string Message { get; set; }
-        public MyProfileController(IUserService userService, UserManager<AppUser> userManager)
+        public MyProfileController(IUserService userService, UserManager<AppUser> userManager, IOrderService orderService, IOrderDetailService orderDetailService)
         {
             _userService = userService;
             _userManager = userManager;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
         }
 
         public IActionResult Index()
@@ -39,6 +43,18 @@ namespace Project.web.Controllers
                 Id = user.Id
             };
             return View(userRequest);
+        }
+        public IActionResult IndexOrder()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var list = _orderService.GetOrder(null, x => x.UserId == userId);
+            return View(list);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id,null,"Product");
+            return View(listDetail); 
         }
         [HttpPost]
         public async Task<IActionResult> ChangeProfile(UserRequest user)

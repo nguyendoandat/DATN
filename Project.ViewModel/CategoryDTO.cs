@@ -16,8 +16,14 @@ namespace Project.ViewModel
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public double DiscountPrice { get; set; }
+        public int DiscountId { get; set; }
+        public Discount Discount { get; set; }
         //public string UserId { get; set; }
 
         //public IEnumerable<AppUser> ListUser = new List<AppUser>();
+        
     }
 }

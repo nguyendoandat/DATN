@@ -21,6 +21,7 @@ namespace Project.ViewModel
             CreateMap<OrderDetail, OrderDetailDTO>().ReverseMap();
             CreateMap<Import, ImportDTO>().ReverseMap();
             CreateMap<ImportProduct, ImportProductDTO>().ReverseMap();
+            CreateMap<Discount,DiscountDTO>().ReverseMap();
         }
     }
 }

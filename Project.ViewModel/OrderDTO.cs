@@ -16,6 +16,8 @@ namespace Project.ViewModel
         public string ShipAddress { set; get; }
         public string ShipEmail { set; get; }
         public string ShipPhoneNumber { set; get; }
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
         public AppUser? User { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
 

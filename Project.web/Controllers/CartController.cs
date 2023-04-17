@@ -38,7 +38,7 @@ namespace Project.web.Controllers
             return View();
         }
         public IActionResult CreateOrder(string model)
-        {
+            {
             try
             {
                 var order = JsonConvert.DeserializeObject<OrderDTO>(model);
@@ -115,32 +115,48 @@ namespace Project.web.Controllers
         public IActionResult AddToCart(int id,int quantity)
         {
             var product = _productService.GetProductById(id);
-            var session = HttpContext.Session.GetString(CartSession);
-            List<CartDTO> currentCart = new List<CartDTO>();
-            if (session != null)
+            var productByCategory=_productService.GetProduct(null,x=>x.Id==id,null,includeProperties: "Category.Discount");
+            if(product.Quantity < quantity)
             {
-                currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
-            }
-            var cartitem = currentCart.Find(x => x.ProductId == id);
-            if (cartitem != null)
-            {
-                cartitem.Quantity++;
+                ViewBag.Error = "Số lượng sản phẩm không đủ";
             }
             else
             {
-                var cart = new CartDTO()
+                foreach (var item in productByCategory)
                 {
-                    ProductId = id,
-                    Description = product.ProductDetail,
-                    Image = product.Thumb,
-                    Name = product.ProductName,
-                    Price = product.Price,
-                    Quantity = quantity,
-                };
-                currentCart.Add(cart);
+                    double a = decimal.ToDouble(item.Price) - item.Category.Discount.DiscountPrice;
+                    var session = HttpContext.Session.GetString(CartSession);
+                    List<CartDTO> currentCart = new List<CartDTO>();
+                    if (session != null)
+                    {
+                        currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
+                    }
+                    var cartitem = currentCart.Find(x => x.ProductId == id);
+                    if (cartitem != null)
+                    {
+                        cartitem.Quantity++;
+                    }
+
+                    else
+                    {
+                        var cart = new CartDTO()
+                        {
+                            ProductId = id,
+                            Description = product.ProductDetail,
+                            Image = product.Thumb,
+                            Name = product.ProductName,
+                            Price = (decimal)a,
+                            Quantity = quantity,
+                        };
+                        currentCart.Add(cart);
+                    }
+                    HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
+                    return Ok(currentCart);
+                }
             }
-            HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
-            return Ok(currentCart);
+            
+
+            return Ok();
 
         }
         public IActionResult UpdateCart(int id, int quantity)

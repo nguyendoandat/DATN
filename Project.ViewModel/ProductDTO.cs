@@ -13,6 +13,7 @@ namespace Project.ViewModel
         public int Id { get; set; }
         public string ProductName { get; set; }
         public string Slug { get; set; }
+        public int Quantity { get; set; }
         public string ProductDetail { get; set; }
         public decimal Price { get; set; }
         public bool Trend { get; set; }
@@ -23,10 +24,10 @@ namespace Project.ViewModel
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category Category { get; set; } 
         //public int ImportProductId { get; set; }
         //public ImportProduct ImportProduct { get; set; }
-       
+     
         public List<Category> ListCategory { get; set; }
         public IFormFile File { get; set; }
     }

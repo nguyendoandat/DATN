@@ -11,6 +11,7 @@ namespace Project.Data.Entities
         public Category()
         {
             Products = new HashSet<Product>();
+            //Discounts=new HashSet<Discount>();
         }
         public int Id { get; set; }
         public string CategoryName { get; set; }
@@ -19,7 +20,10 @@ namespace Project.Data.Entities
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }
-       
+        public int DiscountId { get; set; }
+        public Discount Discount { get; set; }
+
+        //public ICollection<Discount> Discounts { get; set; }
         //public string UserId { get; set; }
         //public AppUser User { get; set; }
         public ICollection<Product> Products { get; set; }

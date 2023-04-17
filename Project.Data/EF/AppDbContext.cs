@@ -33,9 +33,17 @@ namespace Project.Data.EF
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelbuilder.ApplyConfiguration(new ImportConfiguration());
             modelbuilder.ApplyConfiguration(new ImportProductConfiguration());
-            //modelbuilder.ApplyConfiguration(new PromotionConfiguration());
+            modelbuilder.ApplyConfiguration(new DiscountConfiguration());
+            modelbuilder.ApplyConfiguration(new StatusConfiguration());
 
-
+            List<Status> status = new List<Status>()
+            {
+                new Status{Id=1,Name="Chờ xét duyệt"},
+                new Status{Id=2,Name="Đã hủy"},
+                new Status{Id=3,Name="Đang được vận chuyển"},
+                new Status{Id=4,Name="Đã thanh toán"}
+            };
+            modelbuilder.Entity<Status>().HasData(status);
             List<IdentityRole> roles = new List<IdentityRole>()
             {
                 new IdentityRole{Name="Admin",NormalizedName="ADMIN"},
@@ -93,7 +101,8 @@ namespace Project.Data.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportProduct> ImportProducts { get; set; }
-        //public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
     }
 }
