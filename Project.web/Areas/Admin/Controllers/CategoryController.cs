@@ -88,6 +88,7 @@ namespace Project.web.Areas.Admin.Controllers
                 updateCategory.CategoryName = model.CategoryName;
                 updateCategory.Trend = model.Trend;
                 updateCategory.UpdateAt = DateTime.Now;
+                updateCategory.DiscountId= model.DiscountId;
                 //updateCategory.Slug = model.Slug;
                 _CategoryService.UpdateCategory(updateCategory);
                 return RedirectToAction("Index", "Category");

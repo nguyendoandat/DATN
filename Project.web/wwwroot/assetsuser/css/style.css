@@ -18449,7 +18449,7 @@ blockquote .inner-content .user-name:before {
 
 .banner-img .inner-content {
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 30px;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
@@ -18457,7 +18457,7 @@ blockquote .inner-content .user-name:before {
 }
 
 .banner-img .inner-content .offer {
-  font-size: 18px;
+  font-size: 25px;
   line-height: 33px;
   color: #fc1414;
 }

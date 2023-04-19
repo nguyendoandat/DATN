@@ -47,7 +47,6 @@ namespace Project.web.Areas.Admin.Controllers
             try
             {
                 var updateOrder = _orderService.GetByOrderId(order.Id);
-                //updateOrder.StatusId= order.StatusId;
                 updateOrder.ShipPhoneNumber = order.ShipPhoneNumber;
                 updateOrder.ShipName = order.ShipName;
                 updateOrder.ShipAddress = order.ShipAddress;
@@ -78,40 +77,9 @@ namespace Project.web.Areas.Admin.Controllers
                 var error = "da  co loi xay ra" + ex.Message;
                 return Json(new { result = false, message = "Đã xảy ra lỗi, vui lòng thử lại sau" });
             }
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        if (order.trangthaidonhangID == 3)
-            //        {
-            //            var dsChitiet = _context.Orderdetails.AsNoTracking().Where(x => x.OrderID == order.OrderId).ToList();
-            //            var dsSanPhams = _context.SanPhams.ToList();
-            //            foreach (var item in dsChitiet)
-            //            {
-            //                foreach (var sanpham in dsSanPhams)
-            //                {
-            //                    if (item.SanPhamID == sanpham.MaSp)
-            //                    {
-            //                        sanpham.Soluong -= item.Soluong;
-            //                        _context.SanPhams.Update(sanpham);
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        order.NgaySua = DateTime.Now;
-            //        _context.Orders.Update(order);
-            //        _context.SaveChanges();
-            //    }
-
-            //}
-            //ViewData["trangthaidonhangID"] = new SelectList(_context.Trangthaidonhangs, "ID", "Name", order.trangthaidonhangID);
-
-            //return View(order);
+            
         }
 
-        //private bool OrderExists(int id)
-        //{
-        //    return (_context.Orders?.Any(e => e.OrderId == id)).GetValueOrDefault();
-        //}
+        
     }
 }

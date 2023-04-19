@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.Data.Entities;
+using Project.Service.implement;
 using Project.Service.Interface;
+using Project.ViewModel;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
@@ -53,7 +55,8 @@ namespace Project.web.Controllers
 
         public IActionResult Details(int id)
         {
-            var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id,null,"Product");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id && x.Order.UserId==userId,null,"Product");
             return View(listDetail); 
         }
         [HttpPost]
@@ -93,6 +96,34 @@ namespace Project.web.Controllers
             {
                 return NotFound();
             }
+        }
+        public IActionResult Edit(int id)
+        {
+            var order = _orderService.GetByOrderId(id);
+            return View(order);
+        }
+        [HttpPost]
+
+        public IActionResult Edit(OrderDTO order)
+        {
+            try
+            {
+                var updateOrder = _orderService.GetByOrderId(order.Id);
+                updateOrder.ShipPhoneNumber = order.ShipPhoneNumber;
+                updateOrder.ShipName = order.ShipName;
+                updateOrder.ShipAddress = order.ShipAddress;
+                updateOrder.ShipEmail = order.ShipEmail;
+                updateOrder.OrderDate = order.OrderDate;
+                updateOrder.StatusId = order.StatusId;
+                _orderService.UpdateOrder(updateOrder);
+                return Json(new { result = true, isValid = true });
+            }
+            catch (Exception ex)
+            {
+                var error = "da  co loi xay ra" + ex.Message;
+                return Json(new { result = false, message = "Đã xảy ra lỗi, vui lòng thử lại sau" });
+            }
+
         }
     }
 }

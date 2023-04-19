@@ -29,36 +29,45 @@
             <div class="row">
                 @foreach (var item in Model.Data)
                 {
-                    <div class="glass col-lg-3 col-6">
-                        <img src="~/img/@item.Thumb" alt="" width="auto" height="300px">
-                        <div class="glass_name">
-                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+                    <div class="glass col-lg-3 col-6 p-1 mb-3">
+                        <div class="banner-item">
+                            <div class="banner-img img-zoom-effect">
+
+                                <img src="~/img/@item.Thumb" class="img-full" alt="" width="290" height="300px">
+
+
+                                @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
+                                {
+                                    <div class="inner-content" style="top:10%;background-color:red">
+                                        <span class="offer" style="color:white">-@(item.Category.Discount.DiscountPrice)%</span>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                        <div class="price">
-                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
-                        </div>
-                        <div class="glass_icon_action">
-                            <button class="btn-search"><i class="fa fa-search"></i></button>
-                            @if (userId == null)
+                        <div class="glass_name" style="text-align:center">
+                                <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+
+                            </div>
+                        <div class="text-center">
+                            @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
                             {
-                                <a><i class="fa fa-heart"></i></a>
-                                <a><i class="fa fa-shopping-cart"></i></a>
+                                <span class="price">
+                                    <del style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
+                                </span>
+                                <span style="color: #000; font-size: 20px; font-weight: 700;">
+                                    @((Decimal.ToDouble(item.Price) - Decimal.ToDouble(item.Price) * (item.Category.Discount.DiscountPrice / 100)).ToString("N00", new CultureInfo("en-us"))) VNĐ
+                                </span>
+
                             }
                             else
                             {
-                                if (reviewService.IsWishList(userId, item.Id))
-                                {
-                                    <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
-                                    <a><i class="fa fa-shopping-cart"></i></a>
-                                }
-                                else
-                                {
-                                    <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
-                                    <a><i class="fa fa-shopping-cart"></i></a>
-                                }
+                                <span class="price" style="font-size: 20px; color: #000; font-weight: 700;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
                             }
-
                         </div>
+                        <div class="text-center">
+                                <a class="btn btn-primary" data-id="@item.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
+
+                                </div>
 
                     </div>
 

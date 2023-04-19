@@ -19,7 +19,7 @@ namespace Project.web.Controllers
         {
             try
             {
-                var product = _productService.GetProduct(null,x => x.Id == id, null).FirstOrDefault();
+                var product = _productService.GetProduct(null,x => x.Id == id, null,"Category.Discount").FirstOrDefault();
                 return View(product);
             }
             catch
