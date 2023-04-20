@@ -11,7 +11,7 @@ namespace Project.Data.Entities
     {
         public AppUser()
         {
-            Categorys = new HashSet<Category>();
+           
             Reviews = new HashSet<Reviews>();
             Carts = new HashSet<Cart>();
             Orders = new HashSet<Order>();
@@ -19,7 +19,7 @@ namespace Project.Data.Entities
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }
-        public ICollection<Category> Categorys { get; set; }
+
         public ICollection<Reviews> Reviews { get; set; }
         public ICollection<Cart> Carts { get; set; }
         public ICollection<Order> Orders { get; set; }

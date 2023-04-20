@@ -35,6 +35,10 @@ namespace Project.web.Areas.Admin.Controllers
             list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, filterOrder, sort, "Status");
             return View(list);
         }
+        public IActionResult GetById(int id)
+        {
+            return View();
+        }
         public IActionResult Edit(int id)
         {
             var order = _orderService.GetByOrderId(id);

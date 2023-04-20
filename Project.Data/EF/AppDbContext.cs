@@ -24,15 +24,12 @@ namespace Project.Data.EF
         {
             base.OnModelCreating(modelbuilder);
             modelbuilder.ApplyConfiguration(new AppUserConfiguration());
-            modelbuilder.ApplyConfiguration(new MediasConfiguration());
             modelbuilder.ApplyConfiguration(new ProductConfiguration());
             modelbuilder.ApplyConfiguration(new ReviewsConfiguration());
             modelbuilder.ApplyConfiguration(new CategoryConfiguration());
             modelbuilder.ApplyConfiguration(new CartConfiguration());
             modelbuilder.ApplyConfiguration(new OrderConfiguration());
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
-            modelbuilder.ApplyConfiguration(new ImportConfiguration());
-            modelbuilder.ApplyConfiguration(new ImportProductConfiguration());
             modelbuilder.ApplyConfiguration(new DiscountConfiguration());
             modelbuilder.ApplyConfiguration(new StatusConfiguration());
 
@@ -92,15 +89,13 @@ namespace Project.Data.EF
 
 
         public DbSet<AppUser> Users { get; set; }
-        public DbSet<Medias> Medias { get; set; }
+       
         public DbSet<Product> Products { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<Import> Imports { get; set; }
-        public DbSet<ImportProduct> ImportProducts { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Status> Statuses { get; set; }
 

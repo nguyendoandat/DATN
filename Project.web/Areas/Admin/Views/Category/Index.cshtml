@@ -13,17 +13,8 @@
         <a asp-action="Create" asp-controller="Category" asp-area="Admin" class="btn btn-success mb-4">Thêm danh mục mới</a>
         <div class="mb-3">
             <form class="d-flex justify-content-end">
-                <select class="form-control mr-3 w-30" id="filter-by-trending">
-                    <option value="">Filter Theo Trending</option>
-                    <option value="true">Trending</option>
-                    <option value="false">Not Trending</option>
-                </select>
-                <select class="form-control w-32 mr-3" id="filter-delete">
-                    <option value="">Filter Trạng Thái Xóa</option>
-                    <option value="true">Đã Xóa</option>
-                    <option value="false">Chưa Xóa</option>
-                </select>
-                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo CategoryName" value="@ViewBag.SearchString">
+              
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo CategoryName" >
                 <input type="button" class="form-control w-30 btn btn-info" id="search" value="Filter">
             </form>
         </div>

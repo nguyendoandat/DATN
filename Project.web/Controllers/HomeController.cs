@@ -164,7 +164,7 @@ namespace Project.web.Controllers
             try
             {
                 
-                    list = _productService.GetAllProduct(pageNumber, pageSize, filterFull, filter: filterCategory, orderBy: sort, "Category");
+                    list = _productService.GetAllProduct(pageNumber, pageSize, filterFull, filter: filterCategory, orderBy: sort, "Category.Discount");
                     
                 return View(list);
             }

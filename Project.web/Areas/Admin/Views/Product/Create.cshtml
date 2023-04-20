@@ -1,13 +1,11 @@
 ﻿@using Project.Service.Interface
 @model Project.ViewModel.ProductDTO
 @inject ICategoryService CategoryService
-@inject IImportService ImportService
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var list = new SelectList(CategoryService.GetCategory(), "Id", "CategoryName");
-    var listproduct = new SelectList(ImportService.GetImportProduct(), "Id", "Name");
-    var listimport = new SelectList(ImportService.GetImport(), "Id", "Name");
+  
 
 }
 

@@ -124,7 +124,7 @@ namespace Project.web.Controllers
             {
                 foreach (var item in productByCategory)
                 {
-                    double a = decimal.ToDouble(item.Price) - item.Category.Discount.DiscountPrice;
+                    double a = decimal.ToDouble(item.Price) - decimal.ToDouble(item.Price)*(item.Category.Discount.DiscountPrice/100);
                     var session = HttpContext.Session.GetString(CartSession);
                     List<CartDTO> currentCart = new List<CartDTO>();
                     if (session != null)
