@@ -1,27 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Project.Service.implement;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Project.Data.Entities;
 using Project.Service;
 using Project.Service.Interface;
 using Project.ViewModel;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Project.Data.Entities;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Project.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
-    [Authorize(Roles = "Admin")]
-    public class OrderController : Controller
+    [Authorize(Roles = "Admin, Shipper")]
+    public class ShipperOrderController : Controller
     {
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
         private readonly IProductService _productService;
         private readonly int pageSize;
-        public OrderController(IOrderService orderService,IOrderDetailService orderDetailService, IProductService productService, int pageSize=8)
+        public ShipperOrderController(IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService, int pageSize=8)
         {
             _orderService = orderService;
             _orderDetailService = orderDetailService;
@@ -35,21 +32,16 @@ namespace Project.web.Areas.Admin.Controllers
             Func<IQueryable<Order>, IQueryable<Order>> filterFull = null;
             Expression<Func<Order, bool>> filterOrder = null;
             Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = null;
-            list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, filterOrder, sort, "Status");
+            list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, x=>x.StatusId==3, sort, "Status");
             return View(list);
         }
-        public IActionResult GetById(int id)
-        {
-            return View();
-        }
-        [AllowAnonymous]
         public IActionResult Edit(int id)
         {
             var order = _orderService.GetByOrderId(id);
             return View(order);
         }
         [HttpPost]
-        
+
         public IActionResult Edit(OrderDTO order)
         {
             try
@@ -59,15 +51,15 @@ namespace Project.web.Areas.Admin.Controllers
                 updateOrder.ShipName = order.ShipName;
                 updateOrder.ShipAddress = order.ShipAddress;
                 updateOrder.ShipEmail = order.ShipEmail;
-                updateOrder.OrderDate=order.OrderDate;
-                updateOrder.StatusId=order.StatusId;
+                updateOrder.OrderDate = order.OrderDate;
+                updateOrder.StatusId = order.StatusId;
                 if (updateOrder.StatusId == 3)
                 {
                     var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
                     var listProduct = _productService.GetProduct();
-                    foreach(var item in listOrderDetail)
+                    foreach (var item in listOrderDetail)
                     {
-                        foreach(var product in listProduct)
+                        foreach (var product in listProduct)
                         {
                             if (item.ProductID == product.Id)
                             {
@@ -85,9 +77,7 @@ namespace Project.web.Areas.Admin.Controllers
                 var error = "da  co loi xay ra" + ex.Message;
                 return Json(new { result = false, message = "Đã xảy ra lỗi, vui lòng thử lại sau" });
             }
-            
-        }
 
-        
+        }
     }
 }

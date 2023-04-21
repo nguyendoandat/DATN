@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.Data.Entities;
 using Project.Service;
 using Project.Service.implement;
 using Project.Service.Interface;
 using Project.ViewModel;
+using System.Data;
 using System.Security.Claims;
 using System.Text;
 
@@ -12,12 +14,14 @@ namespace Project.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly int pageSize;
+       
         private readonly UserManager<AppUser> _userManager;
-        public UserController(IUserService userService, UserManager<AppUser> userManager, int pageSize = 4)
+        private readonly int pageSize;
+        public UserController(IUserService userService, UserManager<AppUser> userManager, int pageSize = 8)
         {
             _userService = userService;
 
@@ -80,10 +84,11 @@ namespace Project.web.Areas.Admin.Controllers
                 {
                     var currentUser = await _userManager.FindByNameAsync(user.UserName);
                     await _userManager.AddToRoleAsync(currentUser, user.Role);
+                    return RedirectToAction("Index", "User");
                 }
 
-                _userService.InsertUser(user);
                 return RedirectToAction("Index", "User");
+
             }
             catch (Exception ex)
             {

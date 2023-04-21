@@ -4,11 +4,14 @@ using Project.Service;
 using Project.Service.Interface;
 using Project.ViewModel;
 using Project.Service.File;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Project.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("admin/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService; 

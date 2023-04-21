@@ -15,7 +15,7 @@ namespace Project.Service.Interface
         IEnumerable<UserDTO> GetUser(Func<IQueryable<AppUser>, IQueryable<AppUser>> filterFull = null, Expression<Func<AppUser, bool>> filter = null, Func<IQueryable<AppUser>, IOrderedQueryable<AppUser>> orderBy = null, string includeProperties = "");
         UserDTO GetUserById(string id);
         void  InsertUser(UserDTO user);
-        void UpdateUser(UserDTO user);
+        Task UpdateUser(UserDTO user);
         void DeleteUser(UserDTO user);
         void DeleteUserById(string id);
 

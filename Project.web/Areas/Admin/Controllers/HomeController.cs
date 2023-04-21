@@ -8,7 +8,7 @@ namespace Project.web.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
-        [AllowAnonymous]
+        
         public IActionResult Index()
         {
             return View();

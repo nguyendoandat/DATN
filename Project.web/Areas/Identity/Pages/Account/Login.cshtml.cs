@@ -98,6 +98,11 @@ namespace Project.web.Areas.Identity.Pages.Account
                         {
                             return LocalRedirect("/admin/Home/Index");
                         }
+                        var checkRole2 = await _userManager.IsInRoleAsync(currentUser, "Shipper");
+                        if (checkRole2)
+                        {
+                            return LocalRedirect("/admin/ShipperOrder/Index");
+                        }
                         return LocalRedirect(returnUrl);
                     }
                     

@@ -17,11 +17,13 @@ namespace Project.Service.implement
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager;
+
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userManager = userManager;
            
         }
 
@@ -77,11 +79,12 @@ namespace Project.Service.implement
             _unitOfWork.Save();
         }
 
-        public void UpdateUser(UserDTO user)
+        public async Task UpdateUser(UserDTO user)
         {
-            var model = _mapper.Map<AppUser>(user);
-            _unitOfWork.GenericRepository<AppUser>().Update(model);
-            _unitOfWork.Save();
+            //var model = _mapper.Map<AppUser>(user);
+            //_unitOfWork.GenericRepository<AppUser>().Update(model);
+            //_unitOfWork.Save();
+            await _userManager.UpdateAsync(_mapper.Map<AppUser>(user));
         }
         private List<UserDTO> ConvertModelToModelViewList(List<AppUser> list)
         {
