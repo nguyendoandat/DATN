@@ -7,6 +7,7 @@ using Project.Service.implement;
 using Project.Service.Interface;
 using Project.ViewModel;
 using System.Data;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 
@@ -47,10 +48,19 @@ namespace Project.web.Areas.Admin.Controllers
             //return View(list);
 
         }
-        public IActionResult Index(int pageNumber)
+        public IActionResult Index(int pageNumber, string searchString)
         {
             PagedResult<UserDTO> list = new PagedResult<UserDTO>();
-            list = _userService.GetAllUser(pageNumber, pageSize);
+            Expression<Func<AppUser, bool>> filter = null;
+            ViewBag.SearchString = searchString;
+            Expression<Func<AppUser, bool>> filterName = x => x.UserName.Contains("");
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                
+                filterName = x => x.UserName.Contains(searchString);
+            }
+           
+            list = _userService.GetAllUser(pageNumber, pageSize,null,filter:filterName);
             return View(list);
         }
         [HttpGet]

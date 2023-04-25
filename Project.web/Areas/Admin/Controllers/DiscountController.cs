@@ -6,6 +6,7 @@ using Project.Service.implement;
 using Project.Service.Interface;
 using Project.ViewModel;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Project.web.Areas.Admin.Controllers
 {
@@ -22,11 +23,19 @@ namespace Project.web.Areas.Admin.Controllers
             this.pageSize = pageSize;
         }
 
-        public IActionResult Index(int pageNumber)
+        public IActionResult Index(int pageNumber, string searchString)
         {
             
             PagedResult<DiscountDTO> list = new PagedResult<DiscountDTO>();
-            list = _discountService.GetAllDiscount(pageNumber, pageSize);
+            Expression<Func<Discount, bool>> filter = null;
+            ViewBag.SearchString = searchString;
+            Expression<Func<Discount, bool>> filterName = x => x.Name.Contains("");
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                filterName = x => x.Name.Contains(searchString);
+            }
+            list = _discountService.GetAllDiscount(pageNumber, pageSize,null,filter:filterName);
             return View(list);
         }
         public IActionResult Create()
@@ -81,6 +90,19 @@ namespace Project.web.Areas.Admin.Controllers
             {
                 var error = "da  co loi xay ra" + ex.Message;
                 return View();
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _discountService.DeleteDiscountById(id);
+                return Json(new { result = true });
+            }
+            catch
+            {
+                return Json(new { result = false });
             }
         }
     }

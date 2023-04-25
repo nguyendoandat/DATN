@@ -37,8 +37,9 @@ namespace Project.Data.EF
             {
                 new Status{Id=1,Name="Chờ xét duyệt"},
                 new Status{Id=2,Name="Đã hủy"},
-                new Status{Id=3,Name="Đang được vận chuyển"},
-                new Status{Id=4,Name="Đã thanh toán"}
+                new Status{Id=3,Name="Xác nhận thành công"},
+                new Status{Id=4,Name="Đang được vận chuyển"},
+                new Status{Id=5,Name="Giao thành công"}
             };
             modelbuilder.Entity<Status>().HasData(status);
             List<IdentityRole> roles = new List<IdentityRole>()

@@ -59,6 +59,18 @@ namespace Project.web.Controllers
             var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id && x.Order.UserId==userId,null,"Product");
             return View(listDetail); 
         }
+        public IActionResult SuccessDelivery(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id && x.Order.UserId == userId && x.Order.StatusId==5, null, "Product");
+            return View(listDetail);
+        }
+        public IActionResult ShipperInfor(int id)
+        {
+            
+            var listDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == id, null, "Order");
+            return View(listDetail);
+        }
         [HttpPost]
         public async Task<IActionResult> ChangeProfile(UserRequest user)
         {

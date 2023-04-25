@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data.EF;
 
@@ -11,9 +12,10 @@ using Project.Data.EF;
 namespace Project.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230421161329_ship")]
+    partial class ship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,22 +53,22 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3dee17b9-1d74-45e2-9335-0e174246cea6",
-                            ConcurrencyStamp = "c8ad75d2-2cec-406f-a932-2399622270e9",
+                            Id = "81ffd5b9-34ac-4129-8b6e-2017ab23fff6",
+                            ConcurrencyStamp = "4e88b72c-224c-4b56-86e9-52d322ba411c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "798b888a-61eb-4763-a909-942e87fd5acf",
-                            ConcurrencyStamp = "8f2ea402-72c9-405b-af1d-d7e35adb4284",
+                            Id = "fd699c77-cd91-4a6d-870b-d75dc89c1ddb",
+                            ConcurrencyStamp = "e7865005-2e33-4697-b119-8abb5bb458ea",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cbb57ff2-75ba-46c9-a904-f15f98d459e6",
-                            ConcurrencyStamp = "bb28c1a6-a171-48a9-9032-6209bd94e6e3",
+                            Id = "6a71fed6-b1ea-4375-8e83-49f6641e5da2",
+                            ConcurrencyStamp = "91a13149-989e-49b1-864a-24374796cacd",
                             Name = "Shipper",
                             NormalizedName = "SHIPPER"
                         });
@@ -161,13 +163,13 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4b79a96b-b502-4575-bdec-a39adae9a308",
-                            RoleId = "798b888a-61eb-4763-a909-942e87fd5acf"
+                            UserId = "0f671310-8da2-498f-b951-934ab87daa48",
+                            RoleId = "fd699c77-cd91-4a6d-870b-d75dc89c1ddb"
                         },
                         new
                         {
-                            UserId = "7099e6e6-1eea-47e5-9b90-cd023c483a80",
-                            RoleId = "3dee17b9-1d74-45e2-9335-0e174246cea6"
+                            UserId = "296dc3bb-e97a-4186-93b3-c67f95302bc8",
+                            RoleId = "81ffd5b9-34ac-4129-8b6e-2017ab23fff6"
                         });
                 });
 
@@ -266,35 +268,35 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4b79a96b-b502-4575-bdec-a39adae9a308",
+                            Id = "0f671310-8da2-498f-b951-934ab87daa48",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "687e83f2-5622-43fd-8d43-d7cc3716b4e8",
+                            ConcurrencyStamp = "7c28b572-ddef-4b17-bee3-87d0cba4d867",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB1s3UMfZeJqx5rlOq/iiC2S5G/B77VHcuKYOYzX+ubvISgdo+xVathyR/p31M4m7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPA6nKm0EUrEFNXt++AFf6S+INYQffOWOQ5hXIWW8ODxa0TDjaEvBxt691e2n6H+sA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1412f579-64cc-47b7-a2b6-990b2fa492b7",
+                            SecurityStamp = "bb78ef63-e32d-43f3-b154-7ae2a310bdbd",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "7099e6e6-1eea-47e5-9b90-cd023c483a80",
+                            Id = "296dc3bb-e97a-4186-93b3-c67f95302bc8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07c843a5-1d51-46d7-b4a2-3e304a76f7a8",
+                            ConcurrencyStamp = "68192a9f-1431-44bb-b518-ed0f9e2e9015",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECHZO0VvgKAs2/O+RvvHx9MG+v2VfyoktVtqdu5Q4/6c4iOsFT1X4Ej2CxKc6gTOiw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENCcmk/tB2JMwRiLTATWf9t3CvF+H0USQBM7e6twFV8O3+t/lWSgab0piQSItfgPtw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c79c1d4-a766-47c7-b243-796b52642aa3",
+                            SecurityStamp = "e82716b6-3559-4f9a-886c-19d5f6138715",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -600,17 +602,12 @@ namespace Project.Data.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "Xác nhận thành công"
-                        },
-                        new
-                        {
-                            Id = 4,
                             Name = "Đang được vận chuyển"
                         },
                         new
                         {
-                            Id = 5,
-                            Name = "Giao thành công"
+                            Id = 4,
+                            Name = "Đã thanh toán"
                         });
                 });
 

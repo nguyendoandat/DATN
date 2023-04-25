@@ -6,6 +6,7 @@ using Project.Service.Interface;
 using Project.ViewModel;
 using System.Data;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace Project.web.Areas.Admin.Controllers
 {
@@ -32,7 +33,28 @@ namespace Project.web.Areas.Admin.Controllers
             Func<IQueryable<Order>, IQueryable<Order>> filterFull = null;
             Expression<Func<Order, bool>> filterOrder = null;
             Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = null;
+            
             list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, x=>x.StatusId==3, sort, "Status");
+            return View(list);
+        }
+        public IActionResult IndexDeliverer()
+        {
+           // PagedResult<OrderDTO> list = new PagedResult<OrderDTO>();
+            Func<IQueryable<Order>, IQueryable<Order>> filterFull = null;
+            Expression<Func<Order, bool>> filterOrder = null;
+            Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = null;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           var list = _orderService.GetOrder( filterFull, x => x.StatusId == 4 && x.ShipperId==userId, sort, "Status");
+            return View(list);
+        }
+        public IActionResult SuccessDelivery(int pageNumber)
+        {
+            PagedResult<OrderDTO> list = new PagedResult<OrderDTO>();
+            Func<IQueryable<Order>, IQueryable<Order>> filterFull = null;
+            Expression<Func<Order, bool>> filterOrder = null;
+            Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = null;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, x => x.StatusId == 5 && x.ShipperId == userId, sort, "Status");
             return View(list);
         }
         public IActionResult Edit(int id)
@@ -46,6 +68,7 @@ namespace Project.web.Areas.Admin.Controllers
         {
             try
             {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var updateOrder = _orderService.GetByOrderId(order.Id);
                 updateOrder.ShipPhoneNumber = order.ShipPhoneNumber;
                 updateOrder.ShipName = order.ShipName;
@@ -53,6 +76,7 @@ namespace Project.web.Areas.Admin.Controllers
                 updateOrder.ShipEmail = order.ShipEmail;
                 updateOrder.OrderDate = order.OrderDate;
                 updateOrder.StatusId = order.StatusId;
+                updateOrder.ShipperId=userId;
                 if (updateOrder.StatusId == 3)
                 {
                     var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);

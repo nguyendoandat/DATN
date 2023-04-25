@@ -20,7 +20,7 @@ namespace Project.Data.Entities
         public string ShipEmail { set; get; }
         public string ShipPhoneNumber { set; get; }
         public int StatusId { get; set; }
-      
+        public string? ShipperId { get; set; }
         public Status Status { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public AppUser? User { get; set; }

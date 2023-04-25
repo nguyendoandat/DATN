@@ -2,14 +2,37 @@
 @using Project.Service.Interface
 @model IEnumerable<Project.ViewModel.OrderDetailDTO>
 @inject IOrderDetailService orderDetailService
+@inject IOrderService orderService
+@inject IUserService userService
 @{
 	ViewData["Title"] = "Details";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var list = orderDetailService.GetOrderDetail(null, null, null, includeProperties: "Order.User");
+	var listUser = userService.GetUser();
 }
 
 <h3 style="text-align:center">Thông tin sản phẩm đặt mua</h3>
 <br />
-<table class="table ">
+
+<div>
+	@foreach (var item in Model)
+	{
+		@foreach(var a in list){
+			@if(item.OrderID == a.Order.Id){
+				@foreach (var b in listUser)
+				{
+					@if(a.Order.ShipperId==b.Id){
+					<span>Tên người giao: @b.UserName</span>
+					}
+				}
+				break;
+			}
+		}
+		break;
+	}
+</div>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	<thead>
 		<tr>
 			<th>STT</th>
@@ -17,6 +40,7 @@
 			<th>Tên sản phẩm</th>
 			<th>Số lượng</th>
 			<th>Đơn giá</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -32,6 +56,7 @@
 					<td>@item.Product.ProductName</td>
 					<td>@item.Quantity</td>
 					<td>@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+					
 				</tr>
 				i++;
 				total += c;

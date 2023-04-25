@@ -26,15 +26,9 @@
                         <form id="account-dashboard-tab" class="form-inline" asp-controller="MyProfile" asp-action="Index" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-user-circle-o"></i> Thông tin tài khoản</button>
                         </form>
-@*                        <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab" href="#account-dashboard" role="tab" aria-controls="account-dashboard" aria-selected="true">Thông tin tài khoản</a>
-*@                    </li>
+                 </li>
                     <li class="nav-item" >
-                       @* <form id="logoutForm" class="form-inline" asp-controller="MyProfile" asp-action="IndexOrder" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-list-alt"></i>Danh sách đơn hàng</button>
-                        </form>*@
-                       
                         <b  style="text-align:left" class="nav-link btn btn-link text-dark" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders" role="tab" ><i class="fa fa-list-alt"></i> Danh sách đơn hàng</b>
-                        
                     </li>
                     <li class="nav-item">
                         <form id="account-logout-tab" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -125,7 +119,9 @@
                     </div>
                     <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
                         <div class="myaccount-orders">
-                            <h4 class="small-title">Danh sách đơn hàng</h4>
+                            <h4 class="small-title">Danh sách đơn hàng đã mua</h4>
+                            <a asp-action="SuccessDelivery" asp-controller="MyProfile" class="btn btn-success mb-4">Đơn hàng đã giao thành công</a>
+                            <div></div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <tbody>
@@ -134,7 +130,7 @@
                                            
                                             <th>Ngày mua</th>
                                             <th>Trạng thái</th>
-                                            <th>Thành tiền</th>
+                                            <th>Tổng tiền</th>
                                             <th></th>
                                             
                                         </tr>

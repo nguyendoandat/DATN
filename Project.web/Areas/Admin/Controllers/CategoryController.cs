@@ -5,6 +5,7 @@ using Project.Service;
 using Project.Service.Interface;
 using Project.ViewModel;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Project.web.Areas.Admin.Controllers
 {
@@ -23,10 +24,18 @@ namespace Project.web.Areas.Admin.Controllers
             this.pageSize = pageSize;
         }
 
-        public IActionResult Index(int pageNumber)
+        public IActionResult Index(int pageNumber, string searchString)
         {
             PagedResult<CategoryDTO> list = new PagedResult<CategoryDTO>();
-            list = _CategoryService.GetAllCategory(pageNumber, pageSize);
+            Expression<Func<Category, bool>> filter = null;
+            ViewBag.SearchString = searchString;
+            Expression<Func<Category, bool>> filterName = x => x.CategoryName.Contains("");
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                filterName = x => x.CategoryName.Contains(searchString);
+            }
+            list = _CategoryService.GetAllCategory(pageNumber, pageSize, null, filter: filterName,null,"Discount");
             return View(list);
         }
         public IActionResult Create()
@@ -44,15 +53,6 @@ namespace Project.web.Areas.Admin.Controllers
                     ViewData["CategoryName"] = "CategoryName da ton tai";
                     //return Json(new { result = true, isValid = false, messCategoryname = errorCategoryName });
                 }
-                //model.Slug = model.CategoryName;
-                //var CategoryBySlug = _CategoryService.GetCategory(x => x.Slug == model.Slug);
-                //if (CategoryBySlug.Count() != 0)
-                //{
-                //    ViewData["Slug"] = "slug da ton tai";
-                //    //return Json(new { result = true, isValid = false, messSlug = errorSlug });
-                //}
-                
-                //model.StartDate = Discount.StartDate;
                 _CategoryService.InsertCategory(model);
                 return RedirectToAction("Index", "Category");
             }

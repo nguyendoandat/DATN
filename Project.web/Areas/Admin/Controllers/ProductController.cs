@@ -6,6 +6,8 @@ using Project.ViewModel;
 using Project.Service.File;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Project.Data.Entities;
+using System.Linq.Expressions;
 
 namespace Project.web.Areas.Admin.Controllers
 {
@@ -23,10 +25,18 @@ namespace Project.web.Areas.Admin.Controllers
             _fileService = fileService;
             this.pageSize = pageSize;
         }
-        public async Task<IActionResult> Index(int pageNumber)
+        public async Task<IActionResult> Index(int pageNumber, string searchString)
         {
             PagedResult<ProductDTO> list = new PagedResult<ProductDTO>();
-            list = _productService.GetAllProduct(pageNumber, pageSize,null,null,null, "Category");
+            Expression<Func<Product, bool>> filter = null;
+            ViewBag.SearchString = searchString;
+            Expression<Func<Product, bool>> filterName = x => x.ProductName.Contains("");
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                filterName = x => x.ProductName.Contains(searchString);
+            }
+            list = _productService.GetAllProduct(pageNumber, pageSize,null, filter: filterName, null, "Category");
             return View(list);
         }
         [HttpGet]
