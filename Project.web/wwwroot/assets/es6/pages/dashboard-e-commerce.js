@@ -80,7 +80,7 @@ class DashboardECommerce {
         const revenueChartConfig = new Chart(revenueChartCtx, {
             type: 'line',
             data: {
-                labels: ["16th", "17th", "18th", "19th", "20th", "21th", "22th", "23th", "24th", "25th", "26th"],
+                labels: ["16th", "17th", "18th", "19th", "20th"],
                 datasets: [ 
                     {
                         backgroundColor: themeColors.transparent,

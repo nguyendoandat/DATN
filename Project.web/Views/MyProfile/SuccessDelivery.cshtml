@@ -32,6 +32,7 @@
                 var ii = 1;
                 foreach (var item in listOrder)
                 {
+                    
                     <tr id="trow_@item.Id">
                         <td>@ii</td>
 
@@ -39,10 +40,23 @@
                         <td>
                             @item.Status.Name
                         </td>
+                        <td>@item.UpdateAt</td>
+                        <td>@item.EndAt</td>
                         <td>@item.ShipName</td>
                         @*<td>@item.Thanhtien</td>*@
-                        <td >
-                            @if (item.StatusId == 5)
+                        <td id="texttd">
+                            @if(item.EndAt < DateTime.Now){
+                               
+                                <span>Đã nhận đơn</span>
+                            }
+                            @if(item.EndAt > DateTime.Now){
+                                <a class=" btn btn-success " asp-action="Details" asp-controller="MyProfile" asp-route-id="@item.Id">
+                                    Yêu cầu trả hàng
+                                </a>
+                                <a href="#" data-id="@item.Id" data-id="@item.Id" data-name="@item.ShipName" data-order="@item.OrderDate"
+                       data-address="@item.ShipAddress" data-email="@item.ShipEmail" data-phone="@item.ShipPhoneNumber" class="btn btn-danger btnDelete"><i class="bi bi-trash"></i>Đã nhận được hàng</a>
+                            }
+                           @* @if (item.StatusId == 5)
                             {
                                 <a class=" btn btn-success " asp-action="Details" asp-controller="MyProfile" asp-route-id="@item.Id">
                                     Yêu cầu trả hàng
@@ -56,7 +70,7 @@
                                     Xem chi tiết
                                 </a>
 
-                            }
+                            }*@
 
                         </td>
 
@@ -115,23 +129,35 @@
             foreach (var item in Model)
             {
                 var c = item.Quantity * item.Price;
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td><img src="~/img/@item.Product.Thumb" width="80px" height="50px" /></td>
-                    <td>@item.Product.ProductName</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td><img src="~/img/@item.Product.Thumb" width="80px" height="50px" /></td>
+                        <td>@item.Product.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
 
-                </tr>
+                    </tr>
                 i++;
                 total += c;
 
             }
-            <tr>
-                <td colspan="4" style="text-align:right;font-weight: bold;font-size:20px">Tổng tiền:</td>
-                <td style="text-align:left;font-weight: bold;font-size:20px">@total.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
-            </tr>
+                <tr>
+                    <td colspan="4" style="text-align:right;font-weight: bold;font-size:20px">Tổng tiền:</td>
+                    <td style="text-align:left;font-weight: bold;font-size:20px">@total.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+                </tr>
         }
     </tbody>
 </table>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".btnDelete").click(function () {
+                debugger
+                $("#texttd").text("Đã nhận đơn").show();
+                    
+                })
+           
+        });
+    </script>
+}
 

@@ -108,7 +108,7 @@ namespace Project.web.Controllers
             PagedResult<ProductDTO> list = new PagedResult<ProductDTO>();
             Func<IQueryable<Product>, IQueryable<Product>> filterFull = null;
             Expression<Func<Product, bool>> filterCategory = null;
-            Func<IQueryable<Product>, IOrderedQueryable<Product>> sort = sort => sort.OrderByDescending(p => p.View);
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> sort = null;
             if (categoryId != null)
             {
                 ViewBag.CategoryId = categoryId;
@@ -140,7 +140,7 @@ namespace Project.web.Controllers
             PagedResult<ProductDTO> list = new PagedResult<ProductDTO>();
             Func<IQueryable<Product>, IQueryable<Product>> filterFull = null;
             Expression<Func<Product, bool>> filterCategory = null;
-            Func<IQueryable<Product>, IOrderedQueryable<Product>> sort = sort => sort.OrderByDescending(p => p.View);
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> sort = null;
             if (categoryId != null)
             {
                 ViewBag.CategoryId = categoryId;

@@ -32,6 +32,7 @@ namespace Project.Data.EF
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelbuilder.ApplyConfiguration(new DiscountConfiguration());
             modelbuilder.ApplyConfiguration(new StatusConfiguration());
+            modelbuilder.ApplyConfiguration(new OrderCancelConfiguration());
 
             List<Status> status = new List<Status>()
             {
@@ -99,6 +100,7 @@ namespace Project.Data.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<OrderCancel> OrderCancels { get; set; }
 
     }
 }

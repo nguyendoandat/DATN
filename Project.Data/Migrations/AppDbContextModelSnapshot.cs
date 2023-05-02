@@ -51,22 +51,22 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3dee17b9-1d74-45e2-9335-0e174246cea6",
-                            ConcurrencyStamp = "c8ad75d2-2cec-406f-a932-2399622270e9",
+                            Id = "02fed2e6-656c-4a3f-9feb-119c4157fa78",
+                            ConcurrencyStamp = "10077802-630d-4003-9f32-b6319a5a92c2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "798b888a-61eb-4763-a909-942e87fd5acf",
-                            ConcurrencyStamp = "8f2ea402-72c9-405b-af1d-d7e35adb4284",
+                            Id = "4b18aedc-f24a-4fc6-962e-ceff793655dc",
+                            ConcurrencyStamp = "dc715062-acd1-4065-811f-1a223e0851ba",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cbb57ff2-75ba-46c9-a904-f15f98d459e6",
-                            ConcurrencyStamp = "bb28c1a6-a171-48a9-9032-6209bd94e6e3",
+                            Id = "4b241eb3-1fbb-411b-89d8-905ea44f1cd3",
+                            ConcurrencyStamp = "0fb9b4e3-aa83-4668-b7af-20ebae9dc88d",
                             Name = "Shipper",
                             NormalizedName = "SHIPPER"
                         });
@@ -161,13 +161,13 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4b79a96b-b502-4575-bdec-a39adae9a308",
-                            RoleId = "798b888a-61eb-4763-a909-942e87fd5acf"
+                            UserId = "35021343-0234-4f7c-8205-1db5afffa321",
+                            RoleId = "4b18aedc-f24a-4fc6-962e-ceff793655dc"
                         },
                         new
                         {
-                            UserId = "7099e6e6-1eea-47e5-9b90-cd023c483a80",
-                            RoleId = "3dee17b9-1d74-45e2-9335-0e174246cea6"
+                            UserId = "cbd60745-ba77-4173-8daf-c0decac6a617",
+                            RoleId = "02fed2e6-656c-4a3f-9feb-119c4157fa78"
                         });
                 });
 
@@ -266,35 +266,35 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4b79a96b-b502-4575-bdec-a39adae9a308",
+                            Id = "35021343-0234-4f7c-8205-1db5afffa321",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "687e83f2-5622-43fd-8d43-d7cc3716b4e8",
+                            ConcurrencyStamp = "b624e2cc-106a-4e69-83ac-23ccf4a8d54f",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB1s3UMfZeJqx5rlOq/iiC2S5G/B77VHcuKYOYzX+ubvISgdo+xVathyR/p31M4m7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOKh9LSRJsD2z01qnsy6lPV+ypWk2XXmnbbanHurkkJOAYTCV7Q/GqGx7AMNUDAfTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1412f579-64cc-47b7-a2b6-990b2fa492b7",
+                            SecurityStamp = "7b74035c-22bd-4407-8786-e6702eecceb9",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "7099e6e6-1eea-47e5-9b90-cd023c483a80",
+                            Id = "cbd60745-ba77-4173-8daf-c0decac6a617",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07c843a5-1d51-46d7-b4a2-3e304a76f7a8",
+                            ConcurrencyStamp = "ed9dea3f-7ff8-4631-947b-558f165ff31b",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECHZO0VvgKAs2/O+RvvHx9MG+v2VfyoktVtqdu5Q4/6c4iOsFT1X4Ej2CxKc6gTOiw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIIMY3T3rfmymUmnfPKnh2U6L8MEMQpZ+4B6+UiGfz0GKXsiR8iBl3LkJmmTHzde5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c79c1d4-a766-47c7-b243-796b52642aa3",
+                            SecurityStamp = "e6fffb98-1f6a-42b0-af1b-a400cacbf997",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
@@ -355,9 +355,6 @@ namespace Project.Data.Migrations
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Trend")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
 
@@ -409,6 +406,9 @@ namespace Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime?>("EndAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("date");
 
@@ -439,6 +439,9 @@ namespace Project.Data.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -449,6 +452,38 @@ namespace Project.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders", (string)null);
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.OrderCancel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Thumb")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderCancels", (string)null);
                 });
 
             modelBuilder.Entity("Project.Data.Entities.OrderDetail", b =>
@@ -516,14 +551,8 @@ namespace Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Trend")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("View")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

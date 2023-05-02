@@ -1,8 +1,247 @@
-﻿
+﻿@using Project.Service.Interface
+@using Project.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@using System.Globalization
+@inject IOrderService orderService
+@inject IOrderDetailService orderDetailService
+@inject UserManager<AppUser> _userManager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var list = orderService.GetOrder();
+    var usersWithPermission = _userManager.GetUsersInRoleAsync("User").Result;
+    var users = usersWithPermission.OfType<AppUser>();
+
+    var listOrderDetail = orderDetailService.GetOrderDetail(null, null, null, "Product");
+
 }
 
-<h1>Tổng quan</h1>
+
+<div class="row">
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-blue">
+                        <i class="anticon anticon-dollar"></i>
+                    </div>
+                    <div class="m-l-15">
+                        @{
+                            decimal tong = 0;
+                            @foreach (var item in list)
+                            {
+
+                                decimal total = 0;
+                                @foreach (var a in listOrderDetail)
+                                {
+                                    @if (item.Id == a.OrderID && item.StatusId == 5)
+                                    {
+                                        var c = a.Quantity * a.Price;
+                                        total += c;
+                                    }
+                                }
+                                tong += total;
+                            }
+                            <h2 class="m-b-0">
+                                @tong.ToString("N00", new CultureInfo("en-us")) VNĐ
+
+                            </h2>
+
+                        }
+
+
+
+                        <p class="m-b-0 text-muted">Doanh số</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-gold">
+                        <i class="anticon anticon-profile"></i>
+                    </div>
+                    <div class="m-l-15">
+                        <h2 class="m-b-0">@list.Count()</h2>
+                        <p class="m-b-0 text-muted">Đơn đặt hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="media align-items-center">
+                    <div class="avatar avatar-icon avatar-lg avatar-purple">
+                        <i class="anticon anticon-user"></i>
+                    </div>
+                    <div class="m-l-15">
+                        <h2 class="m-b-0">@users.Count()</h2>
+                        <p class="m-b-0 text-muted">Khách hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thống kê doanh thu</h3>
+@*
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>*@
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="chart">
+                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ngày</th>
+                                <th>Doanh số</th>
+                                <th>Lợi nhuận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="load_data"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div>Danh sách sản phẩm bán chạy</div>
+
+
+@section Scripts{
+    <script src="~/assets/js/pages/chart.min.js"></script>
+    <script src="~/assets/js/moment/moment.min.js"></script>
+    <a href="~/assets/js/moment/moment.min.js.map">~/assets/js/moment/moment.min.js.map</a>
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                debugger
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetStatistical","Home")',
+                    dataType: 'json',
+                    data: { fromDate: '', toDate: '' },
+                    success: function (result) {
+                        var arrDoanhThu = [];
+                        var arrLoiNhuan = [];
+                        var arrDate = [];
+                        console.log(result);
+                        //for (var i = 0; i < result.lenght; i++) {
+                        //    console.log(i);
+                        //}
+                        $.each(result, function (i, item) {
+                            var strDate = moment(item.Date).format('DD/MM/yyyy');
+                            arrDate.push(strDate);
+                            console.log(strDate);
+                            arrDoanhThu.push(item.DoanhThu);
+                            arrLoiNhuan.push(item.LoiNhuan);
+                            console.log(item);
+                            console.log(item.Date);
+                            console.log(item.DoanhThu);
+                            console.log(item.LoiNhuan);
+
+                        });
+                        var areaChartData = {
+                            labels: arrDate,
+                            datasets: [
+                                {
+                                    label: 'Doanh số',
+                                    backgroundColor: 'rgba(60,141,188,0.9)',
+                                    borderColor: 'rgba(60,141,188,0.8)',
+                                    pointRadius: false,
+                                    pointColor: '#3b8bba',
+                                    pointStrokeColor: 'rgba(60,141,188,1)',
+                                    pointHighlightFill: '#fff',
+                                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                                    data: arrLoiNhuan
+                                },
+                                {
+                                    label: 'Lợi nhuận',
+                                    backgroundColor: 'rgba(210, 214, 222, 1)',
+                                    borderColor: 'rgba(210, 214, 222, 1)',
+                                    pointRadius: false,
+                                    pointColor: 'rgba(210, 214, 222, 1)',
+                                    pointStrokeColor: '#c1c7d1',
+                                    pointHighlightFill: '#fff',
+                                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                                    data: arrDoanhThu
+                                },
+                            ]
+                        }
+                        //-------------
+                        //- BAR CHART -
+                        //-------------
+                        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                        var barChartData = $.extend(true, {}, areaChartData)
+                        var temp0 = areaChartData.datasets[0]
+                        var temp1 = areaChartData.datasets[1]
+                        barChartData.datasets[0] = temp1
+                        barChartData.datasets[1] = temp0
+
+                        var barChartOptions = {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            datasetFill: false
+                        }
+
+                        new Chart(barChartCanvas, {
+                            type: 'bar',
+                            data: barChartData,
+                            options: barChartOptions
+                        });
+                        load_data(result);
+                    }
+
+                });
+            })
+
+
+
+            function load_data(result) {
+                var strHtml = "";
+                debugger
+                $.each(result, function (i, item) {
+                    var strDate = moment(item.Date).format('DD/MM/yyyy');
+                    strHtml += "<tr>";
+                    strHtml += "<td>" + (i + 1) + "</td>";
+                    strHtml += "<td>" + strDate + "</td>";
+                    strHtml += "<td>" + item.DoanhThu + "</td>";
+                    strHtml += "<td>" + item.LoiNhuan + "</td>";
+                    strHtml += "</tr>";
+                });
+                $('#load_data').html(strHtml);
+            }
+        });
+    </script>
+}
+
 

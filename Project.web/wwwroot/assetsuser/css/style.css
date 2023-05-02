@@ -16807,18 +16807,18 @@ blockquote .inner-content .user-name:before {
 }
 
 .slide-inner.bg-height {
-  min-height: 680px;
+  min-height: 300px;
 }
 
 @media (max-width: 1599.98px) {
   .slide-inner.bg-height {
-    min-height: 610px;
+    min-height: 240px;
   }
 }
 
 @media (max-width: 575.98px) {
   .slide-inner.bg-height {
-    min-height: 480px;
+    min-height: 220px;
   }
 }
 

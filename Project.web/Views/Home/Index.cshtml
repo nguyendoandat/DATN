@@ -1,71 +1,74 @@
 ﻿@using Project.Service.Interface
 @using System.Globalization
 @inject IProductService productService
-
+@inject ICategoryService categoryService
 @inject IDiscountService discountService
 @{
     ViewData["Title"] = "Home Page";
 
     var list = productService.GetProduct(includeProperties: "Category.Discount");
     var listDiscount = discountService.GetDiscount();
-
+    var listCategory = categoryService.GetCategory();
 }
 
-
-<!-- <ol class="bread_crumb">
-    <li><a href="">Home</a></li>
-    <li><a href="">Quần áo</a></li>
-    <li>Quần Jean</li>
-  </ol> -->
-
-<div class="container content">
-</div>
-
 <div class="container">
-    <div class="title">
-        <h2>Danh sách sản phẩm</h2>
-    </div>
     <div class="row justify-content-between">
-        <!-- <div class="left_popular col-lg-4 col-12">
-          <img src="~/user/images/model/model1.png" alt="">
-        </div> -->
         <div class="col-lg-12">
+            <ul class="nav product-tab-nav pb-10" id="myTab" role="tablist" style="font-size:20px;font-weight:Bold">
+
+                @foreach (var item in listCategory)
+                {
+                    <li class="nav-item" role="presentation">
+                        <a id="fresh-fruits-tab" data-bs-toggle="tab" href="#fresh-fruits" role="tab" aria-controls="fresh-fruits" aria-selected="false">
+                            @item.CategoryName
+                        </a>
+                    </li>
+                }
+            </ul>
             <div class="row">
                 @foreach (var item in list)
                 {
-                    if(item.DeleteAt==null){
+                    if (item.DeleteAt == null)
+                    {
                         <div class="glass col-lg-3 col-6 p-1 mb-3">
                             <div class="banner-item">
                                 <div class="banner-img img-zoom-effect">
-                                
+
                                     <img src="~/img/@item.Thumb" class="img-full" alt="" width="290" height="300px">
-                               
-                            
-                            @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
-                            {
+
+
+                                    
+                                    @if(item.Quantity==0){
+                                        <div class="inner-content" style="top:10%;background-color:rgb(216, 216, 216)">
+                                            <span class="offer" style="color:black">-Hết hàng</span>
+                                        </div>
+                                    }
+                                    else if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
+                                    {
                                         <div class="inner-content" style="top:10%;background-color:red">
                                             <span class="offer" style="color:white">-@(item.Category.Discount.DiscountPrice)%</span>
+                                        </div>
+                                    }
                                 </div>
-                            }
-                            </div>
                             </div>
                             <div class="glass_name" style="text-align:center">
                                 <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
 
                             </div>
                             <div>
-                               @* @item.ListCategory*@
+                                @* @item.ListCategory*@
                             </div>
-                            
+
                             <div class="text-center">
                                 @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
                                 {
-                                    <span class="price"><del style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
+                                    <span class="price">
+                                        <del style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
                                     </span>
-                                        <span style="color: #000; font-size: 20px; font-weight: 700;">
-                                        @((Decimal.ToDouble(item.Price) - Decimal.ToDouble(item.Price)*(item.Category.Discount.DiscountPrice/100)).ToString("N00", new CultureInfo("en-us"))) VNĐ
-                                        </span>
-                                     
+                                    <span style="color: #000; font-size: 20px; font-weight: 700;">
+                                        @((Decimal.ToDouble(item.Price) - Decimal.ToDouble(item.Price) * (item.Category.Discount.DiscountPrice / 100)).ToString("N00", new CultureInfo("en-us"))) VNĐ
+                                    </span>
+
                                 }
                                 else
                                 {
@@ -75,54 +78,14 @@
                             <div class="text-center">
                                 <a class="btn btn-primary" data-id="@item.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
 
-                                </div>
+                            </div>
 
-
-                            
-                            @*<div class="glass_icon_action">
-                                <button class="btn-search"><i class="fa fa-search"></i></button>*@
-                                @*  @if (userId == null)
-                        {
-                        <a><i class="fa fa-heart"></i></a>
-                        <a><i class="fa fa-shopping-cart"></i></a>
-                        }
-                        else
-                        {
-                        if (reviewService.IsWishList(userId, item.Id))
-                        {
-                        <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
-                        <a><i class="fa fa-shopping-cart"></i></a>
-                        }
-                        else
-                        {
-                        <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
-                        <a><i class="fa fa-shopping-cart"></i></a>
-                        }
-                        }*@
-
-                            @*</div>*@
 
                         </div>
                     }
-                    
+
 
                 }
-                @*<div class="glass col-lg-3 col-6">
-                <img src="~/user/images/glasses/glass1.jpg" alt="">
-                <div class="glass_name">
-                <a href="">Kính râm Linemai K304</a>
-                </div>
-                <div class="price">
-                850.000 VND
-                </div>
-                <div class="glass_icon_action">
-                <button class="btn-search"><i class="fa fa-search"></i></button>
-                <a href="#"><i class="fa fa-heart"></i></a>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                </div>
-
-                </div>*@
-
             </div>
         </div>
     </div>
@@ -130,148 +93,4 @@
 
 
 
-<div class="container">
-    <div class="title">
-        @*<h2>Top Product</h2>*@
-    </div>
-    <div class="row justify-content-between">
-        <!-- <div class="left_popular col-lg-4 col-12">
-          <img src="~/user/images/model/model1.png" alt="">
-        </div> -->
-        <div class="col-lg-12">
-            <div class="row">
-                @*@foreach (var item in listTen)
-                {
-                    <div class="glass col-lg-3 col-6">
-                        <img src="~/img/@item.Thumbnail" alt="">
-                        <div class="glass_name">
-                            <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
-                        </div>
-                        <div class="price">
-                            @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <p>@item.Views <i class="fa-solid fa-eye"></i></p>
-                        </div>
-                        <div class="glass_icon_action">
-                            <button class="btn-search"><i class="fa fa-search"></i></button>
-                            @if (userId == null)
-                            {
-                                <a><i class="fa fa-heart"></i></a>
-                                <a><i class="fa fa-shopping-cart"></i></a>
-                            }
-                            else
-                            {
-                                if (reviewService.IsWishList(userId, item.Id))
-                                {
-                                    <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
-                                    <a><i class="fa fa-shopping-cart"></i></a>
-                                }
-                                else
-                                {
-                                    <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
-                                    <a><i class="fa fa-shopping-cart"></i></a>
-                                }
-                            }
 
-                        </div>
-
-                    </div>
-
-                }*@
-                @*<div class="glass col-lg-3 col-6">
-                <img src="~/user/images/glasses/glass1.jpg" alt="">
-                <div class="glass_name">
-                <a href="">Kính râm Linemai K304</a>
-                </div>
-                <div class="price">
-                850.000 VND
-                </div>
-                <div class="glass_icon_action">
-                <button class="btn-search"><i class="fa fa-search"></i></button>
-                <a href="#"><i class="fa fa-heart"></i></a>
-                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                </div>
-
-                </div>*@
-
-            </div>
-        </div>
-    </div>
-</div>
-
-@*@if (userId != null && listViewd.Count() != 0)
-{*@
-    <div class="container">
-        <div class="title">
-          @*  <h2>Product Recent View</h2>*@
-        </div>
-        <div class="row justify-content-between">
-            <!-- <div class="left_popular col-lg-4 col-12">
-              <img src="~/user/images/model/model1.png" alt="">
-            </div> -->
-            <div class="col-lg-12">
-                <div class="row">
-                    @*@foreach (var i in Model)
-                    {
-                        var item = i.Product;
-                        <div class="glass col-lg-3 col-6">
-                            <img src="~/img/@item.Thumbnail" alt="">
-                            <div class="glass_name">
-                                <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
-                            </div>
-                            <div class="price">
-                                @item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <p>@item.Views <i class="fa-solid fa-eye"></i></p>
-                            </div>
-                            <div class="glass_icon_action">
-                                <button class="btn-search"><i class="fa fa-search"></i></button>*@
-                               @* @if (userId == null)
-                                {
-                                    <a><i class="fa fa-heart"></i></a>
-                                    <a><i class="fa fa-shopping-cart"></i></a>
-                                }
-                                else
-                                {
-                                    if (reviewService.IsWishList(userId, item.Id))
-                                    {
-                                        <a class="deleteWishList" data-id="@item.Id"><i class="fa fa-heart" style="background-color: red"></i></a>
-                                        <a><i class="fa fa-shopping-cart"></i></a>
-                                    }
-                                    else
-                                    {
-                                        <a class="addWishList" data-id="@item.Id"><i class="fa fa-heart"></i></a>
-                                        <a><i class="fa fa-shopping-cart"></i></a>
-                                    }
-                                }*@
-@*
-                            </div>
-
-                        </div>
-
-                    }*@
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<div class="container category">
-    <div class="title">
-        @*<h2>Danh Mục Sản Phẩm</h2>*@
-    </div>
-    
-</div>
-<div class="container">
-    <div class="brand-slider h-100">
-        <div class="row align-items-center h-100">
-            <div class="container rounded">
-               
-                
-            </div>
-        </div>
-    </div>
-</div>

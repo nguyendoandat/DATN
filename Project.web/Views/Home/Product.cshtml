@@ -65,7 +65,13 @@
                                 <img src="~/img/@item.Thumb" class="img-full" alt="" width="290" height="300px">
 
 
-                                @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
+                                @if (item.Quantity == 0)
+                                {
+                                    <div class="inner-content" style="top:10%;background-color:rgb(216, 216, 216)">
+                                        <span class="offer" style="color:black">-Hết hàng</span>
+                                    </div>
+                                }
+                                else if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
                                 {
                                     <div class="inner-content" style="top:10%;background-color:red">
                                         <span class="offer" style="color:white">-@(item.Category.Discount.DiscountPrice)%</span>

@@ -8,12 +8,12 @@
 		align-items: center;
 		justify-content: flex-start;
 		&.bg-height{
-			min-height: 680px;
-			@include media-breakpoint-down(xxl){
-				min-height: 610px;
+			min-height: 300px;
+			@include media-breakpoint-down(xl){
+				min-height: 240px;
 			}
 			@include media-breakpoint-down(sm){
-				min-height: 480px;
+				min-height: 220px;
 			}
 		}
 	}

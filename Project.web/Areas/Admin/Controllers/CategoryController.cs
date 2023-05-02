@@ -89,7 +89,7 @@ namespace Project.web.Areas.Admin.Controllers
                 //}
                 var updateCategory = _CategoryService.GetByCategoryId(model.Id);
                 updateCategory.CategoryName = model.CategoryName;
-                updateCategory.Trend = model.Trend;
+                //updateCategory.Trend = model.Trend;
                 updateCategory.UpdateAt = DateTime.Now;
                 updateCategory.DiscountId= model.DiscountId;
                 //updateCategory.Slug = model.Slug;

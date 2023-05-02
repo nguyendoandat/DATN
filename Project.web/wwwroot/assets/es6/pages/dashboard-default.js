@@ -7,7 +7,7 @@ class DashboardDefault {
         const revenueChartConfig = new Chart(document.getElementById("revenue-chart").getContext('2d'), {
             type: 'line',
             data: {
-                labels: ["16th", "17th", "18th", "19th", "20th", "21th", "22th", "23th", "24th", "25th", "26th"],
+                labels: ["16th", "17th", "18th", "19th", "20th", "21th"],
                 datasets: [{
                     label: 'Series A',
                     backgroundColor: themeColors.transparent,

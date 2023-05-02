@@ -15,6 +15,7 @@ namespace Project.web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
+        
         public CartController(IProductService productService, IUserService userService, UserManager<AppUser> userManager
             , IOrderService orderService, IOrderDetailService orderDetailService)
         {
@@ -56,13 +57,21 @@ namespace Project.web.Controllers
                 }
                 var c = _orderService.Create(order);
                 var orderDetails = new OrderDetailDTO();
+                var listProduct = _productService.GetProduct();
                 foreach (var item in currentCart)
                 {
                     orderDetails.OrderID = c;
                     orderDetails.ProductID = item.ProductId;
                     orderDetails.Quantity = item.Quantity;
                     orderDetails.Price = item.Price;
-
+                    foreach (var product in listProduct)
+                    {
+                        if (item.ProductId == product.Id)
+                        {
+                            product.Quantity -= item.Quantity;
+                            _productService.UpdateProduct(product);
+                        }
+                    }
                     _orderDetailService.Create(orderDetails);
 
                 }

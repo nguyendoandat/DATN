@@ -21,9 +21,9 @@ namespace Project.Data.Entities
         public int Quantity { get; set; }
         public string ProductDetail { get; set; }
         public decimal Price { get; set; }
-        public bool Trend { get; set; }
+        //public bool Trend { get; set; }
         public bool Status { get; set; }
-        public int View { get; set; }
+        //public int View { get; set; }
         public string Thumb { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }

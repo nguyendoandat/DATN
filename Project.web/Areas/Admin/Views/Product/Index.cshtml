@@ -21,7 +21,7 @@
         <div class="mb-3">
             <form class="d-flex justify-content-end">
                
-                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo tên sản phẩm" value="@ViewBag.SearchString">
+                <input type="text" class="form-control w-35 mr-3" id="searchString" placeholder="Tìm kiếm theo tên sản phẩm" value="@ViewBag.SearchString" />
                 <input type="button" class="form-control w-30 btn btn-info" id="search" value="Tìm kiếm">
             </form>
         </div>
@@ -95,8 +95,8 @@
                                     <img src="~/img/@item.Thumb" width="100px" />
                                 </td>
                                 <td>@item.Slug</td>
-                                <td>@item.Trend</td>
-                                <th>@item.View</th>
+                               @* <td>@item.Trend</td>
+                                <th>@item.View</th>*@
                                 
                                 <td>@item.Price</td>
                                 <td>@item.CreateAt.ToString("dd/MM/yyyy")</td>

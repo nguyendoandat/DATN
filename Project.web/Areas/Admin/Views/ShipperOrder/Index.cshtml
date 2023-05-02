@@ -48,7 +48,7 @@
                                     @if (item.StatusId == 3)
                                     {
                                         <a class="btn btn-primary mx-2" data-id="@item.Id" data-name="@item.ShipName" data-order="@item.OrderDate"
-                               data-address="@item.ShipAddress" data-email="@item.ShipEmail" data-phone="@item.ShipPhoneNumber"><i class="bi bi-pencil-square"></i> Nhận đơn</a>
+                               data-address="@item.ShipAddress" data-email="@item.ShipEmail" data-phone="@item.ShipPhoneNumber" ><i class="bi bi-pencil-square"></i> Nhận đơn</a>
                                      
                                     }
                                     
@@ -123,6 +123,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         debugger
+                       
                         var order = {
                             Id: $(this).data('id'),
                             OrderDate: $(this).data('order'),
@@ -130,7 +131,9 @@
                             ShipAddress: $(this).data('address'),
                             ShipEmail: $(this).data('email'),
                             ShipPhoneNumber: $(this).data('phone'),
-                            StatusId: 4
+                           
+                            StatusId: 4,
+                            
                         };
                         $.ajax({
                             type: "POST",

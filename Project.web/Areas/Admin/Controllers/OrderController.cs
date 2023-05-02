@@ -61,17 +61,17 @@ namespace Project.web.Areas.Admin.Controllers
                 updateOrder.ShipEmail = order.ShipEmail;
                 updateOrder.OrderDate=order.OrderDate;
                 updateOrder.StatusId=order.StatusId;
-                if (updateOrder.StatusId == 3)
+                if (updateOrder.StatusId == 2)
                 {
                     var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
                     var listProduct = _productService.GetProduct();
-                    foreach(var item in listOrderDetail)
+                    foreach (var item in listOrderDetail)
                     {
-                        foreach(var product in listProduct)
+                        foreach (var product in listProduct)
                         {
                             if (item.ProductID == product.Id)
                             {
-                                product.Quantity -= item.Quantity;
+                                product.Quantity += item.Quantity;
                                 _productService.UpdateProduct(product);
                             }
                         }

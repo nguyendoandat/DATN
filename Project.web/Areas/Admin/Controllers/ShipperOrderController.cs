@@ -77,21 +77,26 @@ namespace Project.web.Areas.Admin.Controllers
                 updateOrder.OrderDate = order.OrderDate;
                 updateOrder.StatusId = order.StatusId;
                 updateOrder.ShipperId=userId;
+                updateOrder.UpdateAt = DateTime.Now;
                 if (updateOrder.StatusId == 3)
                 {
-                    var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
-                    var listProduct = _productService.GetProduct();
-                    foreach (var item in listOrderDetail)
-                    {
-                        foreach (var product in listProduct)
-                        {
-                            if (item.ProductID == product.Id)
-                            {
-                                product.Quantity -= item.Quantity;
-                                _productService.UpdateProduct(product);
-                            }
-                        }
-                    }
+                    //var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
+                    //var listProduct = _productService.GetProduct();
+                    //foreach (var item in listOrderDetail)
+                    //{
+                    //    foreach (var product in listProduct)
+                    //    {
+                    //        if (item.ProductID == product.Id)
+                    //        {
+                    //            product.Quantity -= item.Quantity;
+                    //            _productService.UpdateProduct(product);
+                    //        }
+                    //    }
+                    //}
+                }
+                if(updateOrder.StatusId == 5)
+                {
+                    updateOrder.EndAt = DateTime.Now.AddDays(2);
                 }
                 _orderService.UpdateOrder(updateOrder);
                 return Json(new { result = true, isValid = true });

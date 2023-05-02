@@ -12,7 +12,7 @@ namespace Project.ViewModel
         public int Id { get; set; }
         public string CategoryName { get; set; }
         //public string Slug { get; set; }
-        public bool Trend { get; set; }
+        //public bool Trend { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? DeleteAt { get; set; }

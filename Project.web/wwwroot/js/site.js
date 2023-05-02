@@ -24,7 +24,6 @@ var SiteController = function () {
             debugger
             const id = $(this).data('id');
             var number = $(this).data('quantity');
-            
             var quantity = $("#tentacles").val();
             if (quantity === undefined) {
                 quantity = 1;

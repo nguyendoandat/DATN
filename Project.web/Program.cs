@@ -51,6 +51,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<MyService>();
 
 var app = builder.Build();
 
@@ -79,5 +80,7 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
 app.Run();
