@@ -23,6 +23,7 @@
                             @item.CategoryName
                         </a>
                     </li>
+                    
                 }
             </ul>
             <div class="row">
@@ -35,9 +36,6 @@
                                 <div class="banner-img img-zoom-effect">
 
                                     <img src="~/img/@item.Thumb" class="img-full" alt="" width="290" height="300px">
-
-
-                                    
                                     @if(item.Quantity==0){
                                         <div class="inner-content" style="top:10%;background-color:rgb(216, 216, 216)">
                                             <span class="offer" style="color:black">-Hết hàng</span>
@@ -51,7 +49,7 @@
                                     }
                                 </div>
                             </div>
-                            <div class="glass_name" style="text-align:center">
+                            <div class="glass_name" style="text-align:center;height:45px">
                                 <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
 
                             </div>
@@ -63,7 +61,7 @@
                                 @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
                                 {
                                     <span class="price">
-                                        <del style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
+                                        <del class="new-price text-danger" style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
                                     </span>
                                     <span style="color: #000; font-size: 20px; font-weight: 700;">
                                         @((Decimal.ToDouble(item.Price) - Decimal.ToDouble(item.Price) * (item.Category.Discount.DiscountPrice / 100)).ToString("N00", new CultureInfo("en-us"))) VNĐ

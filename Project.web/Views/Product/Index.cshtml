@@ -4,13 +4,16 @@
 @model Project.ViewModel.ProductDTO
 @inject ICategoryService CategoryService
 @inject IReviewService reviewService
+@inject IProductService productService
 
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var id = Model.Id;
+    var idCategory = Model.CategoryId;
     var list = CategoryService.GetByCategoryId(Model.CategoryId);
     var listReview = reviewService.GetReview(filter: p => p.ReviewDetail != null && p.ProductId == id, includeProperties: "User");
+    var listProduct = productService.GetProduct(null, x => x.CategoryId == idCategory && x.Id!=id, null, includeProperties: "Category.Discount");
 
 }
 @section scripts{
@@ -125,10 +128,14 @@
                                     <input type="number" id="tentacles" name="tentacles" min="1" value="1">
                                     <a class="btn btn-primary" data-id="@Model.Id" data-quantity="@Model.Quantity">Thêm vào <i class="fa fa-shopping-cart"></i></a>
                                 </div>
+                            @if(Model.Size !=null){
+                                <div class="product-category text-matterhorn pb-2">
+                                    <span class="title">Kích thước : @Model.Size</span>
+                                </div>
+                            }
                             
                             <div class="product-category text-matterhorn pb-2">
                                 <span class="title">Danh mục : @list.CategoryName</span>
-                                
                             </div>
                             
                             <div class="social-link align-items-center pb-lg-8">
@@ -217,5 +224,86 @@
             </div>
         </div>
 
+    </div>
+</div>
+<div class="product-slider-area section-space-top-95 section-space-bottom-100">
+    <div class="container">
+        <div class="section-title text-center pb-55">
+            <h2 class="title mb-0">Sản phẩm tương tự</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="swiper-slider-holder swiper-arrow">
+                    <div class="swiper-container product-slider border-issue">
+                        <div class="swiper-wrapper">
+                            
+                                    @foreach (var item in listProduct)
+                                    {
+                                        if (item.DeleteAt == null)
+                                        {
+                                            <div class="glass col-lg-3 col-6 p-1 mb-3">
+                                                <div class="banner-item">
+                                                    <div class="banner-img img-zoom-effect">
+
+                                                        <img src="~/img/@item.Thumb" class="img-full" alt="" width="290" height="300px">
+                                                        @if (item.Quantity == 0)
+                                                        {
+                                                            <div class="inner-content" style="top:10%;background-color:rgb(216, 216, 216)">
+                                                                <span class="offer" style="color:black">-Hết hàng</span>
+                                                            </div>
+                                                        }
+                                                        else if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
+                                                        {
+                                                            <div class="inner-content" style="top:10%;background-color:red">
+                                                                <span class="offer" style="color:white">-@(item.Category.Discount.DiscountPrice)%</span>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="glass_name" style="text-align:center;height:45px">
+                                                    <a asp-action="Index" asp-controller="Product" asp-route-id="@item.Id">@item.ProductName</a>
+
+                                                </div>
+                                                <div>
+                                                    @* @item.ListCategory*@
+                                                </div>
+
+                                                <div class="text-center">
+                                                    @if (item.Category.Discount.StartDate < DateTime.Now && item.Category.Discount.EndDate > DateTime.Now && item.Category.Discount.DiscountPrice != 0)
+                                                    {
+                                                        <span class="price">
+                                                    <del class="new-price text-danger" style="font-size:15px; margin-right:7px;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</del>
+                                                        </span>
+                                                        <span style="color: #000; font-size: 20px; font-weight: 700;">
+                                                            @((Decimal.ToDouble(item.Price) - Decimal.ToDouble(item.Price) * (item.Category.Discount.DiscountPrice / 100)).ToString("N00", new CultureInfo("en-us"))) VNĐ
+                                                        </span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="price" style="font-size: 20px; color: #000; font-weight: 700;">@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</span>
+                                                    }
+                                                </div>
+                                                <div class="text-center">
+                                                    <a class="btn btn-primary" data-id="@item.Id">Thêm vào <i class="fa fa-shopping-cart"></i></a>
+
+                                                </div>
+
+
+                                            </div>
+                                        }
+
+
+                                    }
+                               
+                           
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

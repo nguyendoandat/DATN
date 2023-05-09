@@ -44,10 +44,25 @@ var SiteController = function () {
                 url: '/Cart/AddToCart',
                 data: { id: id, quantity: quantity },
                 success: function (res) {
-                    $('#lbl_number_of_items_header').text(res.length)
+                    $('#lbl_number_of_items_header').text(res.length);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Thêm sản phẩm vào giỏ thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
                 },
                 error: function (err) {
                     console.log(err)
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Số lượng sản phẩm không đủ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
 
             });

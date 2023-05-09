@@ -84,7 +84,7 @@ namespace Project.web.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -113,14 +113,15 @@ namespace Project.web.Areas.Identity.Pages.Account
 
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-                if (result.IsLockedOut)
+                else if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    _logger.LogWarning("Tài khoản bạn tạm thời khóa 5 phút.");
+                    //return RedirectToPage("./Lockout");
+                    ModelState.AddModelError("","Tài khoản bạn tạm thời khóa 5 phút.");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu không chính xác");
                     return Page();
                 }
             }

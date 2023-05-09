@@ -54,7 +54,7 @@ namespace Project.web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Mật khẩu không được để trống")]
-            [StringLength(100, ErrorMessage = "Mật khẩu không đủ mạnh", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Mật khẩu không đủ mạnh", MinimumLength = 8)]
             [DataType(DataType.Password, ErrorMessage = "Mật khẩu không đủ mạnh")]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -107,9 +107,9 @@ namespace Project.web.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, "Mật khẩu phải có ít nhất một ký tự không phải chữ và số");
                 }
             }
 

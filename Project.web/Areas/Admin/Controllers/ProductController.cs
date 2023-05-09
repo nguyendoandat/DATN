@@ -99,7 +99,7 @@ namespace Project.web.Areas.Admin.Controllers
                 update.ProductName = model.ProductName;
                 update.Slug = model.Slug;
                 update.ProductDetail = model.ProductDetail;
-                //update.Trend = model.Trend;
+                update.Size = model.Size;
                 update.Price = model.Price;
                 update.UpdateAt = DateTime.Now;
                 _productService.UpdateProduct(update);

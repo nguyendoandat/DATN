@@ -128,6 +128,7 @@ namespace Project.web.Controllers
             if(product.Quantity < quantity)
             {
                 ViewBag.Error = "Số lượng sản phẩm không đủ";
+                return NotFound();
             }
             else
             {
@@ -162,10 +163,11 @@ namespace Project.web.Controllers
                     HttpContext.Session.SetString(CartSession, JsonConvert.SerializeObject(currentCart));
                     return Ok(currentCart);
                 }
+                return Ok();
             }
             
 
-            return Ok();
+            //return Ok();
 
         }
         public IActionResult UpdateCart(int id, int quantity)
