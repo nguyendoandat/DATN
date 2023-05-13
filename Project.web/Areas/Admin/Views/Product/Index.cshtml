@@ -16,8 +16,9 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
     </div>
-    <div class="card-body">
+    <div class="card-body" id="divMainBody">
         <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="btn btn-success mb-4">Thêm mới sản phẩm</a>
+        
         <div class="mb-3">
             <form class="d-flex justify-content-end">
                
@@ -178,6 +179,7 @@
                 location.href = '@Url.Action("Index", "Product")' + '/?pageNumber=' + 1 + '&delete=' + del + '&searchString=' + searchString;
 
             })
+           
         });
 
 

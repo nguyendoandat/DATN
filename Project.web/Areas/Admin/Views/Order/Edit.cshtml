@@ -10,26 +10,6 @@
 	var listOrderDetail = orderDetailService.GetOrderDetail(null, x => x.OrderId == Model.Id, null, "Product");
 }
 
-
-@*<form class="my-3" asp-action="Edit">
-	<input type="hidden" asp-for="Id" />
-	<div class="py-3 px-3" style="width:620px; ">
-		<div class="form-group">
-			<label>Trạng thái đơn hàng</label>
-			<select class="form-control" asp-items="list" asp-for="StatusId">
-				
-			</select>
-			<span class="form-message"></span>
-		</div>
-		
-		<div class="row">
-			
-			<div class="col-6">
-				<input type="submit" value="Save" class="btn btn-primary" />
-			</div>
-		</div>
-    </div>
-</form>*@
 <div class="container">
 	<div class="py-3 px-3" style="width:1240; ">
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -65,18 +45,9 @@
 				<input type="text" asp-for="OrderDate" class="form-control" disabled />
 			</div>
 		</div>
-		@*<div class="form-control">
-		<label>Trạng thái đơn hàng</label>
-		<select asp-for="trangthaidonhangID" class="form-control" asp-items="ViewBag.trangthaidonhangID"></select>
-		</div>*@
+		
 		<hr />
-		@*@await Html.PartialAsync("DanhSachSPDonHang", DSSPDH)
-		<div class="row">
-		<div class="col-6">TỔNG TIỀN: @Model.Thanhtien</div>
-		<div class="col-6">
-		<input type="submit" value="Save" class="btn btn-primary" />
-		</div>
-		</div>*@
+		
 	</div>
 </div>
 	
@@ -118,4 +89,5 @@
 		}
 	</tbody>
 </table>
+<a class=" btn btn-secondary " asp-action="ExportPDF" asp-controller="Order" asp-route-id="@Model.Id"> In hóa đơn</a>
 

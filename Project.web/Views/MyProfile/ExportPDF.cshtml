@@ -1,0 +1,86 @@
+﻿@using Project.Service.Interface
+@using System.Globalization
+@model Project.ViewModel.OrderDTO
+@inject IStatusService statusService
+@inject IOrderDetailService orderDetailService
+@{
+	
+    Layout = null;
+	var list = new SelectList(statusService.GetStatus(), "Id", "Name");
+	var listOrderDetail = orderDetailService.GetOrderDetail(null, x => x.OrderId == Model.Id, null, "Product");
+}
+
+<head>
+	<title>Hóa đơn mua hàng</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+			table td, table th {
+				border: 1px solid #ddd;
+				padding: 8px;
+				text-align: left;
+			}
+
+			table th {
+				background-color: #f2f2f2;
+			}
+	</style>
+</head>
+<h1 style="text-align:center">HÓA ĐƠN BÁN HÀNG</h1>
+<hr />
+
+	<div style="font-size:20px">
+		<b>Đơn vị bán hàng: Cửa hàng nội thất SONG LÊ</b>
+		<p>Địa chỉ: Thôn Yên Lạc 2 , Xã Cần Kiệm, Huyện Thạch Thất, Thành phố Hà Nội, Việt Nam</p>
+	<p>Điện thoại: 0242.212.11.00</p>
+	<p>Email:cskh@gmail.com</p>
+	</div>
+	<hr />
+	<div style="font-size:20px">
+		<p>Khách hàng: @Model.ShipName</p>
+		
+		<p>Địa chỉ: @Model.ShipAddress</p>
+		<p>Điện thoại: @Model.ShipPhoneNumber</p>
+		<p>Email: @Model.ShipEmail</p>
+	</div>
+
+<br />
+<table>
+	<thead>
+		<tr>
+			<th>STT</th>
+			<th>Tên sản phẩm</th>
+			<th>Số lượng</th>
+			<th>Đơn giá</th>
+			<th>Thành tiền</th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			var i = 0;
+			decimal total = 0;
+			foreach (var item in listOrderDetail)
+			{
+				var c = item.Quantity * item.Price;
+				<tr>
+					<td>@(i + 1)</td>
+					<td>@item.Product.ProductName</td>
+					<td>@item.Quantity</td>
+					<td>@item.Price.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+					<td>@c.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+				</tr>
+				i++;
+				total += c;
+
+			}
+			<tr>
+				<td colspan="4" style="text-align:right;font-weight: bold;font-size:20px">Tổng tiền:</td>
+				<td style="text-align:left;font-weight: bold;font-size:20px">@total.ToString("N00", new CultureInfo("en-us")) VNĐ</td>
+			</tr>
+		}
+	</tbody>
+</table>
+

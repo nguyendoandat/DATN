@@ -4,6 +4,7 @@ using Project.Data.Entities;
 using Project.Service.implement;
 using Project.Service.Interface;
 using Project.ViewModel;
+using Rotativa.AspNetCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
@@ -155,5 +156,12 @@ namespace Project.web.Controllers
             }
 
         }
+
+        public IActionResult ExportPDF(int id)
+        {
+            var order = _orderService.GetByOrderId(id);
+            return new ViewAsPdf(order);
+        }
+       
     }
 }

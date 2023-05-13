@@ -9,6 +9,7 @@ using System.Data;
 using Project.Data.Entities;
 using System.Linq.Expressions;
 
+
 namespace Project.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -124,5 +125,6 @@ namespace Project.web.Areas.Admin.Controllers
                 return Json(new { result = false });
             }
         }
+        
     }
 }

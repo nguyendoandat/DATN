@@ -10,6 +10,10 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 
+using Project.Data.EF;
+using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
+using Rotativa.AspNetCore;
+
 namespace Project.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -21,12 +25,15 @@ namespace Project.web.Areas.Admin.Controllers
         private readonly IOrderDetailService _orderDetailService;
         private readonly IProductService _productService;
         private readonly int pageSize;
+      
+       // private readonly I_PDFService _pdf; /// PDF Sservice
         public OrderController(IOrderService orderService,IOrderDetailService orderDetailService, IProductService productService, int pageSize=8)
         {
             _orderService = orderService;
             _orderDetailService = orderDetailService;
             _productService = productService;
             this.pageSize = pageSize;
+           
         }
 
         public IActionResult Index(int pageNumber)
@@ -42,7 +49,7 @@ namespace Project.web.Areas.Admin.Controllers
         {
             return View();
         }
-        [AllowAnonymous]
+        
         public IActionResult Edit(int id)
         {
             var order = _orderService.GetByOrderId(id);
@@ -87,7 +94,12 @@ namespace Project.web.Areas.Admin.Controllers
             }
             
         }
+        public IActionResult ExportPDF(int id)
+        {
+            var order = _orderService.GetByOrderId(id);
+            return new ViewAsPdf(order);
+        }
 
-        
+
     }
 }

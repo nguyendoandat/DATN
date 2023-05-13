@@ -130,8 +130,8 @@
                                            
                                             <th>Ngày mua</th>
                                             <th>Trạng thái</th>
-                                            <th>Tổng tiền</th>
                                             <th></th>
+                                           
                                             
                                         </tr>
                                         @if (list != null && list.Any())
@@ -146,8 +146,7 @@
                                                     <td>
                                                         @item.Status.Name
                                                     </td>
-                                                    <td>@item.ShipName</td>
-                                                    @*<td>@item.Thanhtien</td>*@
+                                                    
                                                     <td>
                                                         @if (item.StatusId == 1)
                                                         {

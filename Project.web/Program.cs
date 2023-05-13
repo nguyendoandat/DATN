@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Project.Data.Entities;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Project.Service;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(AutoMap));    
@@ -61,6 +62,7 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 });
 
+
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -79,6 +81,7 @@ builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<MyService>();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -108,4 +111,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "admin",
     pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+var env = app.Services.GetRequiredService<IWebHostEnvironment>();
+var webRootPath = Path.Combine(env.ContentRootPath, "wwwroot");
+RotativaConfiguration.Setup(webRootPath, "Rotativa");
 app.Run();
