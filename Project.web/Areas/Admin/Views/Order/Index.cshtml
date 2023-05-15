@@ -150,7 +150,7 @@
                                         'Xác nhận thành công.',
                                         'success'
                                     )
-                                    setTimeout(() => location.href = '@Url.Action("Index", "Order", "Admin")', 2000)
+                                    setTimeout(() => location.href = '@Url.Action("Index", "Order", "Admin")', 2000) + '/?pageNumber=' + 1;
                                 }
                                 else {
                                     Swal.fire({

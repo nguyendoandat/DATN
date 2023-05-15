@@ -118,6 +118,13 @@ var CartController = function () {
                 if (res.status) {
                     $('#divCheckout').hide();
                     deleteAll();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Đặt hàng thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     setTimeout(function () {
                         $('#cartcontainer').html('Cảm ơn bạn đã đặt hàng thành công. Chúng tôi sẽ liên hệ sớm nhất.');
                     },1000);

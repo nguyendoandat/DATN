@@ -29,7 +29,7 @@
             <div class="row">
                 @foreach (var item in list)
                 {
-                    if (item.DeleteAt == null)
+                    if (item.DeleteAt == null && item.Status==true)
                     {
                         <div class="glass col-lg-3 col-6 p-1 mb-3">
                             <div class="banner-item">

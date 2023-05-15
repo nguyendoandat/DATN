@@ -130,6 +130,7 @@ namespace Project.web.Controllers
                 updateOrder.ShipEmail = order.ShipEmail;
                 updateOrder.OrderDate = order.OrderDate;
                 updateOrder.StatusId = order.StatusId;
+                updateOrder.UpdateAt = DateTime.Now;
                 if (updateOrder.StatusId == 2)
                 {
                     var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
@@ -141,6 +142,7 @@ namespace Project.web.Controllers
                             if (item.ProductID == product.Id)
                             {
                                 product.Quantity += item.Quantity;
+                                product.QuantitySold -= item.Quantity;
                                 _productService.UpdateProduct(product);
                             }
                         }

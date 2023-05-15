@@ -19,6 +19,7 @@ namespace Project.Data.Entities
         public string ProductName { get; set; }
         public string Slug { get; set; }
         public int Quantity { get; set; }
+        public int? QuantitySold { get; set; }
         public string? Size { get; set; }
         public string ProductDetail { get; set; }
         public decimal Price { get; set; }
@@ -33,7 +34,7 @@ namespace Project.Data.Entities
         public Category Category { get; set; }
         public ICollection<Reviews> Reviews { get; set; }
       
-        public ICollection<Cart> Carts { get; set; }
+        //public ICollection<Cart> Carts { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

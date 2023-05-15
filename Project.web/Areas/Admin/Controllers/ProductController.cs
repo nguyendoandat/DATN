@@ -57,7 +57,8 @@ namespace Project.web.Areas.Admin.Controllers
 
                 }
                 model.Slug = model.ProductName;
-
+                model.Status = true;
+                model.QuantitySold = 0;
                 var shopBySlug = _productService.GetProduct(null,p => p.Slug == model.Slug);
                 if (shopBySlug.Count() != 0)
                 {
@@ -103,6 +104,7 @@ namespace Project.web.Areas.Admin.Controllers
                 update.Size = model.Size;
                 update.Price = model.Price;
                 update.UpdateAt = DateTime.Now;
+                update.Status = model.Status;
                 _productService.UpdateProduct(update);
                 return RedirectToAction(nameof(Index));
             }

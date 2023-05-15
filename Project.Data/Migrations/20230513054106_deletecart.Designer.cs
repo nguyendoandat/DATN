@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.Data.EF;
 
@@ -11,9 +12,10 @@ using Project.Data.EF;
 namespace Project.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230513054106_deletecart")]
+    partial class deletecart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,22 +53,22 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ec01cdda-c402-4735-a423-774280cb0dc6",
-                            ConcurrencyStamp = "514764a4-081e-43da-9f02-cee1cd2dcc03",
+                            Id = "004ecb06-7bf1-4ce8-83fc-9d236bcb1feb",
+                            ConcurrencyStamp = "56bfffe8-7e37-48a8-a5af-0cf6dbdd5e80",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "440569ac-7e2a-4ee0-888f-4574b63bb672",
-                            ConcurrencyStamp = "56e6b5a5-5cee-4fd1-b630-f3f7d75dadf8",
+                            Id = "a691af00-7c2c-4217-ae2c-e89165c617df",
+                            ConcurrencyStamp = "a50d99a8-0b40-46c5-a872-f0b297eb0fde",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "fab196e1-1bb7-446b-82d3-c9ef6228f372",
-                            ConcurrencyStamp = "98407792-6e0f-4d7d-ab0b-91fe917a5dc0",
+                            Id = "72a46b81-b046-4f72-886d-0f6afc85a68b",
+                            ConcurrencyStamp = "24a21dec-adc5-4d68-b603-395558170562",
                             Name = "Shipper",
                             NormalizedName = "SHIPPER"
                         });
@@ -161,13 +163,13 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "49c21a24-27c0-48b2-9836-9e34629b6643",
-                            RoleId = "440569ac-7e2a-4ee0-888f-4574b63bb672"
+                            UserId = "2d8d100e-2c39-4c38-b943-f850cbe8b9d7",
+                            RoleId = "a691af00-7c2c-4217-ae2c-e89165c617df"
                         },
                         new
                         {
-                            UserId = "a11033f3-7541-4cf2-b1db-6b59f1081647",
-                            RoleId = "ec01cdda-c402-4735-a423-774280cb0dc6"
+                            UserId = "be23d63f-f7a0-4f90-a3e3-0a39e7ba93f2",
+                            RoleId = "004ecb06-7bf1-4ce8-83fc-9d236bcb1feb"
                         });
                 });
 
@@ -266,38 +268,71 @@ namespace Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49c21a24-27c0-48b2-9836-9e34629b6643",
+                            Id = "2d8d100e-2c39-4c38-b943-f850cbe8b9d7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a2c60869-285e-45d3-9f2d-a6ff0979fce0",
+                            ConcurrencyStamp = "84c77a80-6cd9-4598-94ae-b94b652dec83",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@HOTMAIL.COM",
                             NormalizedUserName = "USER2@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPSooVAyaCW0P/VU4wyfYm8M0Dzl2/p5w8vAucFl3aZtIzN5vOAyZny5T9jhn2k+lg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFcbnkFGFp/asrwmy09t9bulCjcTE+DFsXf3cPA1/2Bg1WfkszVY/1f2zP40PK7WYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ac5994ab-84c8-4b4e-9b41-b302a715b57b",
+                            SecurityStamp = "00313b60-8004-4bf1-bf88-ea56aaee2f09",
                             TwoFactorEnabled = false,
                             UserName = "user2@hotmail.com"
                         },
                         new
                         {
-                            Id = "a11033f3-7541-4cf2-b1db-6b59f1081647",
+                            Id = "be23d63f-f7a0-4f90-a3e3-0a39e7ba93f2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e87ab246-00ce-4242-b6ef-58cc1270908a",
+                            ConcurrencyStamp = "735d0276-d335-44e6-bf94-57fcbfc82173",
                             CreateAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@hotmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@HOTMAIL.COM",
                             NormalizedUserName = "USER3@HOTMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPtF15GX8qUjnMd7xXUu5h5wEY+zjJoQXvz2D0xbnA0zs0MnTBFb5t88ZsiJMZsHPw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE31cIbcm6MGf6e3TbMrHmGTz7UVoCoV0YSH85dapxWga7GgH3GqYe61OTlEGMua9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee82a64a-cbe3-4e8a-90ad-2f5a9b82c5ce",
+                            SecurityStamp = "51dcac90-a3f7-4705-af54-a1c9ea25d9bb",
                             TwoFactorEnabled = false,
                             UserName = "user3@hotmail.com"
                         });
+                });
+
+            modelBuilder.Entity("Project.Data.Entities.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("Project.Data.Entities.Category", b =>
@@ -477,9 +512,6 @@ namespace Project.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuantitySold")
-                        .HasColumnType("int");
-
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
@@ -638,6 +670,25 @@ namespace Project.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Project.Data.Entities.Cart", b =>
+                {
+                    b.HasOne("Project.Data.Entities.Product", "Product")
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Project.Data.Entities.AppUser", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Project.Data.Entities.Category", b =>
                 {
                     b.HasOne("Project.Data.Entities.Discount", "Discount")
@@ -718,6 +769,8 @@ namespace Project.Data.Migrations
 
             modelBuilder.Entity("Project.Data.Entities.AppUser", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
@@ -740,6 +793,8 @@ namespace Project.Data.Migrations
 
             modelBuilder.Entity("Project.Data.Entities.Product", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Reviews");

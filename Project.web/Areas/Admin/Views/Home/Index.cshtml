@@ -28,13 +28,13 @@
                     <div class="m-l-15">
                         @{
                             decimal tong = 0;
-                            @foreach (var item in list)
+                                    @foreach (var item in list)
                             {
 
                                 decimal total = 0;
-                                @foreach (var a in listOrderDetail)
+                                        @foreach (var a in listOrderDetail)
                                 {
-                                    @if (item.Id == a.OrderID && item.StatusId == 5)
+                                            @if (item.Id == a.OrderID && item.StatusId == 5)
                                     {
                                         var c = a.Quantity * a.Price;
                                         total += c;
@@ -42,16 +42,16 @@
                                 }
                                 tong += total;
                             }
-                            <h2 class="m-b-0">
-                                @tong.ToString("N00", new CultureInfo("en-us")) VNĐ
+                                    <h2 class="m-b-0">
+                                        @tong.ToString("N00", new CultureInfo("en-us")) VNĐ
 
-                            </h2>
+                                    </h2>
 
                         }
 
 
 
-                        <p class="m-b-0 text-muted">Doanh số</p>
+                        <p class="m-b-0 text-muted">Doanh thu</p>
                     </div>
                 </div>
             </div>
@@ -98,19 +98,24 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Thống kê doanh thu</h3>
-@*
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>*@
+
+            
         </div>
         <div class="card-body">
             <div class="row">
+
                 <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="date"  class="form-control" id="fromDate" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date"  class="form-control" id="toDate"/>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success">Tìm</button>
+                        </div>
+                    </div>
                     <div class="chart">
                         <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
@@ -121,8 +126,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Ngày</th>
-                                <th>Doanh số</th>
-                                <th>Lợi nhuận</th>
+                                <th>Doanh thu</th>
+                                <th>Mục tiêu</th>
                             </tr>
                         </thead>
                         <tbody id="load_data"></tbody>
@@ -144,7 +149,7 @@
         $(document).ready(function () {
             $(function () {
                 debugger
-
+               
                 $.ajax({
                     type: "GET",
                     url: '@Url.Action("GetStatistical","Home")',
@@ -174,7 +179,7 @@
                             labels: arrDate,
                             datasets: [
                                 {
-                                    label: 'Lợi nhuận',
+                                    label: 'Mục tiêu',
                                     backgroundColor: 'rgba(60,141,188,0.9)',
                                     borderColor: 'rgba(60,141,188,0.8)',
                                     pointRadius: false,
@@ -185,7 +190,7 @@
                                     data: arrLoiNhuan
                                 },
                                 {
-                                    label: 'Doanh số',
+                                    label: 'Doanh thu',
                                     backgroundColor: 'rgba(210, 214, 222, 1)',
                                     borderColor: 'rgba(210, 214, 222, 1)',
                                     pointRadius: false,
@@ -240,6 +245,89 @@
                 });
                 $('#load_data').html(strHtml);
             }
+            $("button").on("click", function () {
+                debugger
+                var from = $("#fromDate").val();
+                var to = $("#toDate").val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetStatistical","Home")',
+                    dataType: 'json',
+                    data: { fromDate: from, toDate: to },
+                    success: function (result) {
+                        var arrDoanhThu = [];
+                        var arrLoiNhuan = [];
+                        var arrDate = [];
+                        console.log(result);
+                        //for (var i = 0; i < result.lenght; i++) {
+                        //    console.log(i);
+                        //}
+                        $.each(result, function (i, item) {
+                            var strDate = moment(item.Date).format('DD/MM/yyyy');
+                            arrDate.push(strDate);
+                            console.log(strDate);
+                            arrDoanhThu.push(item.DoanhThu);
+                            arrLoiNhuan.push(item.LoiNhuan);
+                            console.log(item);
+                            console.log(item.Date);
+                            console.log(item.DoanhThu);
+                            console.log(item.LoiNhuan);
+
+                        });
+                        var areaChartData = {
+                            labels: arrDate,
+                            datasets: [
+                                {
+                                    label: 'Lợi nhuận',
+                                    backgroundColor: 'rgba(60,141,188,0.9)',
+                                    borderColor: 'rgba(60,141,188,0.8)',
+                                    pointRadius: false,
+                                    pointColor: '#3b8bba',
+                                    pointStrokeColor: 'rgba(60,141,188,1)',
+                                    pointHighlightFill: '#fff',
+                                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                                    data: arrLoiNhuan
+                                },
+                                {
+                                    label: 'Doanh thu',
+                                    backgroundColor: 'rgba(210, 214, 222, 1)',
+                                    borderColor: 'rgba(210, 214, 222, 1)',
+                                    pointRadius: false,
+                                    pointColor: 'rgba(210, 214, 222, 1)',
+                                    pointStrokeColor: '#c1c7d1',
+                                    pointHighlightFill: '#fff',
+                                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                                    data: arrDoanhThu
+                                },
+                            ]
+                        }
+                        //-------------
+                        //- BAR CHART -
+                        //-------------
+                        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                        var barChartData = $.extend(true, {}, areaChartData)
+                        var temp0 = areaChartData.datasets[0]
+                        var temp1 = areaChartData.datasets[1]
+                        barChartData.datasets[0] = temp1
+                        barChartData.datasets[1] = temp0
+
+                        var barChartOptions = {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            datasetFill: false
+                        }
+
+                        new Chart(barChartCanvas, {
+                            type: 'bar',
+                            data: barChartData,
+                            options: barChartOptions
+                        });
+                        load_data(result);
+                    }
+
+                });
+            });
+            
         });
     </script>
 }

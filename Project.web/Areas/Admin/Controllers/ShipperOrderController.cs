@@ -19,7 +19,7 @@ namespace Project.web.Areas.Admin.Controllers
         private readonly IOrderDetailService _orderDetailService;
         private readonly IProductService _productService;
         private readonly int pageSize;
-        public ShipperOrderController(IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService, int pageSize=8)
+        public ShipperOrderController(IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService, int pageSize=6)
         {
             _orderService = orderService;
             _orderDetailService = orderDetailService;

@@ -24,6 +24,7 @@ namespace Project.Data.Entities
         public string ShipPhoneNumber { set; get; }
         public int StatusId { get; set; }
         public string? ShipperId { get; set; }
+        public decimal? TotalPrice { get; set; }
         public Status Status { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public AppUser? User { get; set; }

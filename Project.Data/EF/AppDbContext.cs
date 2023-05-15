@@ -27,7 +27,7 @@ namespace Project.Data.EF
             modelbuilder.ApplyConfiguration(new ProductConfiguration());
             modelbuilder.ApplyConfiguration(new ReviewsConfiguration());
             modelbuilder.ApplyConfiguration(new CategoryConfiguration());
-            modelbuilder.ApplyConfiguration(new CartConfiguration());
+            
             modelbuilder.ApplyConfiguration(new OrderConfiguration());
             modelbuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelbuilder.ApplyConfiguration(new DiscountConfiguration());
@@ -95,7 +95,7 @@ namespace Project.Data.EF
         public DbSet<Product> Products { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        //public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Discount> Discounts { get; set; }

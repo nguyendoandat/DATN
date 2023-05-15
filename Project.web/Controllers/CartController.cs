@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Project.Data.Entities;
+using Project.Data.Migrations;
 using Project.Service.Interface;
 using Project.ViewModel;
 
@@ -55,6 +56,14 @@ namespace Project.web.Controllers
                 {
                     currentCart = JsonConvert.DeserializeObject<List<CartDTO>>(session);
                 }
+                decimal total = 0;
+                foreach (var item in currentCart)
+                {
+                    decimal amount = item.Price * item.Quantity;
+                    total += amount;
+
+                }
+                order.TotalPrice = total;
                 var c = _orderService.Create(order);
                 var orderDetails = new OrderDetailDTO();
                 var listProduct = _productService.GetProduct();
@@ -69,7 +78,9 @@ namespace Project.web.Controllers
                         if (item.ProductId == product.Id)
                         {
                             product.Quantity -= item.Quantity;
+                            product.QuantitySold +=item.Quantity;
                             _productService.UpdateProduct(product);
+                            
                         }
                     }
                     _orderDetailService.Create(orderDetails);

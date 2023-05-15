@@ -147,7 +147,8 @@
                                         'Xác nhận thành công.',
                                         'success'
                                     )
-                                    setTimeout(() => location.href = '@Url.Action("Index", "ShipperOrder", "Admin")', 2000)
+                                    //setTimeout(() => location.href = '@Url.Action("Index", "ShipperOrder", "Admin")', 2000)
+                                    location.href = '@Url.Action("Index", "ShipperOrder")' + '/?pageNumber=' + 1;
                                 }
                                 else {
                                     Swal.fire({

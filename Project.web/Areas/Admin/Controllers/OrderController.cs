@@ -41,7 +41,7 @@ namespace Project.web.Areas.Admin.Controllers
             PagedResult<OrderDTO> list = new PagedResult<OrderDTO>();
             Func<IQueryable<Order>, IQueryable<Order>> filterFull = null;
             Expression<Func<Order, bool>> filterOrder = null;
-            Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = null;
+            Func<IQueryable<Order>, IOrderedQueryable<Order>> sort = p => p.OrderBy(x => x.StatusId);
             list = _orderService.GetAllOrder(pageNumber, pageSize, filterFull, filterOrder, sort, "Status");
             return View(list);
         }
@@ -68,6 +68,7 @@ namespace Project.web.Areas.Admin.Controllers
                 updateOrder.ShipEmail = order.ShipEmail;
                 updateOrder.OrderDate=order.OrderDate;
                 updateOrder.StatusId=order.StatusId;
+                updateOrder.UpdateAt = DateTime.Now;
                 if (updateOrder.StatusId == 2)
                 {
                     var listOrderDetail = _orderDetailService.GetOrderDetail(null, x => x.OrderId == order.Id);
@@ -79,6 +80,7 @@ namespace Project.web.Areas.Admin.Controllers
                             if (item.ProductID == product.Id)
                             {
                                 product.Quantity += item.Quantity;
+                                product.QuantitySold -= item.Quantity;
                                 _productService.UpdateProduct(product);
                             }
                         }
